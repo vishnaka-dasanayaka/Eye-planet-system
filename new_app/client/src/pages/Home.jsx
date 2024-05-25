@@ -3,12 +3,12 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 function Home() {
   return (
-    <div className="flex items-start justify-start">
+    <div className="flex items-start h-screen justify-start">
       <Sidebar className="" />
       <div className="lg:ml-[288px] w-full">
         <Header />
 
-        <div className="bg-white text-white md:mt-16 mt-32 m-5">
+        <div className="bg-white text-white mt-32 md:mt-8 m-5">
           <div className="sm:grid-cols-2 grid-cols-1  p-10  grid gap-10">
             <div className="h-44 w-full bg-[#3B76EF] flex flex-col justify-center items-start pl-5 rounded-lg ">
               <h1 className="text-2xl font-extrabold capitalize">branches</h1>

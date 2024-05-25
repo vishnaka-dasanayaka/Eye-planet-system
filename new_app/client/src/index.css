@@ -19,3 +19,76 @@ code {
 .active{
   background: rgb(222, 215, 215);
 }
+
+.btn{
+  background: rgb(181, 34, 181) ;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.btn:hover{
+  background: purple;
+}
+
+
+.btn_green{
+  background: rgb(94, 163, 60) ;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.btn_green:hover{
+  background: rgb(20, 149, 11);
+}
+
+.login_body{
+  height: 100vh;
+  background-image: url('../public/assets/imgs/bg.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.btn_delete{
+  background: red ;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.btn_delete:hover{
+  background: rgb(140, 15, 15);
+}
+
+.btn_enable{
+  background: blue ;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.btn_enable:hover{
+  background: rgb(14, 14, 132);
+}
+
+.btn_photo{
+  background: teal ;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.btn_photo:hover{
+  background: #105353;
+}

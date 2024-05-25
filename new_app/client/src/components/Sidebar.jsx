@@ -8,9 +8,13 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   const [sideMenu, setSideMenu] = useState(false);
+  const location = useLocation();
+
+  const isAcive = (path) => location.pathname === path;
 
   const onHandleClick = () => {
     setSideMenu(!sideMenu);
@@ -19,12 +23,12 @@ const Sidebar = () => {
   return (
     <>
       {/* Menu button for small screens */}
-      <div className="fixed top-10 z-10 left-5 lg:hidden">
+      <div className="fixed z-10 top-10 left-5 lg:hidden">
         {!sideMenu && (
           <MenuIcon
             onClick={onHandleClick}
             fontSize="large"
-            className="text-shop_color cursor-pointer"
+            className="cursor-pointer text-shop_color"
           />
         )}
       </div>
@@ -33,69 +37,114 @@ const Sidebar = () => {
       <div
         className={`fixed  z-10 bg-white lg:bg-transparent lg:block ${
           sideMenu ? "block" : "hidden"
-        } lg:w-80 w-80 h-screen`}
+        } lg:w-80  w-80 h-screen`}
       >
-        <div className="px-2 py-3 lg:w-72 w-full h-screen">
+        <div className="w-full h-screen px-2 py-3 lg:w-72">
           {/* Close button for small screens */}
           <div className="lg:hidden">
             <CloseIcon
               onClick={onHandleClick}
               fontSize="large"
-              className="text-shop_color mt-8 ml-5 cursor-pointer "
+              className="mt-8 ml-5 cursor-pointer text-shop_color "
             />
           </div>
 
           {/* Logo */}
-          <div className="hidden lg:flex bg-white rounded-2xl py-8 justify-center items-center w-full">
-            <StoreIcon fontSize="large" className="text-shop_color" />
-            <h1 className="uppercase tracking-wide font-extrabold text-2xl ml-3 text-shop_color">
-              eye planet
-            </h1>
-          </div>
+          <Link to={"/"}>
+            <div className="items-center justify-center hidden w-full py-8 bg-white cursor-pointer lg:flex rounded-2xl">
+              <StoreIcon fontSize="large" className="text-shop_color" />
+              {/* <div className="w-10 ">
+                <img
+                  src="../assets/imgs/logo.png"
+                  className="w-full h-full"
+                  alt=""
+                />
+              </div> */}
+              <h1 className="ml-3 text-2xl font-extrabold tracking-wide uppercase text-shop_color">
+                eye planet
+              </h1>
+            </div>
+          </Link>
 
           {/* Menu items */}
-          <div className="flex mt-10 ml-5 flex-col justify-center items-start">
-            <div className="flex w-full active active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center">
-              <HomeIcon className="text-gray-400" />
-              <h2 className="text-xl capitalize ml-5 text-gray-500 font-bold">
-                dashboard
-              </h2>
-            </div>
+          <div className="flex flex-col items-start justify-center mt-10 ml-5">
+            <Link to={"/"}>
+              <div
+                className={`flex w-64 ${
+                  isAcive("/") ? "active" : ""
+                } active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center`}
+              >
+                <HomeIcon className="text-gray-400" />
+                <h2 className="ml-5 text-xl font-bold text-gray-500 capitalize">
+                  dashboard
+                </h2>
+              </div>
+            </Link>
 
-            <div className="flex w-full active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center">
-              <PersonAddIcon className="text-gray-400" />
-              <h2 className="text-xl capitalize ml-5 text-gray-500 font-bold">
-                add patients
-              </h2>
-            </div>
+            <Link to={"/add"}>
+              <div
+                className={`flex w-64 ${
+                  isAcive("/add") ? "active" : ""
+                } active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center`}
+              >
+                <PersonAddIcon className="text-gray-400" />
+                <h2 className="ml-5 text-xl font-bold text-gray-500 capitalize">
+                  add patients
+                </h2>
+              </div>
+            </Link>
 
-            <div className="flex w-full active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center">
-              <PersonSearchIcon className="text-gray-400" />
-              <h2 className="text-xl capitalize ml-5 text-gray-500 font-bold">
-                find patients
-              </h2>
-            </div>
+            <Link to={"/find"}>
+              <div
+                className={`${
+                  isAcive("/find") ? "active" : ""
+                } flex w-64 active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center`}
+              >
+                <PersonSearchIcon className="text-gray-400" />
+                <h2 className="ml-5 text-xl font-bold text-gray-500 capitalize">
+                  find patients
+                </h2>
+              </div>
+            </Link>
 
-            <div className="flex w-full active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center">
-              <PersonIcon className="text-gray-400" />
-              <h2 className="text-xl capitalize ml-5 text-gray-500 font-bold">
-                profile
-              </h2>
-            </div>
+            <Link to={"/me"}>
+              <div
+                className={`${
+                  isAcive("/me") ? "active" : ""
+                } flex w-64 active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center`}
+              >
+                <PersonIcon className="text-gray-400" />
+                <h2 className="ml-5 text-xl font-bold text-gray-500 capitalize">
+                  profile
+                </h2>
+              </div>
+            </Link>
 
-            <div className="flex w-full active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center">
-              <ManageAccountsIcon className="text-gray-400" />
-              <h2 className="text-xl capitalize ml-5 text-gray-500 font-bold">
-                manage users
-              </h2>
-            </div>
+            <Link to={"/contacts"}>
+              <div
+                className={`${
+                  isAcive("/contacts") ? "active" : ""
+                } flex w-64 active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center`}
+              >
+                <ConnectWithoutContactIcon className="text-gray-400" />
+                <h2 className="ml-5 text-xl font-bold text-gray-500 capitalize">
+                  contacts
+                </h2>
+              </div>
+            </Link>
 
-            <div className="flex w-full active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center">
-              <ConnectWithoutContactIcon className="text-gray-400" />
-              <h2 className="text-xl capitalize ml-5 text-gray-500 font-bold">
-                contacts
-              </h2>
-            </div>
+            <Link to={"/admin"}>
+              <div
+                className={`${
+                  isAcive("/admin") ? "active" : ""
+                } flex w-64 active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center`}
+              >
+                <ManageAccountsIcon className="text-gray-400" />
+                <h2 className="ml-5 text-xl font-bold text-gray-500 capitalize">
+                  admin panel
+                </h2>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
