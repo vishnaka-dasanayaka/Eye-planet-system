@@ -32,16 +32,18 @@ function Header() {
 
   return (
     <div className="">
-      <div className="fixed md:relative  md:bg-transparent bg-white  flex w-full   items-center justify-between lg:justify-end px-5 pb-5 pt-10">
-        <div className="lg:hidden ml-24  flex  rounded-2xl  justify-center items-center">
-          <StoreIcon fontSize="large" className="text-shop_color" />
-          <h1 className="uppercase tracking-wide font-extrabold text-2xl ml-3 text-shop_color">
-            eye planet
-          </h1>
-        </div>
+      <div className="fixed flex items-center justify-between w-full px-5 pt-10 pb-5 bg-white md:relative md:bg-transparent lg:justify-end">
+        <Link to={"/"}>
+          <div className="flex items-center justify-center ml-24 lg:hidden rounded-2xl">
+            <StoreIcon fontSize="large" className="text-shop_color" />
+            <h1 className="ml-3 text-2xl font-extrabold tracking-wide uppercase text-shop_color">
+              eye planet
+            </h1>
+          </div>
+        </Link>
         <FaceIcon
           onClick={onHandleClick}
-          className="hover:scale-110 cursor-pointer"
+          className="cursor-pointer hover:scale-110"
           fontSize="large"
           ref={iconRef}
         />
@@ -50,15 +52,15 @@ function Header() {
       {menu && (
         <div
           ref={menuRef}
-          className="fixed right-6 top-20 bg-white p-1 w-40 rounded-md"
+          className="fixed w-40 p-1 bg-white rounded-md right-6 top-20"
         >
-          <h2 className="capitalize p-1">sachin vishnaka</h2>
+          <h2 className="p-1 capitalize">sachin vishnaka</h2>
           <Link to={"/me"}>
-            <h2 className="cursor-pointer border-b-2 p-1 hover:bg-gray-200 text-gray-500">
+            <h2 className="p-1 text-gray-500 border-b-2 cursor-pointer hover:bg-gray-200">
               Profile
             </h2>
           </Link>
-          <h2 className="p-1 cursor-pointer text-gray-500 hover:bg-gray-200">
+          <h2 className="p-1 text-gray-500 cursor-pointer hover:bg-gray-200">
             Log out
           </h2>
         </div>
