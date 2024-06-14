@@ -1,9 +1,19 @@
 import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
 
 function AddBranch(props) {
   const onCloseclick = () => {
     props.setAddTrigger(false);
   };
+
+  const [formData, setFormData] = useState({
+    branchName: "",
+    branchCoordinator: "",
+    address: "",
+    email: "",
+    contactNumber: "",
+    contactNumber2: "",
+  });
   return props.addTrigger ? (
     <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen backdrop-blur-sm backdrop-brightness-75">
       <div className="relative w-11/12 bg-white p-3 md:w-[500px] flex flex-col items-center justify-start">

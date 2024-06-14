@@ -3,6 +3,7 @@ const colors = require('colors');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const connectDB = require('./config/dbConnection')
+const { errorHandler } = require('./middleware/errorMiddleware')
 
 require('dotenv').config();
 
@@ -15,6 +16,14 @@ app.use(express.json());
 app.use(express.static('public'));
 
 connectDB();
+
+// routes for patients
+app.use('/api/patients', require('./routes/patientRoutes'))
+
+// route for users
+app.use('/api/users', require('./routes/userRoutes'))
+
+app.use(errorHandler)
 
 const port = process.env.PORT || 3001;
 

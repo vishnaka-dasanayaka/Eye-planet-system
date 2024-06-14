@@ -9,8 +9,11 @@ import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Loading from "./spinners/Loading";
 
 const Sidebar = () => {
+  const { user } = useSelector((state) => state.auth);
   const [sideMenu, setSideMenu] = useState(false);
   const location = useLocation();
 
@@ -19,6 +22,8 @@ const Sidebar = () => {
   const onHandleClick = () => {
     setSideMenu(!sideMenu);
   };
+
+  if (!user) return <Loading />;
 
   return (
     <>
@@ -133,18 +138,22 @@ const Sidebar = () => {
               </div>
             </Link>
 
-            <Link to={"/admin"}>
-              <div
-                className={`${
-                  isAcive("/admin") ? "active" : ""
-                } flex w-64 active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center`}
-              >
-                <ManageAccountsIcon className="text-gray-400" />
-                <h2 className="ml-5 text-xl font-bold text-gray-500 capitalize">
-                  admin panel
-                </h2>
-              </div>
-            </Link>
+            {user && user.role === "admin" ? (
+              <Link to={"/admin"}>
+                <div
+                  className={`${
+                    isAcive("/admin") ? "active" : ""
+                  }  flex w-64 active:bg-gray-200 hover:border-gray-400 border-2 p-1 hover:cursor-pointer border-transparent rounded-lg my-5 justify-start items-center`}
+                >
+                  <ManageAccountsIcon className="text-gray-400" />
+                  <h2 className="ml-5 text-xl font-bold text-gray-500 capitalize">
+                    admin panel
+                  </h2>
+                </div>
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

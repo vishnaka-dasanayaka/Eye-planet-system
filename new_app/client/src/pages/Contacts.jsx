@@ -15,7 +15,7 @@ function Contacts() {
       <div className="lg:ml-[288px] w-full">
         <Header />
 
-        <div className="flex flex-wrap gap-10 m-5 md:mt-0 mt-28 ">
+        <div className="flex flex-wrap justify-center gap-10 m-5 md:mt-0 mt-28 ">
           <div className="rounded-2xl w-[360px] bg-[#641c7c] text-white h-fit">
             <div className="bg-gray-200 h-60 rounded-t-2xl">
               <img

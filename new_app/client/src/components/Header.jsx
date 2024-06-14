@@ -1,9 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import FaceIcon from "@mui/icons-material/Face";
 import StoreIcon from "@mui/icons-material/Store";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, reset } from "../features/auth/authSlice";
+import { toast } from "sonner";
 
 function Header() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
   const [menu, setMenu] = useState(false);
   const menuRef = useRef(null);
   const iconRef = useRef(null);
@@ -21,6 +28,13 @@ function Header() {
     ) {
       setMenu(false);
     }
+  };
+
+  const onLogoutClick = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/login");
+    toast.success("User Logged Out !");
   };
 
   useEffect(() => {
@@ -41,12 +55,21 @@ function Header() {
             </h1>
           </div>
         </Link>
-        <FaceIcon
-          onClick={onHandleClick}
-          className="cursor-pointer hover:scale-110"
-          fontSize="large"
-          ref={iconRef}
-        />
+
+        {user ? (
+          <FaceIcon
+            onClick={onHandleClick}
+            className="cursor-pointer hover:scale-110"
+            fontSize="large"
+            ref={iconRef}
+          />
+        ) : (
+          <>
+            <Link to={"/login"}>
+              <button className="capitalize btn">login</button>
+            </Link>
+          </>
+        )}
       </div>
 
       {menu && (
@@ -60,7 +83,10 @@ function Header() {
               Profile
             </h2>
           </Link>
-          <h2 className="p-1 text-gray-500 cursor-pointer hover:bg-gray-200">
+          <h2
+            onClick={onLogoutClick}
+            className="p-1 text-gray-500 cursor-pointer hover:bg-gray-200"
+          >
             Log out
           </h2>
         </div>

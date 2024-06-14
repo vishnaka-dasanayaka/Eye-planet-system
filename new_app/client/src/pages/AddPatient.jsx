@@ -5,10 +5,78 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import AddPrescription from "../components/popups/add_patient_popups/AddPrescription";
 import AddFramePopup from "../components/popups/add_patient_popups/AddFramePopup";
+import { toast } from "sonner";
+import { useAuthToken } from "../apis/useAuthToken";
+import { addPatient } from "../apis/patientAPIs";
 
 function AddPatient() {
   const [addPrescriptionPopup, setAddPrescriptionPopup] = useState(false);
   const [addFramePopup, setAddFramePopup] = useState(false);
+
+  const handleChange = (e) => {
+    setPatientData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const token = useAuthToken();
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const lenses = Array.from(
+      document.querySelectorAll('input[name="lense"]:checked')
+    ).map((checkbox) => checkbox.value);
+    patientData.lenses = lenses;
+
+    if (!patientData) {
+      toast.error("Fill the form");
+      return;
+    } else {
+      try {
+        await addPatient(token, patientData);
+      } catch (error) {
+        toast.error("An error occurred. Please try again.");
+      }
+    }
+  };
+
+  const [patientData, setPatientData] = useState({
+    date: "",
+    branch: "",
+    orderNumber: "",
+    billNumber: "",
+    fullName: "",
+    contactNumber: "",
+    dob: "",
+    address: "",
+    lenses: [],
+    price: "",
+    advance: "",
+    balance: "",
+    status: "",
+    sentDate: "",
+    receivedDate: "",
+    deliveredDate: "",
+    specialNote: "",
+  });
+
+  const {
+    date,
+    orderNumber,
+    billNumber,
+    fullName,
+    contactNumber,
+    dob,
+    address,
+    price,
+    advance,
+    balance,
+    sentDate,
+    receivedDate,
+    deliveredDate,
+    specialNote,
+  } = patientData;
   return (
     <div className="flex items-start justify-start h-full">
       <Sidebar className="" />
@@ -24,6 +92,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="date"
+                id="date"
+                name="date"
+                value={date}
+                onChange={handleChange}
               />
             </div>
 
@@ -33,13 +105,14 @@ function AddPatient() {
               </label>
               <select
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
-                name=""
-                id=""
+                name="branch"
+                id="branch"
+                onChange={handleChange}
               >
                 <option value="">Select a Branch</option>
-                <option value="">Matale - Main Branch</option>
-                <option value="">Kumudu Hospital Branch</option>
-                <option value="">CO-OP Hospital Branch</option>
+                <option value="Matale-Main_branch">Matale - Main Branch</option>
+                <option value="Kumundu">Kumudu Hospital Branch</option>
+                <option value="Coop">CO-OP Hospital Branch</option>
               </select>
             </div>
 
@@ -52,6 +125,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                id="orderNumber"
+                name="orderNumber"
+                value={orderNumber}
+                onChange={handleChange}
               />
             </div>
 
@@ -62,6 +139,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                id="billNumber"
+                name="billNumber"
+                value={billNumber}
+                onChange={handleChange}
               />
             </div>
 
@@ -74,6 +155,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                id="fullName"
+                name="fullName"
+                value={fullName}
+                onChange={handleChange}
               />
             </div>
 
@@ -84,6 +169,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                id="contactNumber"
+                name="contactNumber"
+                value={contactNumber}
+                onChange={handleChange}
               />
             </div>
 
@@ -94,6 +183,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="date"
+                id="dob"
+                name="dob"
+                value={dob}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -105,6 +198,10 @@ function AddPatient() {
             <input
               className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
               type="text"
+              id="address"
+              name="address"
+              value={address}
+              onChange={handleChange}
             />
           </div>
 
@@ -143,67 +240,67 @@ function AddPatient() {
             </label>
             <div className="grid w-2/3 grid-cols-2 md:grid-cols-3">
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="single_vision" />
                 <span className="ml-2 capitalize ">single vision</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="bi_focals" />
                 <span className="ml-2 capitalize ">Bi focals</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="progressive" />
                 <span className="ml-2 capitalize ">progressive</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="white" />
                 <span className="ml-2 capitalize ">white</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="utmc" />
                 <span className="ml-2 uppercase ">utmc</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="blue_cut" />
                 <span className="ml-2 capitalize ">blue cut</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="photocrome" />
                 <span className="ml-2 capitalize ">photocrome</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="tinted" />
                 <span className="ml-2 capitalize ">tinted</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="high_index" />
                 <span className="ml-2 capitalize ">high index</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="contact_lense" />
                 <span className="ml-2 capitalize ">contact lenses</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="hi_1_60" />
                 <span className="ml-2 uppercase ">Hi 1.60</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="hi_1_67" />
                 <span className="ml-2 uppercase ">Hi 1.67</span>
               </label>
 
               <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" />
+                <input type="checkbox" name="lense" value="hi_1_74" />
                 <span className="ml-2 uppercase ">Hi 1.74</span>
               </label>
             </div>
@@ -217,6 +314,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                id="price"
+                name="price"
+                value={price}
+                onChange={handleChange}
               />
             </div>
 
@@ -227,6 +328,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                id="advance"
+                name="advance"
+                value={advance}
+                onChange={handleChange}
               />
             </div>
 
@@ -237,6 +342,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                id="balance"
+                name="balance"
+                value={balance}
+                onChange={handleChange}
               />
             </div>
 
@@ -246,13 +355,14 @@ function AddPatient() {
               </label>
               <select
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
-                name=""
-                id=""
+                name="status"
+                id="status"
+                onChange={handleChange}
               >
                 <option value="">Select the status</option>
-                <option value="">Sent to the Workshop</option>
-                <option value="">Received from the Workshop</option>
-                <option value="">Deliverded to the Customer</option>
+                <option value="sent">Sent to the Workshop</option>
+                <option value="received">Received from the Workshop</option>
+                <option value="delivered">Deliverded to the Customer</option>
               </select>
             </div>
 
@@ -265,6 +375,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="date"
+                id="sentDate"
+                name="sentDate"
+                value={sentDate}
+                onChange={handleChange}
               />
             </div>
 
@@ -275,6 +389,10 @@ function AddPatient() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="date"
+                id="receivedDate"
+                name="receivedDate"
+                value={receivedDate}
+                onChange={handleChange}
               />
             </div>
 
@@ -289,6 +407,10 @@ function AddPatient() {
                 className="w-full p-1 px-4 mt-2 border-2 border-gray-400 rounded-md outline-none"
                 type="date"
                 disabled
+                id="deliveredDate"
+                name="deliveredDate"
+                value={deliveredDate}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -299,13 +421,18 @@ function AddPatient() {
             </label>
             <textarea
               className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none "
-              name=""
-              id=""
+              name="specialNote"
+              id="specialNote"
+              value={specialNote}
+              onChange={handleChange}
             ></textarea>{" "}
           </div>
 
           <div className="flex justify-end m-3">
-            <button className="h-10 text-xl capitalize w-60 btn">
+            <button
+              onClick={handleClick}
+              className="h-10 text-xl capitalize w-60 btn"
+            >
               add patient
             </button>
           </div>

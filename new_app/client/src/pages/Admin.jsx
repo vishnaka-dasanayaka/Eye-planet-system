@@ -1,13 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import AddIcon from "@mui/icons-material/Add";
 import AddUser from "../components/popups/admin_popups/AddUser";
 import AddBranch from "../components/popups/admin_popups/AddBranch";
+import { getUsers, updateUser } from "../apis/userAPI";
+import { useAuthToken } from "../apis/useAuthToken";
+import Loading from "../components/spinners/Loading";
+import { toast } from "sonner";
 
 function Admin(props) {
   const [addUserPopup, setAddUserPopup] = useState(false);
   const [addBranchPopup, setAddBranchPopup] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  const token = useAuthToken();
+
+  const onEnableClick = async (id) => {
+    try {
+      await updateUser(id, token, { role: "user" });
+      toast.success("User Enabled");
+    } catch (error) {
+      console.log(error);
+      toast.error("Some error Occured");
+    }
+  };
+
+  const onDisableClick = async (id) => {
+    try {
+      await updateUser(id, token, { role: "disabled" });
+      toast.success("User Disabled");
+    } catch (error) {
+      console.log(error);
+      toast.error("Some error Occured");
+    }
+  };
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      if (token) {
+        const response = await getUsers(token);
+        setUsers(response.data);
+      }
+    };
+
+    fetchUsers();
+  }, [token, addUserPopup, onEnableClick, onDisableClick]);
+
+  if (!users) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex items-start justify-start h-full bg-white">
       <Sidebar className="" />
@@ -36,47 +79,75 @@ function Admin(props) {
                 <td className="pl-3">Contact number</td>
                 <td className="pl-3">actions</td>
               </thead>
+
               <tbody className="text-xs text-start">
-                <tr className="h-12 bg-green-100 border-b-2">
-                  <td className="pl-3">
-                    <h1 className="text-sm">Hashan Thennakoon</h1>
-                    <h2 className="text-green-600 capitalize">admin</h2>
-                  </td>
-                  <td className="pl-3">hashan@gmail.com</td>
-                  <td className="pl-3">Kandy Rd, Matale</td>
-                  <td className="pl-3">+94 71 370 4691</td>
-                  <td className="flex items-center justify-start pt-2 pl-3">
-                    <button className="capitalize btn_delete">disable</button>
-                    <button className="ml-3 capitalize btn">save</button>
-                  </td>
-                </tr>
+                {users &&
+                  users.map((user) => (
+                    <tr
+                      className={`h-12 ${
+                        user.role === "admin" ? "bg-green-100" : ""
+                      } ${
+                        user.role === "disabled" ? "bg-red-100" : "bg-blue-100"
+                      } border-b-2 border-b-gray-300`}
+                    >
+                      <td className="pl-3">
+                        <h1 className="text-sm">
+                          {user.firstName} {user.lastName}
+                        </h1>
 
-                <tr className="h-12 bg-blue-100 border-b-2">
-                  <td className="pl-3">
-                    <h1 className="text-sm">Hashan Thennakoon</h1>
-                    <h2 className="text-blue-600 capitalize">active user</h2>
-                  </td>
-                  <td className="pl-3">hashan@gmail.com</td>
-                  <td className="pl-3">Kandy Rd, Matale</td>
-                  <td className="pl-3">+94 71 370 4691</td>
-                  <td className="flex items-center justify-start pt-2 pl-3">
-                    <button className="capitalize btn_delete">disable</button>
-                    <button className="ml-3 capitalize btn">save</button>
-                  </td>
-                </tr>
-
-                <tr className="h-12 bg-red-100 border-b-2">
-                  <td className="pl-3">
-                    <h1 className="text-sm">Hashan Thennakoon</h1>
-                    <h2 className="text-red-600 capitalize">desabled user</h2>
-                  </td>
-                  <td className="pl-3">hashan@gmail.com</td>
-                  <td className="pl-3">Kandy Rd, Matale</td>
-                  <td className="pl-3">+94 71 370 4691</td>
-                  <td className="flex items-center justify-start pt-2 pl-3">
-                    <button className="capitalize btn_enable">Enable</button>
-                  </td>
-                </tr>
+                        {user.role === "admin" ? (
+                          <h2 className="text-green-600 capitalize">admin</h2>
+                        ) : (
+                          <>
+                            {user.role === "disabled" ? (
+                              <h2 className="text-red-600 capitalize">
+                                disabled user
+                              </h2>
+                            ) : (
+                              <>
+                                <h2 className="text-blue-600 capitalize">
+                                  active user
+                                </h2>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </td>
+                      <td className="pl-3">{user.email}</td>
+                      <td className="pl-3">{user.address}</td>
+                      <td className="pl-3">{user.contactNumber}</td>
+                      <td className="flex items-center justify-start pt-2 pl-3">
+                        {user.role === "disabled" ? (
+                          <>
+                            <button
+                              onClick={() => onEnableClick(user._id)}
+                              className="capitalize btn_enable"
+                            >
+                              Enable
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            {user.role === "admin" ? (
+                              <></>
+                            ) : (
+                              <>
+                                <button
+                                  onClick={() => onDisableClick(user._id)}
+                                  className="capitalize btn_delete"
+                                >
+                                  disable
+                                </button>
+                                <button className="ml-3 capitalize btn">
+                                  save
+                                </button>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

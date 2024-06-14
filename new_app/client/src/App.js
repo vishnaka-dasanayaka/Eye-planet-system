@@ -9,25 +9,29 @@ import Admin from "./pages/Admin";
 import AddPatient from "./pages/AddPatient";
 import PatientProfile from "./pages/PatientProfile";
 import SingleOrder from "./pages/SingleOrder";
+import { Toaster } from 'sonner'
+import PrivateRoute from './PrivateRoute'; // import the PrivateRoute component
 
 function App() {
+
+
   return (
     <div className="h-full bg-shop_color/5">
       <BrowserRouter>
         <Routes>
-          <Route index path="/" element={<Home />} />
-          <Route path="/add" element={<Add />} />
-          <Route path="/find" element={<Find />} />
-          <Route path="/me" element={<Profile />} />
+          <Route path="/" element={<PrivateRoute element={Home} />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/find" element={<Find />} />
-          <Route path="addpatient" element={<AddPatient />} />
-          <Route path="/patient" element={<PatientProfile />} />
-          <Route path="/order" element={<SingleOrder />} />
+          <Route path="/add" element={<PrivateRoute element={Add} />} />
+          <Route path="/find" element={<PrivateRoute element={Find} />} />
+          <Route path="/me" element={<PrivateRoute element={Profile} />} />
+          <Route path="/contacts" element={<PrivateRoute element={Contacts} />} />
+          <Route path="/addpatient" element={<PrivateRoute element={AddPatient} />} />
+          <Route path="/patient" element={<PrivateRoute element={PatientProfile} />} />
+          <Route path="/order" element={<PrivateRoute element={SingleOrder} />} />
+          <Route path="/admin" element={<PrivateRoute element={Admin} />} />
         </Routes>
       </BrowserRouter>
+      <Toaster richColors />
     </div>
   );
 }
