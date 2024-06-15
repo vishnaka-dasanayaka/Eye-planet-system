@@ -7,11 +7,11 @@ const orderSchema = mongoose.Schema(
             required: true,
             ref: 'Patient'
         },
-        // prescriptions: {
-        //     type: [mongoose.Schema.Types.ObjectId],
-        //     required: true,
-        //     ref: 'Prescriptions'
-        // },
+        prescriptions: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Prescription'
+
+        },
         date: {
             type: Date,
             required: true
@@ -29,20 +29,18 @@ const orderSchema = mongoose.Schema(
             required: true
         },
         lenses: {
-            type: String,
+            type: [String],
             required: true
         },
         price: {
             type: String,
             required: true
         },
-        advace: {
+        advance: {
             type: String,
-            required: true
         },
         balance: {
             type: String,
-            required: true
         },
         status: {
             type: String,
@@ -50,27 +48,21 @@ const orderSchema = mongoose.Schema(
         },
         sentDate: {
             type: Date,
-            required: true
         },
         receivedDate: {
             type: String,
-            required: true
         },
         deliveredDate: {
             type: String,
-            required: true
         },
         specialNote: {
             type: String,
-            required: true
         },
         frameImg: {
             type: String,
-            required: true
         },
         frameDesc: {
             type: String,
-            required: true
         },
     },
     {

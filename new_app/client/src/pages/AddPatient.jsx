@@ -9,9 +9,10 @@ import { toast } from "sonner";
 import { useAuthToken } from "../apis/useAuthToken";
 import { addPatient } from "../apis/patientAPIs";
 
-function AddPatient() {
+function AddPatient(props) {
   const [addPrescriptionPopup, setAddPrescriptionPopup] = useState(false);
   const [addFramePopup, setAddFramePopup] = useState(false);
+  const [presData, setPresData] = useState(null);
 
   const handleChange = (e) => {
     setPatientData((prevState) => ({
@@ -34,7 +35,12 @@ function AddPatient() {
       return;
     } else {
       try {
-        await addPatient(token, patientData);
+        const formData = {
+          patientData,
+          presData,
+        };
+        console.log(formData);
+        await addPatient(token, formData);
       } catch (error) {
         toast.error("An error occurred. Please try again.");
       }
@@ -77,6 +83,12 @@ function AddPatient() {
     deliveredDate,
     specialNote,
   } = patientData;
+
+  const handleAddPrescription = (formData) => {
+    setPresData(formData);
+    setAddPrescriptionPopup(false); // Close the popup
+  };
+
   return (
     <div className="flex items-start justify-start h-full">
       <Sidebar className="" />
@@ -215,10 +227,21 @@ function AddPatient() {
               >
                 add prescription
               </button>
-              <CheckCircleOutlineIcon
-                fontSize="medium"
-                className="text-green-500"
-              />
+              {presData ? (
+                <>
+                  <CheckCircleOutlineIcon
+                    fontSize="medium"
+                    className="text-green-500"
+                  />
+                </>
+              ) : (
+                <>
+                  <HighlightOffIcon
+                    fontSize="medium"
+                    className="text-red-500 scale-110"
+                  />
+                </>
+              )}
             </div>
             <div>
               <button
@@ -442,6 +465,7 @@ function AddPatient() {
       <AddPrescription
         addTrigger={addPrescriptionPopup}
         setAddTrigger={setAddPrescriptionPopup}
+        onAddPrescription={handleAddPrescription}
       ></AddPrescription>
 
       <AddFramePopup

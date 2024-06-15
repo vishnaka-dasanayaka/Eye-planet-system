@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const Patient = require('../models/patientModel')
+const Order = require('../models/orderModel')
+const Prescription = require('../models/prescriptionModel')
 
 const getPatients = asyncHandler(async (req, res) => {
     const patients = await Patient.find({ status: 'active' });
@@ -8,22 +10,97 @@ const getPatients = asyncHandler(async (req, res) => {
 
 const setPatient = asyncHandler(async (req, res) => {
 
-
-
-    if (!req.body.fullName || !req.body.contactNumber || !req.body.dob || !req.body.address) {
+    if (!req.body.patientData.fullName || !req.body.patientData.contactNumber || !req.body.patientData.dob || !req.body.patientData.address) {
         res.status(400);
-        throw new Error('Please add required fields')
+        throw new Error('Please add patient personal data')
+    }
+
+    if (!req.body.patientData.date || !req.body.patientData.branch || !req.body.patientData.orderNumber || !req.body.patientData.billNumber || !req.body.patientData.lenses || !req.body.patientData.price || !req.body.patientData.status) {
+        res.status(400)
+        throw new Error('Please add order details')
+    }
+
+    if (!req.body.presData) {
+        res.status(400)
+        throw new Error('Please add prescription data')
     }
 
     const patient = await Patient.create({
-        name: req.body.fullName,
-        contactNumber: req.body.contactNumber,
-        dob: req.body.dob,
-        address: req.body.address,
+        name: req.body.patientData.fullName,
+        contactNumber: req.body.patientData.contactNumber,
+        dob: req.body.patientData.dob,
+        address: req.body.patientData.address,
         user: req.user.id
     })
 
-    res.status(200).json(patient)
+    const order = await Order.create({
+        patient: patient._id,
+        date: req.body.patientData.date,
+        branch: req.body.patientData.branch,
+        orderNumber: req.body.patientData.orderNumber,
+        billNumber: req.body.patientData.billNumber,
+        lenses: req.body.patientData.lenses,
+        price: req.body.patientData.price,
+        advance: req.body.patientData.advance,
+        balance: req.body.patientData.balance,
+        status: req.body.patientData.status,
+        sentDate: req.body.patientData.sentDate,
+        receivedDate: req.body.patientData.receivedDate,
+        deliveredDate: req.body.patientData.deliveredDate,
+        specialNote: req.body.patientData.specialNote,
+        frameImg: req.body.patientData.frameImg,
+        frameDesc: req.body.patientData.frameDesc
+    })
+
+    const prescription = await Prescription.create({
+        patient: patient._id,
+        order: order._id,
+        VAR: req.body.presData.VAR,
+        VAL: req.body.presData.VAL,
+        VARPH: req.body.presData.VARPH,
+        VALPH: req.body.presData.VALPH,
+        retiR: req.body.presData.retiR,
+        retiL: req.body.presData.retiL,
+        hbrxDate: req.body.presData.hbrxDate,
+        hbrxRSPH: req.body.presData.hbrxRSPH,
+        hbrxRCYL: req.body.presData.hbrxRCYL,
+        hbrxRAXIS: req.body.presData.hbrxRAXIS,
+        hbrxLSPH: req.body.presData.hbrxLSPH,
+        hbrxLCYL: req.body.presData.hbrxLCYL,
+        hbrxLAXIS: req.body.presData.hbrxLAXIS,
+        hbrxRSummary: req.body.presData.hbrxRSummary,
+        hbrxLSummary: req.body.presData.hbrxLSummary,
+        RSPH: req.body.presData.RSPH,
+        RCYL: req.body.presData.RCYL,
+        RAXIS: req.body.presData.RAXIS,
+        LSPH: req.body.presData.LSPH,
+        LCYL: req.body.presData.LCYL,
+        LAXIS: req.body.presData.LAXIS,
+        rSummary: req.body.presData.rSummary,
+        lSummary: req.body.presData.lSummary,
+        presNote: req.body.presData.presNote,
+        rvDate: req.body.presData.rvDate,
+        signedBy: req.body.presData.signedBy,
+    })
+
+    const updatedPatient = await Patient.findByIdAndUpdate(
+        patient._id,
+        { $push: { orders: order._id } },
+        { new: true } // This option returns the modified document rather than the original
+    );
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+        order._id,
+        { $push: { prescriptions: prescription._id } },
+        { new: true } // This option returns the modified document rather than the original
+    );
+
+
+    res.status(200).json({
+        patient: updatedPatient,
+        order: updatedOrder,
+        prescription: prescription
+    })
 })
 
 const updatePatient = asyncHandler(async (req, res) => {

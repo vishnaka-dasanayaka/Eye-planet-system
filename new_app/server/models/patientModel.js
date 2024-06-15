@@ -7,6 +7,11 @@ const patientSchema = mongoose.Schema(
             required: true,
             ref: 'User'
         },
+        orders: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Order'
+
+        },
 
         name: {
             type: String,
