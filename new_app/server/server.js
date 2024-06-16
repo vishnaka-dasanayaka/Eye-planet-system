@@ -23,6 +23,9 @@ app.use('/api/patients', require('./routes/patientRoutes'))
 // route for users
 app.use('/api/users', require('./routes/userRoutes'))
 
+// routes for branches
+app.use('/api/branches', require('./routes/branchRoutes'))
+
 app.use(errorHandler)
 
 const port = process.env.PORT || 3001;

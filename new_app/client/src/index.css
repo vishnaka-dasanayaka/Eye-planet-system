@@ -92,3 +92,16 @@ code {
 .btn_photo:hover{
   background: #105353;
 }
+
+.btn_main{
+  background:coral ;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.btn_main:hover{
+  background: rgb(171, 68, 31);
+}

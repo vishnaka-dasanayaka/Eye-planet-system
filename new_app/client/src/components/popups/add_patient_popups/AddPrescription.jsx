@@ -2,6 +2,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 
 function AddPrescription(props) {
+  const [img, setImg] = useState("");
   const onCloseclick = () => {
     props.setAddTrigger(false);
   };
@@ -87,6 +88,12 @@ function AddPrescription(props) {
     }));
   };
 
+  const onFileChange = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    setImg({ ...img, base64 });
+  };
+
   const onSubmitClick = (e) => {
     e.preventDefault();
     const formData = {
@@ -116,7 +123,9 @@ function AddPrescription(props) {
       presNote: presNote,
       rvDate: rvDate,
       signedBy: signedBy,
+      presImg: img,
     };
+
     props.onAddPrescription(formData);
   };
   return props.addTrigger ? (
@@ -632,7 +641,14 @@ function AddPrescription(props) {
               <h2 className="font-extrabold ">Add prescription photo</h2>
             </div>
             <div>
-              <input type="file" name="presPhoto" onChange={onChange} />
+              <input
+                type="file"
+                name="presImg"
+                label="Image"
+                onChange={onFileChange}
+                id="presImg"
+                accept=".jpeg, .png, .jpg"
+              />
             </div>
           </div>
         </div>
@@ -648,3 +664,103 @@ function AddPrescription(props) {
 }
 
 export default AddPrescription;
+
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    if (file.size <= 50 * 1024) {
+      // 50KB in bytes
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    } else {
+      compressImage(file)
+        .then((base64) => {
+          resolve(base64);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    }
+  });
+}
+
+function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const MAX_WIDTH = 1024;
+      const MAX_HEIGHT = 1024;
+      let width = img.width;
+      let height = img.height;
+
+      // Maintain aspect ratio
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+      } else {
+        if (height > MAX_HEIGHT) {
+          width *= MAX_HEIGHT / height;
+          height = MAX_HEIGHT;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Compress image
+      let quality = 1;
+
+      const compress = () => {
+        canvas.toBlob(
+          (blob) => {
+            const compressedFile = new File([blob], file.name, {
+              type: file.type,
+              lastModified: Date.now(),
+            });
+            const reader = new FileReader();
+            reader.readAsDataURL(compressedFile);
+            reader.onloadend = () => {
+              const base64String = reader.result;
+              const size = Math.round(blob.size / 1024); // in KB
+              if (size > 50 && quality > 0.1) {
+                quality -= 0.1;
+                canvas.toBlob(
+                  (blob) => {
+                    compress();
+                  },
+                  file.type,
+                  quality
+                );
+              } else {
+                resolve(base64String);
+              }
+            };
+          },
+          file.type,
+          quality
+        );
+      };
+
+      compress();
+    };
+
+    img.onerror = (error) => {
+      reject(error);
+    };
+
+    img.src = url;
+  });
+}

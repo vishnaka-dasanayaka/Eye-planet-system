@@ -36,6 +36,7 @@ const prescriptionSchema = mongoose.Schema(
         presNote: { type: String },
         rvDate: { type: String },
         signedBy: { type: String },
+        presImg: { type: String }
     },
     {
         timestamps: true

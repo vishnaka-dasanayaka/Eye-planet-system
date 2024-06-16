@@ -8,11 +8,13 @@ import { getUsers, updateUser } from "../apis/userAPI";
 import { useAuthToken } from "../apis/useAuthToken";
 import Loading from "../components/spinners/Loading";
 import { toast } from "sonner";
+import { getBranches, updateBranch } from "../apis/branchAPIs";
 
 function Admin(props) {
   const [addUserPopup, setAddUserPopup] = useState(false);
   const [addBranchPopup, setAddBranchPopup] = useState(false);
   const [users, setUsers] = useState([]);
+  const [branches, setBranches] = useState([]);
 
   const token = useAuthToken();
 
@@ -20,6 +22,7 @@ function Admin(props) {
     try {
       await updateUser(id, token, { role: "user" });
       toast.success("User Enabled");
+      fetchUsers();
     } catch (error) {
       console.log(error);
       toast.error("Some error Occured");
@@ -30,24 +33,80 @@ function Admin(props) {
     try {
       await updateUser(id, token, { role: "disabled" });
       toast.success("User Disabled");
+      fetchUsers();
     } catch (error) {
       console.log(error);
       toast.error("Some error Occured");
     }
   };
 
+  const onBranchEnableClick = async (id) => {
+    try {
+      await updateBranch(id, token, { status: "active" });
+      toast.success("User Enabled");
+      fetchBranches();
+    } catch (error) {
+      console.log(error);
+      toast.error("Some error Occured");
+    }
+  };
+
+  const onBranchDisableClick = async (id) => {
+    try {
+      await updateBranch(id, token, { status: "disabled" });
+      toast.success("User Disabled");
+      fetchBranches();
+    } catch (error) {
+      console.log(error);
+      toast.error("Some error Occured");
+    }
+  };
+
+  const onBranchMainClick = async (id) => {
+    try {
+      await updateBranch(id, token, { status: "main" });
+      toast.success("User Disabled");
+      fetchBranches();
+    } catch (error) {
+      console.log(error);
+      toast.error("Some error Occured");
+    }
+  };
+
+  const onBranchUnsetMainClick = async (id) => {
+    try {
+      await updateBranch(id, token, { status: "active" });
+      toast.success("User Disabled");
+      fetchBranches();
+    } catch (error) {
+      console.log(error);
+      toast.error("Some error Occured");
+    }
+  };
+
+  const fetchUsers = async () => {
+    if (token) {
+      const response = await getUsers(token);
+      setUsers(response.data);
+    }
+  };
+
+  const fetchBranches = async () => {
+    if (token) {
+      const response = await getBranches(token);
+      setBranches(response.data);
+      console.log(branches);
+    }
+  };
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      if (token) {
-        const response = await getUsers(token);
-        setUsers(response.data);
-      }
-    };
-
     fetchUsers();
-  }, [token, addUserPopup, onEnableClick, onDisableClick]);
+    fetchBranches();
+  }, [token, addUserPopup, addBranchPopup]);
 
-  if (!users) {
+  // addUserPopup, onEnableClick, onDisableClick
+
+  if (!users && !branches) {
     return <Loading />;
   }
 
@@ -175,70 +234,98 @@ function Admin(props) {
                 <td className="pl-3">actions</td>
               </thead>
               <tbody className="text-xs text-start">
-                <tr className="h-12 bg-green-100 border-b-2">
-                  <td className="pl-3">
-                    <h1 className="text-sm capitalize">Matale - main branch</h1>
-                    <h2 className="text-green-600 capitalize">main branch</h2>
-                  </td>
-                  <td className="pl-3 capitalize">hashan thennakoon</td>
-                  <td className="pl-3">Kandy Rd, Matale</td>
-                  <td className="py-1 pl-3">
-                    <p className="py-[1px]">main@gmail.com</p>
-                    <p className="py-[1px]">+94 71 370 4691</p>
-                    <p className="py-[1px]">+94 71 370 4691</p>
-                  </td>
-                  <td className="flex items-center justify-start pt-4 pl-3">
-                    <button className="capitalize btn_delete">deactive</button>
-                    <button className="ml-3 capitalize btn">save</button>
-                    <button className="ml-3 capitalize btn_photo">
-                      change photo
-                    </button>
-                  </td>
-                </tr>
+                {branches &&
+                  branches.map((branch) => (
+                    <tr
+                      className={`h-12 ${
+                        branch.status === "main" ? "bg-green-100" : ""
+                      } ${
+                        branch.status === "disabled"
+                          ? "bg-red-100"
+                          : "bg-blue-100"
+                      } border-b-2 border-b-gray-300`}
+                    >
+                      <td className="pl-3">
+                        <h1 className="text-sm">{branch.branchName}</h1>
 
-                <tr className="h-12 bg-blue-100 border-b-2">
-                  <td className="pl-3">
-                    <h1 className="text-sm capitalize">
-                      Kumudu Hospital Branch
-                    </h1>
-                    <h2 className="text-blue-600 capitalize">active branch</h2>
-                  </td>
-                  <td className="pl-3 capitalize">Sachini dasanayaka</td>
-                  <td className="pl-3">Kandy Rd, Matale</td>
-                  <td className="py-1 pl-3">
-                    <p className="py-[1px]">main@gmail.com</p>
-                    <p className="py-[1px]">+94 71 370 4691</p>
-                    <p className="py-[1px]">+94 71 370 4691</p>
-                  </td>{" "}
-                  <td className="flex items-center justify-start pt-4 pl-3">
-                    <button className="capitalize btn_delete">deactive</button>
-                    <button className="ml-3 capitalize btn">save</button>
-                    <button className="ml-3 capitalize btn_photo">
-                      change photo
-                    </button>
-                  </td>
-                </tr>
+                        {branch.status === "main" ? (
+                          <h2 className="text-green-600 capitalize">
+                            Main Branch
+                          </h2>
+                        ) : (
+                          <>
+                            {branch.status === "disabled" ? (
+                              <h2 className="text-red-600 capitalize">
+                                diactivated branch
+                              </h2>
+                            ) : (
+                              <>
+                                <h2 className="text-blue-600 capitalize">
+                                  active branch
+                                </h2>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </td>
 
-                <tr className="h-12 bg-red-100 border-b-2">
-                  <td className="pl-3">
-                    <h1 className="text-sm capitalize">
-                      Co-op Hospital branch
-                    </h1>
-                    <h2 className="text-red-600 capitalize">
-                      Deactivated branch
-                    </h2>
-                  </td>
-                  <td className="pl-3 capitalize">Buddika Bandara</td>
-                  <td className="pl-3">Kandy Rd, Matale</td>
-                  <td className="py-1 pl-3">
-                    <p className="py-[1px]">main@gmail.com</p>
-                    <p className="py-[1px]">+94 71 370 4691</p>
-                    <p className="py-[1px]">+94 71 370 4691</p>
-                  </td>{" "}
-                  <td className="flex items-center justify-start pt-4 pl-3">
-                    <button className="capitalize btn_enable">Enable</button>
-                  </td>
-                </tr>
+                      <td className="pl-3 capitalize">
+                        {branch.branchCoordinator}
+                      </td>
+                      <td className="pl-3">{branch.address}</td>
+                      <td className="py-1 pl-3">
+                        <p className="py-[1px]">{branch.contactNumber}</p>
+                        <p className="py-[1px]">{branch.contactNumber2}</p>
+                        <p className="py-[1px]">{branch.email}</p>
+                      </td>
+                      <td className="flex items-center justify-start pt-2 pl-3">
+                        {branch.status === "disabled" ? (
+                          <>
+                            <button
+                              onClick={() => onBranchEnableClick(branch._id)}
+                              className="capitalize btn_enable"
+                            >
+                              activate
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <>
+                              <button
+                                onClick={() => onBranchDisableClick(branch._id)}
+                                className="capitalize btn_delete"
+                              >
+                                diactivate
+                              </button>
+                              {branch.status === "main" ? (
+                                <button
+                                  onClick={() =>
+                                    onBranchUnsetMainClick(branch._id)
+                                  }
+                                  className="ml-3 capitalize btn_main"
+                                >
+                                  unset main
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() => onBranchMainClick(branch._id)}
+                                  className="ml-3 capitalize btn_green"
+                                >
+                                  set main
+                                </button>
+                              )}
+                              <button className="ml-3 capitalize btn">
+                                save
+                              </button>
+                              <button className="ml-3 capitalize btn_photo">
+                                change photo
+                              </button>
+                            </>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

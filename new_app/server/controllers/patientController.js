@@ -10,6 +10,8 @@ const getPatients = asyncHandler(async (req, res) => {
 
 const setPatient = asyncHandler(async (req, res) => {
 
+
+
     if (!req.body.patientData.fullName || !req.body.patientData.contactNumber || !req.body.patientData.dob || !req.body.patientData.address) {
         res.status(400);
         throw new Error('Please add patient personal data')
@@ -81,6 +83,7 @@ const setPatient = asyncHandler(async (req, res) => {
         presNote: req.body.presData.presNote,
         rvDate: req.body.presData.rvDate,
         signedBy: req.body.presData.signedBy,
+        presImg: req.body.presData.presImg.base64
     })
 
     const updatedPatient = await Patient.findByIdAndUpdate(
