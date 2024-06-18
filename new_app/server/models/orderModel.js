@@ -64,7 +64,12 @@ const orderSchema = mongoose.Schema(
         frameDesc: {
             type: String,
         },
+        isDeleted: {
+            type: Boolean,
+            default: false
+        },
     },
+
     {
         timestamps: true
     }

@@ -123,12 +123,21 @@ const updatePatient = asyncHandler(async (req, res) => {
 
 
 const deletePatient = asyncHandler(async (req, res) => {
-    const patient = Patient.findById(req.params.id)
+    const patient = await Patient.findById(req.params.id)
 
     if (!patient) {
         res.status(400)
         throw new Error('Patient not fond')
     }
+
+    const orders = patient.orders
+
+    const result = await Order.updateMany(
+        { _id: { $in: orders } }, // Filter to match orders with IDs in the array
+        { $set: { isDeleted: true } } // Update operation to set the status to 'deleted'
+    );
+
+
 
     const updatedPatient = await Patient.findByIdAndUpdate(req.params.id, { status: 'deleted' }, {
         new: true

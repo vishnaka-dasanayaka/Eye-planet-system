@@ -48,32 +48,40 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
 const loginUser = asyncHandler(async (req, res) => {
+
     const { email, password } = req.body
 
-    const user = await User.findOne({ email })
+    let user;
+
+    try {
+        user = await User.findOne({ email })
+    } catch (error) {
+        res.status(500).json('Server Error')
+    }
 
     if (!user) {
-        res.status(500)
-        throw new Error('Invalid user')
+        res.status(400).json('User not found')
     }
 
     if (user.role === 'disabled') {
-        res.status(400)
-        throw new Error("User Disabled by Admin")
+        res.status(403).json('User Disabled by Admin')
     }
 
-    if (user && (await bcrypt.compare(password, user.password))) {
-        res.status(201).json({
-            _id: user.id,
-            firstName: user.firstName,
-            email: user.email,
-            role: user.role,
-            token: generateJWT(user._id)
-        })
-    } else {
-        res.status(401)
-        throw new Error('Invalid credentials')
+    const result = await bcrypt.compare(password, user.password)
+
+    if (!result) {
+        res.status(401).json('Invalid credentials')
     }
+
+    res.status(200).json({
+        _id: user.id,
+        firstName: user.firstName,
+        email: user.email,
+        role: user.role,
+        token: generateJWT(user._id)
+    })
+
+
 
 })
 

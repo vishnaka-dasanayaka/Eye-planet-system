@@ -51,9 +51,6 @@ function Profile(props) {
       [e.target.name]: e.target.value,
     }));
   };
-  if (!user.data) {
-    return <Loading />;
-  }
 
   return (
     <div className="flex items-start justify-start h-screen">
@@ -61,7 +58,7 @@ function Profile(props) {
       <div className="lg:ml-[288px] w-full">
         <Header />
 
-        {user && (
+        {user.data ? (
           <div className="flex flex-col items-start justify-start w-full md:mt-5 mt-28 md:flex-row">
             <div className="flex flex-col items-center justify-center w-full m-2 bg-white md:w-1/3">
               <div className="flex items-center justify-center w-40 h-40 mt-10 mb-5 border-2 rounded-full ">
@@ -268,6 +265,8 @@ function Profile(props) {
               </div>
             </div>
           </div>
+        ) : (
+          <Loading />
         )}
       </div>
 

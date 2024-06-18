@@ -26,6 +26,9 @@ app.use('/api/users', require('./routes/userRoutes'))
 // routes for branches
 app.use('/api/branches', require('./routes/branchRoutes'))
 
+// routes for orders
+app.use('/api/orders', require('./routes/orderRoutes'))
+
 app.use(errorHandler)
 
 const port = process.env.PORT || 3001;

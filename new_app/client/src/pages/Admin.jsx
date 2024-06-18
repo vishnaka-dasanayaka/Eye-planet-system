@@ -16,6 +16,15 @@ function Admin(props) {
   const [users, setUsers] = useState([]);
   const [branches, setBranches] = useState([]);
 
+  const [] = useState({
+    branchName: "",
+    branchCoordinator: "",
+    address: "",
+    contactNumber: "",
+    contactNumber2: "",
+    email: "",
+  });
+
   const token = useAuthToken();
 
   const onEnableClick = async (id) => {
@@ -246,7 +255,12 @@ function Admin(props) {
                       } border-b-2 border-b-gray-300`}
                     >
                       <td className="pl-3">
-                        <h1 className="text-sm">{branch.branchName}</h1>
+                        {/* <h1 className="text-sm">{branch.branchName}</h1> */}
+                        <input
+                          type="text"
+                          value={branch.branchName}
+                          className="text-sm bg-transparent hover:bg-white"
+                        />
 
                         {branch.status === "main" ? (
                           <h2 className="text-green-600 capitalize">
