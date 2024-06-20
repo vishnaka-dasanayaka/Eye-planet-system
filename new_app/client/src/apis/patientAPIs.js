@@ -34,5 +34,17 @@ const getPatients = async (token) => {
     }
 };
 
+const findPatients = async (token, data) => {
+    const config = getConfig(token)
+    try {
+        const response = await axios.post(`${url}/api/patients/findpatients`, data, config)
+        toast.success(`${response.data.length} patients found`)
+        return response;
+    } catch (error) {
+        console.log(error);
+        toast.error("An error occurred. Please try again.");
+    }
+}
 
-export { addPatient, getPatients }
+
+export { addPatient, getPatients, findPatients }

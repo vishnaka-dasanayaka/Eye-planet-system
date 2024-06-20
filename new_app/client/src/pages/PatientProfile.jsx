@@ -4,9 +4,12 @@ import Header from "../components/Header";
 import OrderCard from "../components/search_results/OrderCard";
 import { useState } from "react";
 import AddOrder from "../components/popups/add_patient_popups/AddOrder";
+import { useLocation } from "react-router-dom";
+import Loading from "../components/spinners/Loading";
 
 function PatientProfile() {
   const [addOrderPopup, setAddOrderPopup] = useState(false);
+
   return (
     <div className="flex items-start justify-start h-full">
       <Sidebar className="" />

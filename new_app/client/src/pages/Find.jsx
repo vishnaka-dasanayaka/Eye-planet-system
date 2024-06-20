@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import SearchIcon from "@mui/icons-material/Search";
 import OrderCard from "../components/search_results/OrderCard";
 import PatientCard from "../components/search_results/PatientCard";
+import { useAuthToken } from "../apis/useAuthToken";
+import { findPatients } from "../apis/patientAPIs";
+import Loading from "../components/spinners/Loading";
 
 function Find() {
+  const token = useAuthToken();
+  const [patientFindForm, setPatientFindForm] = useState({
+    name: "",
+    contactNumber: "",
+    dob: "",
+  });
+  const [patients, setPatients] = useState([]);
+
+  const { name, contactNumber, dob } = patientFindForm;
+
+  const handlePatientChange = (e) => {
+    setPatientFindForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handlePatientSearch = (e) => {
+    e.preventDefault();
+    fetchPatients();
+  };
+  const fetchPatients = async () => {
+    if (token) {
+      const response = await findPatients(token, patientFindForm);
+      setPatients(response.data);
+    }
+  };
+
+  if (!patients) return <Loading />;
+
   return (
     <div className="flex items-start justify-start h-screen">
       <Sidebar className="" />
@@ -23,6 +56,9 @@ function Find() {
                   className="w-full p-1 outline-none"
                   placeholder="Enter name of the patient"
                   type="text"
+                  name="name"
+                  onChange={handlePatientChange}
+                  value={name}
                 />
               </div>
 
@@ -34,6 +70,9 @@ function Find() {
                   className="w-full p-1 outline-none"
                   placeholder="Enter name of the patient"
                   type="text"
+                  name="contactNumber"
+                  onChange={handlePatientChange}
+                  value={contactNumber}
                 />
               </div>
 
@@ -44,11 +83,17 @@ function Find() {
                 <input
                   className="w-full p-1 outline-none"
                   placeholder="Enter name of the patient"
-                  type="text"
+                  type="date"
+                  name="dob"
+                  onChange={handlePatientChange}
+                  value={dob}
                 />
               </div>
 
-              <div className="flex items-center justify-center w-full p-1 mt-5 rounded-full cursor-pointer md:mt-0 md:p-3 md:w-fit active:bg-blue-500 hover:bg-green-500 bg-shop_color">
+              <div
+                onClick={handlePatientSearch}
+                className="flex items-center justify-center w-full p-1 mt-5 rounded-full cursor-pointer md:mt-0 md:p-3 md:w-fit active:bg-blue-500 hover:bg-green-500 bg-shop_color"
+              >
                 <SearchIcon fontSize="large" className="text-white" />
               </div>
             </div>
@@ -88,10 +133,12 @@ function Find() {
             <OrderCard />
             <OrderCard />
             <OrderCard />
-            <PatientCard />
-            <PatientCard />
-            <PatientCard />
-            <PatientCard />
+            {patients &&
+              patients.map((patient) => (
+                <>
+                  <PatientCard patient={patient} />
+                </>
+              ))}
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Patient = require('../models/patientModel')
 const Order = require('../models/orderModel')
 const Prescription = require('../models/prescriptionModel')
+const User = require('../models/userModel')
 
 const getPatients = asyncHandler(async (req, res) => {
     const patients = await Patient.find({ status: 'active' });
@@ -146,9 +147,39 @@ const deletePatient = asyncHandler(async (req, res) => {
     res.status(201).json(updatedPatient)
 })
 
+const findPatients = asyncHandler(async (req, res) => {
+    const { name, contactNumber, dob } = req.body
+
+
+    let user;
+
+    try {
+        user = await User.findById(req.user.id)
+    } catch (error) {
+        res.status(500).json('Server Error')
+    }
+
+    if (!user) {
+        res.status(400).json('User not found')
+    }
+
+    let filter = {}
+
+    if (name !== null && name !== '') filter.name = name
+    if (contactNumber !== null && contactNumber !== '') filter.contactNumber = contactNumber
+    if (dob !== null && dob !== '') filter.dob = dob
+
+    const patients = await Patient.find(filter)
+
+
+
+    res.status(200).json(patients)
+})
+
 module.exports = {
     getPatients,
     setPatient,
     updatePatient,
-    deletePatient
+    deletePatient,
+    findPatients
 }

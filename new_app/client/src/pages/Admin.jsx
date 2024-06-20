@@ -16,16 +16,47 @@ function Admin(props) {
   const [users, setUsers] = useState([]);
   const [branches, setBranches] = useState([]);
 
-  const [] = useState({
-    branchName: "",
-    branchCoordinator: "",
-    address: "",
-    contactNumber: "",
-    contactNumber2: "",
-    email: "",
-  });
-
   const token = useAuthToken();
+
+  const initializeBranchDetails = (branches) => {
+    const details = {};
+    branches.forEach((branch) => {
+      details[branch._id] = {
+        branchName: branch.branchName,
+        branchCoordinator: branch.branchCoordinator,
+        address: branch.address,
+        contactNumber: branch.contactNumber,
+        contactNumber2: branch.contactNumber2,
+        email: branch.email,
+      };
+    });
+    return details;
+  };
+
+  const [branchDetails, setBranchDetails] = useState({});
+
+  const handleChange = (e, id) => {
+    const { name, value } = e.target;
+    setBranchDetails((prevDetails) => ({
+      ...prevDetails,
+      [id]: {
+        ...prevDetails[id],
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleClick = async (e, id) => {
+    e.preventDefault();
+    try {
+      await updateBranch(id, token, branchDetails[id]);
+      toast.success("Changes Saved");
+      fetchBranches();
+    } catch (error) {
+      console.log(error);
+      toast.error("Some error Occured");
+    }
+  };
 
   const onEnableClick = async (id) => {
     try {
@@ -104,7 +135,7 @@ function Admin(props) {
     if (token) {
       const response = await getBranches(token);
       setBranches(response.data);
-      console.log(branches);
+      setBranchDetails(initializeBranchDetails(response.data));
     }
   };
 
@@ -112,8 +143,6 @@ function Admin(props) {
     fetchUsers();
     fetchBranches();
   }, [token, addUserPopup, addBranchPopup]);
-
-  // addUserPopup, onEnableClick, onDisableClick
 
   if (!users && !branches) {
     return <Loading />;
@@ -141,11 +170,13 @@ function Admin(props) {
           <div className="mt-10 mr-5">
             <table className="w-full bg-white">
               <thead className="h-10 font-semibold tracking-wide capitalize bg-gray-100 border-b-2 text-start">
-                <td className="pl-3">Name</td>
-                <td className="pl-3">Email address</td>
-                <td className="pl-3">Permenent address</td>
-                <td className="pl-3">Contact number</td>
-                <td className="pl-3">actions</td>
+                <tr>
+                  <th className="pl-3">Name</th>
+                  <th className="pl-3">Email address</th>
+                  <th className="pl-3">Permenent address</th>
+                  <th className="pl-3">Contact number</th>
+                  <th className="pl-3">actions</th>
+                </tr>
               </thead>
 
               <tbody className="text-xs text-start">
@@ -157,6 +188,7 @@ function Admin(props) {
                       } ${
                         user.role === "disabled" ? "bg-red-100" : "bg-blue-100"
                       } border-b-2 border-b-gray-300`}
+                      key={user._id}
                     >
                       <td className="pl-3">
                         <h1 className="text-sm">
@@ -236,11 +268,13 @@ function Admin(props) {
           <div className="my-10 mr-5">
             <table className="w-full bg-white">
               <thead className="h-10 font-semibold tracking-wide capitalize bg-gray-100 border-b-2 text-start">
-                <td className="pl-3">Branch Name</td>
-                <td className="pl-3">Branch Lead</td>
-                <td className="pl-3">address</td>
-                <td className="pl-3">Contact details</td>
-                <td className="pl-3">actions</td>
+                <tr>
+                  <th className="pl-3">Branch Name</th>
+                  <th className="pl-3">Branch Lead</th>
+                  <th className="pl-3">address</th>
+                  <th className="pl-3">Contact details</th>
+                  <th className="pl-3">actions</th>
+                </tr>
               </thead>
               <tbody className="text-xs text-start">
                 {branches &&
@@ -253,116 +287,126 @@ function Admin(props) {
                           ? "bg-red-100"
                           : "bg-blue-100"
                       } border-b-2 border-b-gray-300`}
+                      key={branch._id}
                     >
                       <td className="pl-3">
-                        {/* <h1 className="text-sm">{branch.branchName}</h1> */}
                         <input
+                          name="branchName"
+                          onChange={(e) => handleChange(e, branch._id)}
                           type="text"
-                          value={branch.branchName}
+                          value={branchDetails[branch._id]?.branchName || ""}
                           className="text-sm bg-transparent hover:bg-white"
                         />
-
                         {branch.status === "main" ? (
                           <h2 className="text-green-600 capitalize">
                             Main Branch
                           </h2>
+                        ) : branch.status === "disabled" ? (
+                          <h2 className="text-red-600 capitalize">
+                            deactivated branch
+                          </h2>
                         ) : (
-                          <>
-                            {branch.status === "disabled" ? (
-                              <h2 className="text-red-600 capitalize">
-                                diactivated branch
-                              </h2>
-                            ) : (
-                              <>
-                                <h2 className="text-blue-600 capitalize">
-                                  active branch
-                                </h2>
-                              </>
-                            )}
-                          </>
+                          <h2 className="text-blue-600 capitalize">
+                            active branch
+                          </h2>
                         )}
                       </td>
 
                       <td className="pl-3 capitalize">
                         <input
+                          name="branchCoordinator"
+                          onChange={(e) => handleChange(e, branch._id)}
                           type="text"
-                          value={branch.branchCoordinator}
+                          value={
+                            branchDetails[branch._id]?.branchCoordinator || ""
+                          }
                           className="text-sm bg-transparent w-fit hover:bg-white"
                         />
                       </td>
                       <td className="pl-3">
                         <input
+                          name="address"
+                          onChange={(e) => handleChange(e, branch._id)}
                           type="text"
-                          value={branch.address}
+                          value={branchDetails[branch._id]?.address || ""}
                           className="text-sm bg-transparent hover:bg-white"
                         />
                       </td>
                       <td className="py-1 pl-3">
                         <p className="py-[1px]">
                           <input
+                            name="contactNumber"
+                            onChange={(e) => handleChange(e, branch._id)}
                             type="text"
-                            value={branch.contactNumber}
+                            value={
+                              branchDetails[branch._id]?.contactNumber || ""
+                            }
                             className="text-sm bg-transparent hover:bg-white"
                           />
                         </p>
                         <p className="py-[1px]">
                           <input
+                            name="contactNumber2"
+                            onChange={(e) => handleChange(e, branch._id)}
                             type="text"
-                            value={branch.contactNumber2}
+                            value={
+                              branchDetails[branch._id]?.contactNumber2 || ""
+                            }
                             className="text-sm bg-transparent hover:bg-white"
                           />
                         </p>
                         <p className="py-[1px]">
                           <input
+                            name="email"
+                            onChange={(e) => handleChange(e, branch._id)}
                             type="text"
-                            value={branch.email}
+                            value={branchDetails[branch._id]?.email || ""}
                             className="text-sm bg-transparent hover:bg-white"
                           />
                         </p>
                       </td>
                       <td className="flex items-center justify-start pt-2 pl-3">
                         {branch.status === "disabled" ? (
-                          <>
-                            <button
-                              onClick={() => onBranchEnableClick(branch._id)}
-                              className="capitalize btn_enable"
-                            >
-                              activate
-                            </button>
-                          </>
+                          <button
+                            onClick={() => onBranchEnableClick(branch._id)}
+                            className="capitalize btn_enable"
+                          >
+                            activate
+                          </button>
                         ) : (
                           <>
-                            <>
+                            <button
+                              onClick={() => onBranchDisableClick(branch._id)}
+                              className="capitalize btn_delete"
+                            >
+                              deactivate
+                            </button>
+                            {branch.status === "main" ? (
                               <button
-                                onClick={() => onBranchDisableClick(branch._id)}
-                                className="capitalize btn_delete"
+                                onClick={() =>
+                                  onBranchUnsetMainClick(branch._id)
+                                }
+                                className="ml-3 capitalize btn_main"
                               >
-                                diactivate
+                                unset main
                               </button>
-                              {branch.status === "main" ? (
-                                <button
-                                  onClick={() =>
-                                    onBranchUnsetMainClick(branch._id)
-                                  }
-                                  className="ml-3 capitalize btn_main"
-                                >
-                                  unset main
-                                </button>
-                              ) : (
-                                <button
-                                  onClick={() => onBranchMainClick(branch._id)}
-                                  className="ml-3 capitalize btn_green"
-                                >
-                                  set main
-                                </button>
-                              )}
-                              <button className="ml-3 capitalize btn">
-                                save
+                            ) : (
+                              <button
+                                onClick={() => onBranchMainClick(branch._id)}
+                                className="ml-3 capitalize btn_green"
+                              >
+                                set main
                               </button>
-                              <button className="ml-3 capitalize btn_photo">
-                                change photo
-                              </button>
-                            </>
+                            )}
+                            <button
+                              onClick={(e) => handleClick(e, branch._id)}
+                              className="ml-3 capitalize btn"
+                            >
+                              save
+                            </button>
+                            <button className="ml-3 capitalize btn_photo">
+                              change photo
+                            </button>
                           </>
                         )}
                       </td>
@@ -373,16 +417,8 @@ function Admin(props) {
           </div>
         </div>
       </div>
-
-      <AddUser
-        addTrigger={addUserPopup}
-        setAddTrigger={setAddUserPopup}
-      ></AddUser>
-
-      <AddBranch
-        addTrigger={addBranchPopup}
-        setAddTrigger={setAddBranchPopup}
-      ></AddBranch>
+      {addUserPopup && <AddUser onClose={() => setAddUserPopup(false)} />}
+      {addBranchPopup && <AddBranch onClose={() => setAddBranchPopup(false)} />}
     </div>
   );
 }
