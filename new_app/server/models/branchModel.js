@@ -20,13 +20,16 @@ const branchSchema = mongoose.Schema(
             required: [true, "Add the branch address"]
         },
         email: {
-            type: String
+            type: String,
+            default: "-"
         },
         contactNumber: {
-            type: String
+            type: String,
+            default: "-"
         },
         contactNumber2: {
-            type: String
+            type: String,
+            default: "-"
         },
         branchImg: {
             type: String

@@ -284,13 +284,41 @@ function Admin(props) {
                       </td>
 
                       <td className="pl-3 capitalize">
-                        {branch.branchCoordinator}
+                        <input
+                          type="text"
+                          value={branch.branchCoordinator}
+                          className="text-sm bg-transparent w-fit hover:bg-white"
+                        />
                       </td>
-                      <td className="pl-3">{branch.address}</td>
+                      <td className="pl-3">
+                        <input
+                          type="text"
+                          value={branch.address}
+                          className="text-sm bg-transparent hover:bg-white"
+                        />
+                      </td>
                       <td className="py-1 pl-3">
-                        <p className="py-[1px]">{branch.contactNumber}</p>
-                        <p className="py-[1px]">{branch.contactNumber2}</p>
-                        <p className="py-[1px]">{branch.email}</p>
+                        <p className="py-[1px]">
+                          <input
+                            type="text"
+                            value={branch.contactNumber}
+                            className="text-sm bg-transparent hover:bg-white"
+                          />
+                        </p>
+                        <p className="py-[1px]">
+                          <input
+                            type="text"
+                            value={branch.contactNumber2}
+                            className="text-sm bg-transparent hover:bg-white"
+                          />
+                        </p>
+                        <p className="py-[1px]">
+                          <input
+                            type="text"
+                            value={branch.email}
+                            className="text-sm bg-transparent hover:bg-white"
+                          />
+                        </p>
                       </td>
                       <td className="flex items-center justify-start pt-2 pl-3">
                         {branch.status === "disabled" ? (
