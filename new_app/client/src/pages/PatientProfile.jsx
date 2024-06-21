@@ -2,13 +2,56 @@ import AddIcon from "@mui/icons-material/Add";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import OrderCard from "../components/search_results/OrderCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddOrder from "../components/popups/add_patient_popups/AddOrder";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useAuthToken } from "../apis/useAuthToken";
+import { findPatient } from "../apis/patientAPIs";
 import Loading from "../components/spinners/Loading";
 
 function PatientProfile() {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const calculateAge = (dateString) => {
+    const birthDate = new Date(dateString);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    // If the birth month hasn't occurred yet this year, or it is the birth month but the day hasn't occurred yet, subtract one year from the age
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
+  const token = useAuthToken();
+  const [patient, setPatient] = useState();
+
+  const id = useParams().id;
   const [addOrderPopup, setAddOrderPopup] = useState(false);
+
+  const fetchData = async () => {
+    if (token) {
+      const response = await findPatient(token, id);
+      setPatient(response.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (!patient) return <Loading />;
 
   return (
     <div className="flex items-start justify-start h-full">
@@ -23,8 +66,9 @@ function PatientProfile() {
                 full name
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 capitalize border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                value={patient.name}
               />
             </div>
 
@@ -35,6 +79,7 @@ function PatientProfile() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
+                value={patient.contactNumber}
               />
             </div>
 
@@ -45,7 +90,14 @@ function PatientProfile() {
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="date"
+                value={formatDate(patient.dob)}
               />
+              <h1 className="p-1 px-4 ">
+                Age:
+                <span className="ml-2 font-extrabold text-shop_color">
+                  {calculateAge(patient.dob)}
+                </span>{" "}
+              </h1>
             </div>
           </div>
           <div className="flex flex-col items-start justify-start p-2 m-1 ">
@@ -55,8 +107,10 @@ function PatientProfile() {
             <input
               className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
               type="text"
+              value={patient.address}
             />
           </div>
+
           <div className="flex justify-end m-3">
             <button className="h-10 text-xl capitalize w-60 btn">
               save details
@@ -72,11 +126,13 @@ function PatientProfile() {
             </button>{" "}
           </div>
 
-          <div className="grid grid-cols-1 m-3 md:gap-5 md:grid-cols-3">
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
+          <div className="grid grid-cols-1 gap-2 m-3 md:gap-5 md:grid-cols-3">
+            {patient &&
+              patient.orders.map((order) => (
+                <>
+                  <OrderCard patient={order} />
+                </>
+              ))}{" "}
           </div>
 
           <div className="flex flex-col items-start justify-start p-2 m-1 ">

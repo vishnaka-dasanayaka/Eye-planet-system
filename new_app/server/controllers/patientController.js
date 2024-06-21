@@ -108,6 +108,19 @@ const setPatient = asyncHandler(async (req, res) => {
 })
 
 const updatePatient = asyncHandler(async (req, res) => {
+
+    let user;
+
+    try {
+        user = await User.findById(req.user.id)
+    } catch (error) {
+        res.status(500).json('Server Error')
+    }
+
+    if (!user) {
+        res.status(400).json('User not found')
+    }
+
     const patient = Patient.findById(req.params.id)
 
     if (!patient) {
@@ -176,10 +189,35 @@ const findPatients = asyncHandler(async (req, res) => {
     res.status(200).json(patients)
 })
 
+const findPatient = asyncHandler(async (req, res) => {
+
+
+    let user;
+
+    try {
+        user = await User.findById(req.user.id)
+    } catch (error) {
+        res.status(500).json('Server Error')
+    }
+
+    if (!user) {
+        res.status(400).json('User not found')
+    }
+
+
+
+    const patient = await Patient.findById(req.params.id)
+
+
+
+    res.status(200).json(patient)
+})
+
 module.exports = {
     getPatients,
     setPatient,
     updatePatient,
     deletePatient,
-    findPatients
+    findPatients,
+    findPatient
 }

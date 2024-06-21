@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import AddIcon from "@mui/icons-material/Add";
 import PatientCard from "../components/search_results/PatientCard";
 import { Link } from "react-router-dom";
+import { getPatients } from "../apis/patientAPIs";
+import { useAuthToken } from "../apis/useAuthToken";
+import Loading from "../components/spinners/Loading";
 
 function Add() {
+  const [patients, setPatients] = useState([]);
+  const token = useAuthToken();
+
+  const fetchPatients = async () => {
+    if (token) {
+      const response = await getPatients(token);
+      setPatients(response.data);
+      console.log(response.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+  if (!patients) return <Loading />;
   return (
     <div className="flex items-start justify-start h-screen">
       <Sidebar className="" />
@@ -20,10 +39,12 @@ function Add() {
             </button>
           </Link>
           <div className="grid grid-cols-1 gap-3 m-5 md:grid-cols-3">
-            <PatientCard />
-            <PatientCard />
-            <PatientCard />
-            <PatientCard />
+            {patients &&
+              patients.map((patient) => (
+                <>
+                  <PatientCard patient={patient} />
+                </>
+              ))}
           </div>
         </div>
       </div>
