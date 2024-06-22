@@ -25,4 +25,21 @@ const getOrders = async (token) => {
 
 }
 
-export { getOrders }
+const findOrders = async (token, data) => {
+    const config = getConfig(token)
+    try {
+        const response = await axios.post(`${url}/api/orders/findOrders`, data, config)
+        if (response.data.length === 0) {
+            toast.info(`No orders found`)
+        } else {
+            toast.success(`${response.data.length} orders found`)
+        }
+
+        return response;
+    } catch (error) {
+        console.log(error);
+        toast.error("An error occurred. Please try again.");
+    }
+}
+
+export { getOrders, findOrders }

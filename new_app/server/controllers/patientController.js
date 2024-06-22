@@ -178,9 +178,13 @@ const findPatients = asyncHandler(async (req, res) => {
 
     let filter = {}
 
+    const date = new Date(dob);
+    const isoDateStr = date.toISOString();
+
     if (name !== null && name !== '') filter.name = name
     if (contactNumber !== null && contactNumber !== '') filter.contactNumber = contactNumber
-    if (dob !== null && dob !== '') filter.dob = dob
+    if (dob !== null && dob !== '') filter.dob = isoDateStr
+
 
     const patients = await Patient.find(filter)
 

@@ -38,7 +38,11 @@ const findPatients = async (token, data) => {
     const config = getConfig(token)
     try {
         const response = await axios.post(`${url}/api/patients/findpatients`, data, config)
-        toast.success(`${response.data.length} patients found`)
+        if (response.data.length === 0) {
+            toast.info(`${response.data.length} patients found`)
+        } else {
+            toast.success(`${response.data.length} patients found`)
+        }
         return response;
     } catch (error) {
         console.log(error);
