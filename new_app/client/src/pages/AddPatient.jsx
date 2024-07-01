@@ -13,6 +13,7 @@ function AddPatient(props) {
   const [addPrescriptionPopup, setAddPrescriptionPopup] = useState(false);
   const [addFramePopup, setAddFramePopup] = useState(false);
   const [presData, setPresData] = useState(null);
+  const [frameData, setFrameData] = useState(null);
 
   const handleChange = (e) => {
     setPatientData((prevState) => ({
@@ -38,6 +39,7 @@ function AddPatient(props) {
         const formData = {
           patientData,
           presData,
+          frameData,
         };
         console.log(formData);
         await addPatient(token, formData);
@@ -87,6 +89,11 @@ function AddPatient(props) {
   const handleAddPrescription = (formData) => {
     setPresData(formData);
     setAddPrescriptionPopup(false); // Close the popup
+  };
+
+  const handleAddFrame = (formData) => {
+    setFrameData(formData);
+    setAddFramePopup(false); // Close the popup
   };
 
   return (
@@ -250,10 +257,21 @@ function AddPatient(props) {
               >
                 add frame
               </button>
-              <HighlightOffIcon
-                fontSize="medium"
-                className="text-red-500 scale-110"
-              />
+              {frameData ? (
+                <>
+                  <CheckCircleOutlineIcon
+                    fontSize="medium"
+                    className="text-green-500"
+                  />
+                </>
+              ) : (
+                <>
+                  <HighlightOffIcon
+                    fontSize="medium"
+                    className="text-red-500 scale-110"
+                  />
+                </>
+              )}
             </div>{" "}
           </div>
 
@@ -471,6 +489,7 @@ function AddPatient(props) {
       <AddFramePopup
         addTrigger={addFramePopup}
         setAddTrigger={setAddFramePopup}
+        onAddFrame={handleAddFrame}
       ></AddFramePopup>
     </div>
   );
