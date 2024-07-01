@@ -178,9 +178,13 @@ const findPatients = asyncHandler(async (req, res) => {
 
     let filter = {}
 
+    const date = new Date(dob);
+    const isoDateStr = date.toISOString();
+
     if (name !== null && name !== '') filter.name = name
     if (contactNumber !== null && contactNumber !== '') filter.contactNumber = contactNumber
-    if (dob !== null && dob !== '') filter.dob = dob
+    if (dob !== null && dob !== '') filter.dob = isoDateStr
+
 
     const patients = await Patient.find(filter)
 
@@ -208,9 +212,11 @@ const findPatient = asyncHandler(async (req, res) => {
 
     const patient = await Patient.findById(req.params.id)
 
+    const orders = await Order.find({ patient: req.params.id })
 
 
-    res.status(200).json(patient)
+
+    res.status(200).json({ patient, orders })
 })
 
 module.exports = {

@@ -7,17 +7,25 @@ import PatientCard from "../components/search_results/PatientCard";
 import { useAuthToken } from "../apis/useAuthToken";
 import { findPatients } from "../apis/patientAPIs";
 import Loading from "../components/spinners/Loading";
+import { findOrders } from "../apis/orderAPIs";
+import { toast } from "sonner";
 
 function Find() {
   const token = useAuthToken();
   const [patientFindForm, setPatientFindForm] = useState({
-    name: "",
-    contactNumber: "",
-    dob: "",
+    name: null,
+    contactNumber: null,
+    dob: null,
+  });
+  const [orderFindForm, setOrderFindForm] = useState({
+    orderNumber: null,
+    billNumber: null,
   });
   const [patients, setPatients] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const { name, contactNumber, dob } = patientFindForm;
+  const { orderNumber, billNumber } = orderFindForm;
 
   const handlePatientChange = (e) => {
     setPatientFindForm((prev) => ({
@@ -26,10 +34,31 @@ function Find() {
     }));
   };
 
+  const handleOrderChange = (e) => {
+    setOrderFindForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handlePatientSearch = (e) => {
     e.preventDefault();
-    fetchPatients();
+    if (!name && !dob && !contactNumber) {
+      toast.warning("No Searching Attributes !");
+    } else {
+      fetchPatients();
+    }
   };
+
+  const handleOrderSearch = (e) => {
+    e.preventDefault();
+    if (!orderNumber && !billNumber) {
+      toast.warning("No Searching Attributes !");
+    } else {
+      fetchOrders();
+    }
+  };
+
   const fetchPatients = async () => {
     if (token) {
       const response = await findPatients(token, patientFindForm);
@@ -37,7 +66,14 @@ function Find() {
     }
   };
 
-  if (!patients) return <Loading />;
+  const fetchOrders = async () => {
+    if (token) {
+      const response = await findOrders(token, orderFindForm);
+      setOrders(response.data);
+    }
+  };
+
+  if (!patients && !orders) return <Loading />;
 
   return (
     <div className="flex items-start justify-start h-screen">
@@ -109,6 +145,9 @@ function Find() {
                   className="w-full p-1 outline-none"
                   placeholder="Enter name of the patient"
                   type="text"
+                  name="orderNumber"
+                  value={orderNumber}
+                  onChange={handleOrderChange}
                 />
               </div>
 
@@ -120,19 +159,28 @@ function Find() {
                   className="w-full p-1 outline-none"
                   placeholder="Enter name of the patient"
                   type="text"
+                  name="billNumber"
+                  value={billNumber}
+                  onChange={handleOrderChange}
                 />
               </div>
 
-              <div className="flex items-center justify-center w-full p-1 mt-5 rounded-full cursor-pointer md:mt-0 md:p-3 md:w-fit active:bg-blue-500 hover:bg-green-500 bg-shop_color">
+              <div
+                onClick={handleOrderSearch}
+                className="flex items-center justify-center w-full p-1 mt-5 rounded-full cursor-pointer md:mt-0 md:p-3 md:w-fit active:bg-blue-500 hover:bg-green-500 bg-shop_color"
+              >
                 <SearchIcon fontSize="large" className="text-white" />
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-3 m-5 md:grid-cols-3">
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
+            {orders &&
+              orders.map((order) => (
+                <>
+                  <OrderCard order={order} />
+                </>
+              ))}
             {patients &&
               patients.map((patient) => (
                 <>
