@@ -212,9 +212,11 @@ const findPatient = asyncHandler(async (req, res) => {
 
     const patient = await Patient.findById(req.params.id)
 
+    const orders = await Order.find({ patient: req.params.id })
 
 
-    res.status(200).json(patient)
+
+    res.status(200).json({ patient, orders })
 })
 
 module.exports = {

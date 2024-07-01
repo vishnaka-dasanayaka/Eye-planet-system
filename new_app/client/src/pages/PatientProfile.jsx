@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useAuthToken } from "../apis/useAuthToken";
 import { findPatient } from "../apis/patientAPIs";
 import Loading from "../components/spinners/Loading";
+import OrderLabel from "../components/popups/profile_popups/OrderLabel";
 
 function PatientProfile() {
   const formatDate = (dateString) => {
@@ -36,6 +37,7 @@ function PatientProfile() {
   };
   const token = useAuthToken();
   const [patient, setPatient] = useState();
+  const [orders, setOrders] = useState();
 
   const id = useParams().id;
   const [addOrderPopup, setAddOrderPopup] = useState(false);
@@ -43,7 +45,9 @@ function PatientProfile() {
   const fetchData = async () => {
     if (token) {
       const response = await findPatient(token, id);
-      setPatient(response.data);
+      console.log(response);
+      setPatient(response.data.patient);
+      setOrders(response.data.orders);
     }
   };
 
@@ -51,7 +55,7 @@ function PatientProfile() {
     fetchData();
   }, []);
 
-  if (!patient) return <Loading />;
+  if (!patient && !orders) return <Loading />;
 
   return (
     <div className="flex items-start justify-start h-full">
@@ -128,11 +132,12 @@ function PatientProfile() {
 
           <div className="grid grid-cols-1 gap-2 m-3 md:gap-5 md:grid-cols-3">
             {patient &&
-              patient.orders.map((order) => (
+              orders &&
+              orders.map((order) => (
                 <>
-                  <OrderCard patient={order} />
+                  <OrderLabel order={order} />
                 </>
-              ))}{" "}
+              ))}
           </div>
 
           <div className="flex flex-col items-start justify-start p-2 m-1 ">
