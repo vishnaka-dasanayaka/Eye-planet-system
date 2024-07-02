@@ -59,6 +59,19 @@ const updatePassword = async (token, data) => {
 
 }
 
+const changeProfilePic = async (token, data) => {
+    const config = getConfig(token);
+
+    try {
+        const response = await axios.post(`${url}/api/users/change-pic`, data, config);
+        toast.success("Profile picture changedsuccesfully")
+        return response
+    } catch (error) {
+        console.log(error);
+        toast.error("An error occurred. Please try again.");
+    }
+}
 
 
-export { getUsers, updateUser, getUser, updatePassword };
+
+export { getUsers, updateUser, getUser, updatePassword, changeProfilePic };

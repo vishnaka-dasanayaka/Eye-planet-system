@@ -51,8 +51,8 @@ const setPatient = asyncHandler(async (req, res) => {
         receivedDate: req.body.patientData.receivedDate,
         deliveredDate: req.body.patientData.deliveredDate,
         specialNote: req.body.patientData.specialNote,
-        frameImg: req.body.patientData.frameImg,
-        frameDesc: req.body.patientData.frameDesc
+        //frameImg: req.body.frameData.frameImg.base64,
+        frameDesc: req.body.frameData.frameDescription
     })
 
     const prescription = await Prescription.create({

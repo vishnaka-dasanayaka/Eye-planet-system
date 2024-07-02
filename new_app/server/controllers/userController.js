@@ -2,6 +2,8 @@ const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
+const fs = require("fs")
+const path = require('path')
 
 const registerUser = asyncHandler(async (req, res) => {
     const { firstName, lastName, contactNumber, address, email, password, role } = req.body
@@ -86,7 +88,7 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 const getMe = asyncHandler(async (req, res) => {
-    const { _id, role, firstName, lastName, contactNumber, address, email, status } = await User.findById(req.user.id);
+    const { _id, role, firstName, lastName, contactNumber, address, email, status, pic } = await User.findById(req.user.id);
     res.status(200).json({
         id: _id,
         role,
@@ -95,7 +97,8 @@ const getMe = asyncHandler(async (req, res) => {
         contactNumber,
         address,
         email,
-        status
+        status,
+        pic
     })
 })
 
@@ -220,6 +223,33 @@ const updateMyPassword = asyncHandler(async (req, res) => {
 
 })
 
+const changePic = asyncHandler(async (req, res) => {
+
+    const user = await User.findById(req.user.id);
+    const oldPic = user.pic
+
+    if (!user) {
+        res.status(403).json("User not found")
+    }
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.user.id, { pic: req.file.filename })
+
+        if (oldPic !== '') {
+            const oldPicPath = path.join(__dirname, '..', 'public', 'ProfilePictures', oldPic);
+            fs.unlink(oldPicPath, (err) => {
+                if (err) {
+                    console.error('Error deleting old profile picture:', err);
+                }
+            });
+        }
+        res.status(200).json(updatedUser)
+    } catch (error) {
+        res.status(500).json('Database error')
+        console.log(error);
+    }
+})
+
 module.exports = {
     registerUser,
     loginUser,
@@ -227,5 +257,6 @@ module.exports = {
     addUser,
     getAllUsers,
     updateUser,
-    updateMyPassword
+    updateMyPassword,
+    changePic
 }
