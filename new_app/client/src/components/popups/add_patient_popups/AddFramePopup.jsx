@@ -9,10 +9,9 @@ function AddFramePopup(props) {
 
   const [frameData, setFrameData] = useState({
     frameDescription: "",
-    frameImg: "",
   });
 
-  const { frameDescription, frameImg } = frameData;
+  const { frameDescription } = frameData;
 
   const handleChange = (e) => {
     setFrameData((prev) => ({
@@ -29,7 +28,7 @@ function AddFramePopup(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //frameData.frameImg = img;
+    frameData.frameImg = img;
     props.onAddFrame(frameData);
   };
 

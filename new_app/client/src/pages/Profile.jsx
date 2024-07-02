@@ -29,8 +29,6 @@ function Profile(props) {
     };
 
     fetchUser();
-
-    console.log(user);
   }, [token]);
 
   const onClickPasswordChange = async () => {
@@ -63,7 +61,11 @@ function Profile(props) {
             <div className="flex flex-col items-center justify-center w-full m-2 bg-white md:w-1/3">
               <div className="flex items-center justify-center w-40 h-40 mt-10 mb-5 border-2 rounded-full ">
                 <img
-                  src="../assets/imgs/user.jpg"
+                  src={
+                    user.data.pic === ""
+                      ? `../assets/imgs/dummyUser.png`
+                      : `http://localhost:3001/ProfilePictures/${user.data.pic}`
+                  }
                   className="object-cover w-full h-full rounded-full"
                   alt=""
                 />{" "}
@@ -273,6 +275,7 @@ function Profile(props) {
       <ChangePic
         addTrigger={addPicturePopup}
         setAddTrigger={setAddPicturePopup}
+        user={user.data}
       ></ChangePic>
     </div>
   );

@@ -280,68 +280,123 @@ function AddPatient(props) {
               lenses
             </label>
             <div className="grid w-2/3 grid-cols-2 md:grid-cols-3">
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="single_vision" />
+              <label htmlFor="single_vision" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="single_vision"
+                  type="checkbox"
+                  name="lense"
+                  value="single_vision"
+                />
                 <span className="ml-2 capitalize ">single vision</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="bi_focals" />
+              <label htmlFor="bi_focals" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="bi_focals"
+                  type="checkbox"
+                  name="lense"
+                  value="bi_focals"
+                />
                 <span className="ml-2 capitalize ">Bi focals</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="progressive" />
+              <label htmlFor="progressive" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="progressive"
+                  type="checkbox"
+                  name="lense"
+                  value="progressive"
+                />
                 <span className="ml-2 capitalize ">progressive</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="white" />
+              <label htmlFor="white" className="w-full p-1 px-4 mt-2 ">
+                <input id="white" type="checkbox" name="lense" value="white" />
                 <span className="ml-2 capitalize ">white</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="utmc" />
+              <label htmlFor="utmc" className="w-full p-1 px-4 mt-2 ">
+                <input id="utmc" type="checkbox" name="lense" value="utmc" />
                 <span className="ml-2 uppercase ">utmc</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="blue_cut" />
+              <label htmlFor="blue_cut" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="blue_cut"
+                  type="checkbox"
+                  name="lense"
+                  value="blue_cut"
+                />
                 <span className="ml-2 capitalize ">blue cut</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="photocrome" />
+              <label htmlFor="photocrome" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="photocrome"
+                  type="checkbox"
+                  name="lense"
+                  value="photocrome"
+                />
                 <span className="ml-2 capitalize ">photocrome</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="tinted" />
+              <label htmlFor="tinted" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="tinted"
+                  type="checkbox"
+                  name="lense"
+                  value="tinted"
+                />
                 <span className="ml-2 capitalize ">tinted</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="high_index" />
+              <label htmlFor="high_index" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="high_index"
+                  type="checkbox"
+                  name="lense"
+                  value="high_index"
+                />
                 <span className="ml-2 capitalize ">high index</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="contact_lense" />
+              <label htmlFor="contact_lense" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="contact_lense"
+                  type="checkbox"
+                  name="lense"
+                  value="contact_lense"
+                />
                 <span className="ml-2 capitalize ">contact lenses</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="hi_1_60" />
+              <label htmlFor="hi_1_60" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="hi_1_60"
+                  type="checkbox"
+                  name="lense"
+                  value="hi_1_60"
+                />
                 <span className="ml-2 uppercase ">Hi 1.60</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="hi_1_67" />
+              <label htmlFor="hi_1_67" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="hi_1_67"
+                  type="checkbox"
+                  name="lense"
+                  value="hi_1_67"
+                />
                 <span className="ml-2 uppercase ">Hi 1.67</span>
               </label>
 
-              <label htmlFor="" className="w-full p-1 px-4 mt-2 ">
-                <input type="checkbox" name="lense" value="hi_1_74" />
+              <label htmlFor="hi_1_74" className="w-full p-1 px-4 mt-2 ">
+                <input
+                  id="hi_1_74"
+                  type="checkbox"
+                  name="lense"
+                  value="hi_1_74"
+                />
                 <span className="ml-2 uppercase ">Hi 1.74</span>
               </label>
             </div>
