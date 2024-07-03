@@ -42,6 +42,7 @@ function AddPatient(props) {
       return;
     } else {
       try {
+        patientData.balance = price - advance;
         const form = new FormData();
         form.append("pres_img", presImg);
         form.append("frame_img", frameImg);
@@ -69,7 +70,6 @@ function AddPatient(props) {
     lenses: [],
     price: "",
     advance: "",
-    balance: "",
     status: "",
     sentDate: "",
     receivedDate: "",

@@ -89,12 +89,12 @@ function SingleOrder() {
 
             <div className="flex flex-col ">
               <h2 className="text-sm text-green-500 capitalize">advance</h2>
-              <h1 className="text-xl font-semibold">{order.orderNumber}</h1>
+              <h1 className="text-xl font-semibold">{order.advance}</h1>
             </div>
 
             <div className="flex flex-col ">
               <h2 className="text-sm text-red-500 capitalize">balance </h2>
-              <h1 className="text-xl font-semibold">{order.billNumber}</h1>
+              <h1 className="text-xl font-semibold">{order.balance}</h1>
             </div>
           </div>
         </div>
