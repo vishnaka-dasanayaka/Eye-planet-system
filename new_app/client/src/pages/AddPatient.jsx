@@ -16,8 +16,12 @@ function AddPatient(props) {
   const [frameData, setFrameData] = useState(null);
   const [frameImg, setFrameImg] = useState(null);
   const [presImg, setPresImg] = useState(null);
+  const [stts, setStts] = useState("");
 
   const handleChange = (e) => {
+    if (e.target.name === "status") {
+      setStts(e.target.value);
+    }
     setPatientData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -83,7 +87,6 @@ function AddPatient(props) {
     address,
     price,
     advance,
-    balance,
     sentDate,
     receivedDate,
     deliveredDate,
@@ -442,18 +445,21 @@ function AddPatient(props) {
                 balance
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 bg-purple-100 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
                 id="balance"
                 name="balance"
-                value={balance}
+                value={price - advance}
                 onChange={handleChange}
               />
             </div>
 
             <div className="flex flex-col items-start justify-start p-2 m-1 ">
-              <label className="font-semibold capitalize text-md" htmlFor="">
-                status
+              <label
+                className="font-semibold capitalize text-md"
+                htmlFor="status"
+              >
+                order status
               </label>
               <select
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
@@ -462,6 +468,7 @@ function AddPatient(props) {
                 onChange={handleChange}
               >
                 <option value="">Select the status</option>
+                <option value="order_accepted">Took the Order</option>
                 <option value="sent">Sent to the Workshop</option>
                 <option value="received">Received from the Workshop</option>
                 <option value="delivered">Deliverded to the Customer</option>
@@ -470,51 +477,125 @@ function AddPatient(props) {
 
             <div></div>
             <div></div>
-            <div className="flex flex-col items-start justify-start p-2 m-1 ">
-              <label className="font-semibold capitalize text-md" htmlFor="">
-                sent date
-              </label>
-              <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
-                type="date"
-                id="sentDate"
-                name="sentDate"
-                value={sentDate}
-                onChange={handleChange}
-              />
-            </div>
 
-            <div className="flex flex-col items-start justify-start p-2 m-1 ">
-              <label className="font-semibold capitalize text-md" htmlFor="">
-                received date
-              </label>
-              <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
-                type="date"
-                id="receivedDate"
-                name="receivedDate"
-                value={receivedDate}
-                onChange={handleChange}
-              />
-            </div>
+            {stts === "sent" ? (
+              <>
+                <div className="flex flex-col items-start justify-start p-2 m-1 ">
+                  <label
+                    className="font-semibold capitalize text-md"
+                    htmlFor=""
+                  >
+                    sent date
+                  </label>
+                  <input
+                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    type="date"
+                    id="sentDate"
+                    name="sentDate"
+                    value={sentDate}
+                    onChange={handleChange}
+                  />
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
 
-            <div className="flex flex-col items-start justify-start p-2 m-1">
-              <label
-                className="font-semibold text-gray-400 capitalize text-md"
-                htmlFor=""
-              >
-                Delivered date
-              </label>
-              <input
-                className="w-full p-1 px-4 mt-2 border-2 border-gray-400 rounded-md outline-none"
-                type="date"
-                disabled
-                id="deliveredDate"
-                name="deliveredDate"
-                value={deliveredDate}
-                onChange={handleChange}
-              />
-            </div>
+            {stts === "received" ? (
+              <>
+                <div className="flex flex-col items-start justify-start p-2 m-1 ">
+                  <label
+                    className="font-semibold capitalize text-md"
+                    htmlFor=""
+                  >
+                    sent date
+                  </label>
+                  <input
+                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    type="date"
+                    id="sentDate"
+                    name="sentDate"
+                    value={sentDate}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="flex flex-col items-start justify-start p-2 m-1 ">
+                  <label
+                    className="font-semibold capitalize text-md"
+                    htmlFor=""
+                  >
+                    received date
+                  </label>
+                  <input
+                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    type="date"
+                    id="receivedDate"
+                    name="receivedDate"
+                    value={receivedDate}
+                    onChange={handleChange}
+                  />
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+            {stts === "delivered" ? (
+              <>
+                <div className="flex flex-col items-start justify-start p-2 m-1 ">
+                  <label
+                    className="font-semibold capitalize text-md"
+                    htmlFor=""
+                  >
+                    sent date
+                  </label>
+                  <input
+                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    type="date"
+                    id="sentDate"
+                    name="sentDate"
+                    value={sentDate}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="flex flex-col items-start justify-start p-2 m-1 ">
+                  <label
+                    className="font-semibold capitalize text-md"
+                    htmlFor=""
+                  >
+                    received date
+                  </label>
+                  <input
+                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    type="date"
+                    id="receivedDate"
+                    name="receivedDate"
+                    value={receivedDate}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="flex flex-col items-start justify-start p-2 m-1">
+                  <label
+                    className="font-semibold capitalize text-md"
+                    htmlFor=""
+                  >
+                    Delivered date
+                  </label>
+                  <input
+                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    type="date"
+                    id="deliveredDate"
+                    name="deliveredDate"
+                    value={deliveredDate}
+                    onChange={handleChange}
+                  />
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className="flex flex-col items-start justify-start p-2 m-1 ">

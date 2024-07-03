@@ -42,4 +42,15 @@ const findOrders = async (token, data) => {
     }
 }
 
-export { getOrders, findOrders }
+const getOrder = async (token, id) => {
+    const config = getConfig(token)
+    try {
+        return await axios.get(`${url}/api/orders/get-single-order/${id}`, config)
+    } catch (error) {
+        console.log(error);
+        toast.error("An error occurred. Please try again.");
+
+    }
+}
+
+export { getOrders, findOrders, getOrder }
