@@ -6,6 +6,7 @@ import { useAuthToken } from "../apis/useAuthToken";
 import { getUser, updatePassword } from "../apis/userAPI";
 import Loading from "../components/spinners/Loading";
 import { toast } from "sonner";
+import { url } from "../config/config";
 
 function Profile(props) {
   const [addPicturePopup, setAddPicturePopup] = useState(false);
@@ -64,7 +65,7 @@ function Profile(props) {
                   src={
                     user.data.pic === ""
                       ? `../assets/imgs/dummyUser.png`
-                      : `http://localhost:3001/ProfilePictures/${user.data.pic}`
+                      : `${url}/ProfilePictures/${user.data.pic}`
                   }
                   className="object-cover w-full h-full rounded-full"
                   alt=""
