@@ -145,8 +145,7 @@ function PatientProfile() {
               history
             </label>
             <div className="mt-5 ml-5">
-              <p>Created by Vishnaka</p>
-              <p>A prescription is added by Vishnaka</p>
+              <p>{patient.history[0]}</p>
             </div>
           </div>
         </div>

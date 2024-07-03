@@ -71,4 +71,29 @@ const findOrders = asyncHandler(async (req, res) => {
     res.status(200).json(ordersWithPatientInfo)
 })
 
-module.exports = { getActiveOrders, findOrders }
+
+const getOrder = asyncHandler(async (req, res) => {
+
+    let user;
+
+    try {
+        user = await User.findById(req.user.id)
+    } catch (error) {
+        res.status(500).json('Server Error')
+    }
+
+    if (!user) {
+        res.status(400).json('User not found')
+    }
+
+    try {
+        const order = await Order.findById(req.params.id);
+
+        res.status(200).json(order)
+    } catch (error) {
+        res.status(500).json("sever Error")
+    }
+
+
+})
+module.exports = { getActiveOrders, findOrders, getOrder }

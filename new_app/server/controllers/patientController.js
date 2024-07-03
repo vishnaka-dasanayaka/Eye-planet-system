@@ -38,7 +38,8 @@ const setPatient = asyncHandler(async (req, res) => {
             contactNumber: patientData.contactNumber,
             dob: patientData.dob,
             address: patientData.address,
-            user: req.user.id
+            user: req.user.id,
+            history: [`Created by ${req.user.firstName}`]
         })
 
         const order = await Order.create({
