@@ -3,6 +3,7 @@ import { useState } from "react";
 import pica from "pica";
 import { changeProfilePic } from "../../../apis/userAPI";
 import { useAuthToken } from "../../../apis/useAuthToken";
+import { url } from "../../../config/config";
 
 function ChangePic(props) {
   console.log(props.pic);
@@ -76,7 +77,7 @@ function ChangePic(props) {
             src={
               pic
                 ? URL.createObjectURL(pic)
-                : `http://localhost:3001/ProfilePictures/${props.user.pic}`
+                : `${url}/ProfilePictures/${props.user.pic}`
             }
             className="object-cover w-full h-full rounded-full"
             alt=""

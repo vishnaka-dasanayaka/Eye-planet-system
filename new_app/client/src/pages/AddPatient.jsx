@@ -14,6 +14,8 @@ function AddPatient(props) {
   const [addFramePopup, setAddFramePopup] = useState(false);
   const [presData, setPresData] = useState(null);
   const [frameData, setFrameData] = useState(null);
+  const [frameImg, setFrameImg] = useState(null);
+  const [presImg, setPresImg] = useState(null);
 
   const handleChange = (e) => {
     setPatientData((prevState) => ({
@@ -36,13 +38,15 @@ function AddPatient(props) {
       return;
     } else {
       try {
-        const formData = {
-          patientData,
-          presData,
-          frameData,
-        };
-        console.log(formData);
-        await addPatient(token, formData);
+        const form = new FormData();
+        form.append("pres_img", presImg);
+        form.append("frame_img", frameImg);
+
+        form.append("patientData", JSON.stringify(patientData));
+        form.append("frameData", JSON.stringify(frameData));
+        form.append("presData", JSON.stringify(presData));
+
+        await addPatient(token, form);
       } catch (error) {
         toast.error("An error occurred. Please try again.");
       }
@@ -86,13 +90,15 @@ function AddPatient(props) {
     specialNote,
   } = patientData;
 
-  const handleAddPrescription = (formData) => {
+  const handleAddPrescription = (formData, img) => {
     setPresData(formData);
+    setPresImg(img);
     setAddPrescriptionPopup(false); // Close the popup
   };
 
-  const handleAddFrame = (formData) => {
+  const handleAddFrame = (formData, img) => {
     setFrameData(formData);
+    setFrameImg(img);
     setAddFramePopup(false); // Close the popup
   };
 

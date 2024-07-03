@@ -12,6 +12,7 @@ import SingleOrder from "./pages/SingleOrder";
 import { Toaster } from 'sonner'
 import PrivateRoute from './PrivateRoute'; // import the PrivateRoute component
 
+
 function App() {
 
 

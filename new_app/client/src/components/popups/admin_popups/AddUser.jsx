@@ -2,7 +2,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "sonner";
-import { url } from "../../../config";
+import { url } from "../../../config/config";
 
 function AddUser(props) {
   const onCloseclick = () => {

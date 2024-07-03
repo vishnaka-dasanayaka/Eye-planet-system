@@ -1,5 +1,5 @@
 import axios from "axios";
-import { url } from "../config";
+import { url } from "../config/config";
 import { toast } from 'sonner';
 
 

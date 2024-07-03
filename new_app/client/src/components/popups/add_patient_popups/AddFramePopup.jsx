@@ -1,5 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import pica from "pica";
 
 function AddFramePopup(props) {
   const [img, setImg] = useState("");
@@ -22,14 +23,46 @@ function AddFramePopup(props) {
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setImg({ ...img, base64 });
+    resizeImage(file, 500, setImg);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    frameData.frameImg = img;
-    props.onAddFrame(frameData);
+
+    props.onAddFrame(frameData, img);
+  };
+
+  const resizeImage = (file, maxSizeKB, callback) => {
+    const img = document.createElement("img");
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const { width, height } = img;
+        const scale = Math.sqrt((maxSizeKB * 1024) / (width * height));
+        canvas.width = width * scale;
+        canvas.height = height * scale;
+
+        pica()
+          .resize(img, canvas, {
+            quality: 3,
+          })
+          .then((result) => {
+            return pica().toBlob(result, "image/jpeg", 0.7); // Adjust the quality to meet size requirement
+          })
+          .then((blob) => {
+            const resizedFile = new File([blob], file.name, {
+              type: blob.type,
+            });
+            callback(resizedFile);
+          });
+      };
+    };
+
+    reader.readAsDataURL(file);
   };
 
   return props.addTrigger ? (
