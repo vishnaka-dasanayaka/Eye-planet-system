@@ -5,10 +5,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
 import { toast } from "sonner";
+import { url } from "../config/config";
+import { getUser } from "../apis/userAPI";
+import { useAuthToken } from "../apis/useAuthToken";
+import Loading from "../components/spinners/Loading";
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [me, setMe] = useState();
+  const token = useAuthToken();
+
+  const fetchPic = async () => {
+    const response = await getUser(token);
+    setMe(response.data);
+  };
+
+  useEffect(() => {
+    fetchPic();
+  }, []);
 
   const { user } = useSelector((state) => state.auth);
   const [menu, setMenu] = useState(false);
@@ -44,6 +59,7 @@ function Header() {
     };
   }, []);
 
+  if (!me) return <Loading />;
   return (
     <div className="">
       <div className="fixed flex items-center justify-between w-full px-5 pt-10 pb-5 bg-white md:relative md:bg-transparent lg:justify-end">
@@ -57,10 +73,17 @@ function Header() {
         </Link>
 
         {user ? (
-          <FaceIcon
+          // <FaceIcon
+          //   onClick={onHandleClick}
+          //   className="cursor-pointer hover:scale-110"
+          //   fontSize="large"
+          //   ref={iconRef}
+          // />
+          <img
+            className="w-10 h-10 cursor-pointer hover:scale-110 border-black border-[1px] p-[1px] rounded-full"
+            src={`${url}/ProfilePictures/${me.pic}`}
+            alt="profile picture"
             onClick={onHandleClick}
-            className="cursor-pointer hover:scale-110"
-            fontSize="large"
             ref={iconRef}
           />
         ) : (
@@ -75,9 +98,16 @@ function Header() {
       {menu && (
         <div
           ref={menuRef}
-          className="fixed w-40 p-1 bg-white rounded-md right-6 top-20"
+          className="fixed w-40 p-1 bg-white rounded-md right-6 top-24"
         >
-          <h2 className="p-1 capitalize">sachin vishnaka</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="p-1 capitalize">{user.firstName}</h2>
+            {user.role === "admin" ? (
+              <h6 className="text-xs text-green-500 capitalize">{user.role}</h6>
+            ) : (
+              <h6 className="text-xs text-blue-500 capitalize">{user.role}</h6>
+            )}
+          </div>
           <Link to={"/me"}>
             <h2 className="p-1 text-gray-500 border-b-2 cursor-pointer hover:bg-gray-200">
               Profile

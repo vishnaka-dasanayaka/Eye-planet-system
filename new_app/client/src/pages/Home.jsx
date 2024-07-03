@@ -7,6 +7,7 @@ import Loading from "../components/spinners/Loading";
 import { getPatients } from "../apis/patientAPIs";
 import { getBranches } from "../apis/branchAPIs";
 import { getOrders } from "../apis/orderAPIs";
+import { useSelector } from "react-redux";
 
 function Home() {
   const [users, setUsers] = useState([]);
@@ -17,6 +18,8 @@ function Home() {
   const [branches, setBranches] = useState([]);
   const [orders, setOrders] = useState([]);
   const token = useAuthToken();
+
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -50,7 +53,7 @@ function Home() {
       }
     };
 
-    fetchUsers();
+    if (user.role === "admin") fetchUsers();
     fetchPatients();
     fetchBranches();
     fetchOrders();
@@ -98,15 +101,17 @@ function Home() {
                 <span className="text-3xl"> / {branches.length}</span>
               </h1>
             </div>
-            <div className="h-44 w-full bg-[#63C7FF] flex flex-col justify-center items-start pl-5 rounded-lg ">
-              <h1 className="text-2xl font-extrabold capitalize">
-                user accounts
-              </h1>
-              <h1 className="mt-3 text-6xl font-extrabold">
-                {userCount}
-                <span className="text-3xl"> / {users.length}</span>
-              </h1>
-            </div>
+            {user.role === "admin" && (
+              <div className="h-44 w-full bg-[#63C7FF] flex flex-col justify-center items-start pl-5 rounded-lg ">
+                <h1 className="text-2xl font-extrabold capitalize">
+                  user accounts
+                </h1>
+                <h1 className="mt-3 text-6xl font-extrabold">
+                  {userCount}
+                  <span className="text-3xl"> / {users.length}</span>
+                </h1>
+              </div>
+            )}
             <div className="h-44 w-full bg-[#A66DD4] flex flex-col justify-center items-start pl-5 rounded-lg ">
               <h1 className="text-2xl font-extrabold capitalize">
                 total patient count

@@ -173,7 +173,6 @@ function AddPrescription(props) {
         <h1 className="mt-10 mb-5 text-2xl font-extrabold text-[#B522B5] ">
           Add a Prescription
         </h1>
-
         <div className="flex flex-col w-full p-5 mt-5 bg-gray-100 rounded-lg md:mt-0">
           <div className="grid items-center justify-center grid-cols-1">
             <div></div>
@@ -679,14 +678,33 @@ function AddPrescription(props) {
                 label="Image"
                 onChange={onFileChange}
                 id="presImg"
-                accept=".jpeg, .png, .jpg"
               />
             </div>
           </div>
+
+          {img && (
+            <div className="flex justify-center w-full">
+              <img
+                src={URL.createObjectURL(img)}
+                className="w-2/3 h-fit"
+                alt=""
+              />
+            </div>
+          )}
         </div>
 
-        <button onClick={onSubmitClick} className="mt-5 text-lg capitalize btn">
+        <button
+          onClick={onSubmitClick}
+          className="w-full mt-5 text-lg capitalize btn"
+        >
           add
+        </button>
+
+        <button
+          onClick={onCloseclick}
+          className="w-full mt-5 text-lg capitalize btn_delete"
+        >
+          cancel
         </button>
       </div>
     </div>

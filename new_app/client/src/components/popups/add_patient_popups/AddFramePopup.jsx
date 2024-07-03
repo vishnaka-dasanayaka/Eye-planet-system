@@ -91,8 +91,28 @@ function AddFramePopup(props) {
           className="w-5/6 py-2 pl-2 mb-5 "
         />
 
-        <button onClick={handleSubmit} className="text-lg capitalize btn">
+        {img && (
+          <div className="flex justify-center w-full mb-10">
+            <img
+              src={URL.createObjectURL(img)}
+              className="w-2/3 h-fit"
+              alt=""
+            />
+          </div>
+        )}
+
+        <button
+          onClick={handleSubmit}
+          className="w-full text-lg capitalize btn"
+        >
           submit
+        </button>
+
+        <button
+          onClick={onCloseclick}
+          className="w-full mt-5 text-lg capitalize btn_delete"
+        >
+          cancel
         </button>
       </div>
     </div>

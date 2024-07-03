@@ -16,14 +16,6 @@ const setPatient = asyncHandler(async (req, res) => {
     const presData = JSON.parse(req.body.presData);
     const frameData = JSON.parse(req.body.frameData);
 
-    console.log(patientData);
-    console.log(presData);
-    console.log(frameData);
-
-    console.log(req.files);
-
-
-
 
     if (!patientData.fullName || !patientData.contactNumber || !patientData.dob || !patientData.address) {
         res.status(400);
@@ -40,83 +32,87 @@ const setPatient = asyncHandler(async (req, res) => {
         throw new Error('Please add prescription data')
     }
 
-    const patient = await Patient.create({
-        name: patientData.fullName,
-        contactNumber: patientData.contactNumber,
-        dob: patientData.dob,
-        address: patientData.address,
-        user: req.user.id
-    })
+    try {
+        const patient = await Patient.create({
+            name: patientData.fullName,
+            contactNumber: patientData.contactNumber,
+            dob: patientData.dob,
+            address: patientData.address,
+            user: req.user.id
+        })
 
-    const order = await Order.create({
-        patient: patient._id,
-        date: patientData.date,
-        branch: patientData.branch,
-        orderNumber: patientData.orderNumber,
-        billNumber: patientData.billNumber,
-        lenses: patientData.lenses,
-        price: patientData.price,
-        advance: patientData.advance,
-        balance: patientData.balance,
-        status: patientData.status,
-        sentDate: patientData.sentDate,
-        receivedDate: patientData.receivedDate,
-        deliveredDate: patientData.deliveredDate,
-        specialNote: patientData.specialNote,
-        frameImg: req.files.frame_img[0].filename,
-        frameDesc: frameData.frameDescription
-    })
+        const order = await Order.create({
+            patient: patient._id,
+            date: patientData.date,
+            branch: patientData.branch,
+            orderNumber: patientData.orderNumber,
+            billNumber: patientData.billNumber,
+            lenses: patientData.lenses,
+            price: patientData.price,
+            advance: patientData.advance,
+            balance: patientData.balance,
+            status: patientData.status,
+            sentDate: patientData.sentDate,
+            receivedDate: patientData.receivedDate,
+            deliveredDate: patientData.deliveredDate,
+            specialNote: patientData.specialNote,
+            frameImg: req.files.frame_img[0].filename,
+            frameDesc: frameData.frameDescription
+        })
 
-    const prescription = await Prescription.create({
-        patient: patient._id,
-        order: order._id,
-        VAR: presData.VAR,
-        VAL: presData.VAL,
-        VARPH: presData.VARPH,
-        VALPH: presData.VALPH,
-        retiR: presData.retiR,
-        retiL: presData.retiL,
-        hbrxDate: presData.hbrxDate,
-        hbrxRSPH: presData.hbrxRSPH,
-        hbrxRCYL: presData.hbrxRCYL,
-        hbrxRAXIS: presData.hbrxRAXIS,
-        hbrxLSPH: presData.hbrxLSPH,
-        hbrxLCYL: presData.hbrxLCYL,
-        hbrxLAXIS: presData.hbrxLAXIS,
-        hbrxRSummary: presData.hbrxRSummary,
-        hbrxLSummary: presData.hbrxLSummary,
-        RSPH: presData.RSPH,
-        RCYL: presData.RCYL,
-        RAXIS: presData.RAXIS,
-        LSPH: presData.LSPH,
-        LCYL: presData.LCYL,
-        LAXIS: presData.LAXIS,
-        rSummary: presData.rSummary,
-        lSummary: presData.lSummary,
-        presNote: presData.presNote,
-        rvDate: presData.rvDate,
-        signedBy: presData.signedBy,
-        presImg: req.files.pres_img[0].filename
-    })
+        const prescription = await Prescription.create({
+            patient: patient._id,
+            order: order._id,
+            VAR: presData.VAR,
+            VAL: presData.VAL,
+            VARPH: presData.VARPH,
+            VALPH: presData.VALPH,
+            retiR: presData.retiR,
+            retiL: presData.retiL,
+            hbrxDate: presData.hbrxDate,
+            hbrxRSPH: presData.hbrxRSPH,
+            hbrxRCYL: presData.hbrxRCYL,
+            hbrxRAXIS: presData.hbrxRAXIS,
+            hbrxLSPH: presData.hbrxLSPH,
+            hbrxLCYL: presData.hbrxLCYL,
+            hbrxLAXIS: presData.hbrxLAXIS,
+            hbrxRSummary: presData.hbrxRSummary,
+            hbrxLSummary: presData.hbrxLSummary,
+            RSPH: presData.RSPH,
+            RCYL: presData.RCYL,
+            RAXIS: presData.RAXIS,
+            LSPH: presData.LSPH,
+            LCYL: presData.LCYL,
+            LAXIS: presData.LAXIS,
+            rSummary: presData.rSummary,
+            lSummary: presData.lSummary,
+            presNote: presData.presNote,
+            rvDate: presData.rvDate,
+            signedBy: presData.signedBy,
+            presImg: req.files.pres_img[0].filename
+        })
 
-    const updatedPatient = await Patient.findByIdAndUpdate(
-        patient._id,
-        { $push: { orders: order._id } },
-        { new: true } // This option returns the modified document rather than the original
-    );
+        const updatedPatient = await Patient.findByIdAndUpdate(
+            patient._id,
+            { $push: { orders: order._id } },
+            { new: true } // This option returns the modified document rather than the original
+        );
 
-    const updatedOrder = await Order.findByIdAndUpdate(
-        order._id,
-        { $push: { prescriptions: prescription._id } },
-        { new: true } // This option returns the modified document rather than the original
-    );
+        const updatedOrder = await Order.findByIdAndUpdate(
+            order._id,
+            { $push: { prescriptions: prescription._id } },
+            { new: true } // This option returns the modified document rather than the original
+        );
 
 
-    res.status(200).json({
-        patient: updatedPatient,
-        order: updatedOrder,
-        prescription: prescription
-    })
+        res.status(200).json({
+            patient: updatedPatient,
+            order: updatedOrder,
+            prescription: prescription
+        })
+    } catch (error) {
+        res.status(500).json('server error')
+    }
 })
 
 const updatePatient = asyncHandler(async (req, res) => {
