@@ -32,6 +32,9 @@ const patientSchema = mongoose.Schema(
         status: {
             type: String,
             default: 'active'
+        },
+        history: {
+            type: [String]
         }
     },
     {
