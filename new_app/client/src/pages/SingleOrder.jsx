@@ -6,6 +6,9 @@ import { useAuthToken } from "../apis/useAuthToken";
 import { useParams } from "react-router-dom";
 import Loading from "../components/spinners/Loading";
 import { getOrder } from "../apis/orderAPIs";
+import { getPrescriptions } from "../apis/prescriptionAPIs";
+import { url } from "../config/config";
+import Pres from "../components/popups/single_order_popups/Pres";
 
 function SingleOrder() {
   const token = useAuthToken();
@@ -16,6 +19,9 @@ function SingleOrder() {
 
   const [patient, setPatient] = useState("");
   const [order, setOrder] = useState("");
+  const [presIds, setPresIds] = useState([]);
+  const [prescriptions, setPrescriptions] = useState("");
+  const [canShow, setCanShow] = useState(false);
 
   const fetchPatient = async () => {
     if (token) {
@@ -28,7 +34,25 @@ function SingleOrder() {
     if (token) {
       const response = await getOrder(token, oId);
       setOrder(response.data);
+      setPresIds(response.data.prescriptions);
     }
+  };
+
+  const fetchPrescriptions = async () => {
+    console.log(presIds);
+    if (token) {
+      const response = await getPrescriptions(token, [presIds]);
+      setPrescriptions(response.data);
+    }
+  };
+
+  const onPresClick = () => {
+    setCanShow(true);
+    fetchPrescriptions();
+  };
+
+  const onHideClick = () => {
+    setCanShow(false);
   };
 
   useEffect(() => {
@@ -61,7 +85,7 @@ function SingleOrder() {
               <h2 className="text-xs text-purple-500 capitalize">
                 ordered date
               </h2>
-              <h1 className="text-xl font-semibold">
+              <h1 className="text-lg font-semibold sm:text-xl">
                 {formatDate(order.date)}
               </h1>
             </div>
@@ -81,6 +105,70 @@ function SingleOrder() {
             </div>
           </div>
 
+          <div className="flex w-full mt-10">
+            <div className="flex flex-col ">
+              <h2 className="text-xs text-purple-500 capitalize">lenses </h2>
+              <div className="flex items-center justify-start">
+                {order.lenses &&
+                  order.lenses.map((lense) => (
+                    <>
+                      <h1 className="mr-3 text-lg font-semibold capitalize sm:text-xl">
+                        {lense}
+                      </h1>
+                    </>
+                  ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 mt-10 md:grid-cols-2">
+            <div className="flex flex-col items-start justify-start">
+              <h2 className="text-sm text-purple-500 capitalize">frame </h2>
+              <img
+                src={`${url}/Frames/${order.frameImg}`}
+                className="w-full mt-2 md:pr-5 h-fit"
+                alt=""
+              />
+            </div>
+            <div className="mt-5 md:mt-5">
+              <p className="font-semibold">
+                {order.frameDesc} Lorem ipsum dolor sit amet, consectetur
+                adipisicing elit. Facere expedita rerum possimus dolorum
+                accusantium, suscipit molestias provident ad deleniti eveniet
+                dolores optio nihil fuga numquam incidunt officia adipisci vel!
+                Modi.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10">
+            {canShow ? (
+              <button
+                onClick={onHideClick}
+                className="w-full capitalize btn md:w-fit"
+              >
+                hide prescriptions
+              </button>
+            ) : (
+              <button
+                onClick={onPresClick}
+                className="w-full capitalize btn md:w-fit"
+              >
+                show prescriptions
+              </button>
+            )}
+          </div>
+
+          {prescriptions &&
+            canShow &&
+            prescriptions.map((prescription) => (
+              <>
+                <div className="mt-10">
+                  <Pres pres={prescription} />
+                </div>
+              </>
+            ))}
+
           <div className="grid grid-cols-3 mt-10">
             <div className="flex flex-col ">
               <h2 className="text-sm text-purple-500 capitalize">price </h2>
@@ -95,6 +183,66 @@ function SingleOrder() {
             <div className="flex flex-col ">
               <h2 className="text-sm text-red-500 capitalize">balance </h2>
               <h1 className="text-xl font-semibold">{order.balance}</h1>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 mt-10">
+            <div className="flex flex-col ">
+              <h2 className="text-sm text-purple-500 capitalize">
+                order status{" "}
+              </h2>
+              <h1 className="text-xl font-semibold">{order.status}</h1>
+            </div>
+
+            <div></div>
+            <div></div>
+          </div>
+
+          {order.status !== "order_accepted" ? (
+            <div className="grid grid-cols-3 mt-10">
+              {order.sentDate && (
+                <div className="flex flex-col ">
+                  <h2 className="text-sm text-purple-500 capitalize">
+                    sent date
+                  </h2>
+                  <h1 className="text-lg font-semibold sm:text-xl">
+                    {formatDate(order.sentDate)}
+                  </h1>
+                </div>
+              )}
+
+              {order.receivedDate && (
+                <div className="flex flex-col ">
+                  <h2 className="text-sm text-purple-500 capitalize">
+                    sent date
+                  </h2>
+                  <h1 className="text-lg font-semibold sm:text-xl">
+                    {formatDate(order.receivedDate)}
+                  </h1>
+                </div>
+              )}
+
+              {order.deliveredDate && (
+                <div className="flex flex-col ">
+                  <h2 className="text-sm text-purple-500 capitalize">
+                    sent date
+                  </h2>
+                  <h1 className="text-lg font-semibold sm:text-xl">
+                    {formatDate(order.deliveredDate)}
+                  </h1>
+                </div>
+              )}
+            </div>
+          ) : (
+            <></>
+          )}
+
+          <div className="grid grid-cols-3 mt-10">
+            <div className="flex flex-col ">
+              <h2 className="text-xs text-purple-500 capitalize">
+                special notes
+              </h2>
+              <h1 className="text-xl font-semibold">{order.specialNote}</h1>
             </div>
           </div>
         </div>

@@ -288,13 +288,13 @@ function AddPatient(props) {
             <label className="font-semibold capitalize text-md" htmlFor="">
               lenses
             </label>
-            <div className="grid w-2/3 grid-cols-2 md:grid-cols-3">
+            <div className="grid w-full grid-cols-2 md:w-2/3 md:grid-cols-3">
               <label htmlFor="single_vision" className="w-full p-1 px-4 mt-2 ">
                 <input
                   id="single_vision"
                   type="checkbox"
                   name="lense"
-                  value="single_vision"
+                  value="single vision"
                 />
                 <span className="ml-2 capitalize ">single vision</span>
               </label>
@@ -304,7 +304,7 @@ function AddPatient(props) {
                   id="bi_focals"
                   type="checkbox"
                   name="lense"
-                  value="bi_focals"
+                  value="bi focals"
                 />
                 <span className="ml-2 capitalize ">Bi focals</span>
               </label>
@@ -325,7 +325,7 @@ function AddPatient(props) {
               </label>
 
               <label htmlFor="utmc" className="w-full p-1 px-4 mt-2 ">
-                <input id="utmc" type="checkbox" name="lense" value="utmc" />
+                <input id="utmc" type="checkbox" name="lense" value="UTMC" />
                 <span className="ml-2 uppercase ">utmc</span>
               </label>
 
@@ -334,7 +334,7 @@ function AddPatient(props) {
                   id="blue_cut"
                   type="checkbox"
                   name="lense"
-                  value="blue_cut"
+                  value="blue cut"
                 />
                 <span className="ml-2 capitalize ">blue cut</span>
               </label>
@@ -364,7 +364,7 @@ function AddPatient(props) {
                   id="high_index"
                   type="checkbox"
                   name="lense"
-                  value="high_index"
+                  value="high index"
                 />
                 <span className="ml-2 capitalize ">high index</span>
               </label>
@@ -374,7 +374,7 @@ function AddPatient(props) {
                   id="contact_lense"
                   type="checkbox"
                   name="lense"
-                  value="contact_lense"
+                  value="contact lense"
                 />
                 <span className="ml-2 capitalize ">contact lenses</span>
               </label>
@@ -384,7 +384,7 @@ function AddPatient(props) {
                   id="hi_1_60"
                   type="checkbox"
                   name="lense"
-                  value="hi_1_60"
+                  value="hi 1.60"
                 />
                 <span className="ml-2 uppercase ">Hi 1.60</span>
               </label>
@@ -394,7 +394,7 @@ function AddPatient(props) {
                   id="hi_1_67"
                   type="checkbox"
                   name="lense"
-                  value="hi_1_67"
+                  value="hi 1.67"
                 />
                 <span className="ml-2 uppercase ">Hi 1.67</span>
               </label>
@@ -404,7 +404,7 @@ function AddPatient(props) {
                   id="hi_1_74"
                   type="checkbox"
                   name="lense"
-                  value="hi_1_74"
+                  value="hi 1.74"
                 />
                 <span className="ml-2 uppercase ">Hi 1.74</span>
               </label>
