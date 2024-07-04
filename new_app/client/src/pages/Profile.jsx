@@ -65,7 +65,7 @@ function Profile(props) {
                   src={
                     user.data.pic === ""
                       ? `../assets/imgs/dummyUser.png`
-                      : `${url}/ProfilePictures/${user.data.pic}`
+                      : `${user.data.pic}`
                   }
                   className="object-cover w-full h-full rounded-full"
                   alt=""
