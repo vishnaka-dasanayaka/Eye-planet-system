@@ -28,7 +28,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Menu button for small screens */}
-      <div className="fixed z-10 top-10 left-5 lg:hidden">
+      <div className="fixed z-10 bg-white top-10 left-5 lg:hidden">
         {!sideMenu && (
           <MenuIcon
             onClick={onHandleClick}

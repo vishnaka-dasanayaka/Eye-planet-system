@@ -3,6 +3,19 @@ import { url } from "../../../config/config";
 
 function Pres({ pres }) {
   console.log(pres);
+  const splitValues = (value) => {
+    if (!value) return ["", "", ""];
+    const values = value.split("-");
+    return [values[0] || "", values[1] || "", values[2] || ""];
+  };
+
+  const [retiR1, retiR2, retiR3] = splitValues(pres.retiR);
+  const [retiL1, retiL2, retiL3] = splitValues(pres.retiL);
+  const [VAR1, VAR2] = splitValues(pres.VAR);
+  const [VAL1, VAL2] = splitValues(pres.VAL);
+  const [VALPH1, VALPH2] = splitValues(pres.VALPH);
+  const [VARPH1, VARPH2] = splitValues(pres.VARPH);
+
   return (
     <div className="grid grid-cols-1 p-2 md:grid-cols-2">
       <div className="flex flex-col w-full p-5 mt-5 bg-gray-300 rounded-lg md:mt-0">
@@ -23,7 +36,7 @@ function Pres({ pres }) {
                 className="w-10 p-1 m-2 rounded-lg border-1"
                 type="text"
                 name="VAR1"
-                //value={VAR1}
+                value={VAR1}
                 autoComplete="off"
                 id="VAR1"
               />
@@ -34,7 +47,7 @@ function Pres({ pres }) {
                 className="w-16 p-1 m-2 rounded-lg border-1"
                 type="text"
                 name="VAR2"
-                //value={VAR2}
+                value={VAR2}
                 autoComplete="off"
                 id="VAR2"
               />
@@ -48,7 +61,7 @@ function Pres({ pres }) {
                 className="w-10 p-1 m-2 rounded-lg border-1"
                 type="text"
                 name="VAL1"
-                //value={VAL1}
+                value={VAL1}
                 autoComplete="off"
                 id="VAL1"
               />
@@ -59,7 +72,7 @@ function Pres({ pres }) {
                 className="w-16 p-1 m-2 rounded-lg border-1"
                 type="text"
                 name="VAL2"
-                //value={VAL2}
+                value={VAL2}
                 autoComplete="off"
                 id="VAL2"
               />
@@ -75,7 +88,7 @@ function Pres({ pres }) {
                 className="w-10 p-1 m-2 rounded-lg border-1"
                 type="text"
                 name="VARPH1"
-                //value={VARPH1}
+                value={VARPH1}
                 autoComplete="off"
                 id="VARPH1"
               />
@@ -88,7 +101,7 @@ function Pres({ pres }) {
                 className="w-16 p-1 m-2 rounded-lg border-1"
                 type="text"
                 name="VARPH2"
-                //value={VARPH2}
+                value={VARPH2}
                 autoComplete="off"
                 id="VARPH2"
               />
@@ -102,7 +115,7 @@ function Pres({ pres }) {
                 className="w-10 p-1 m-2 rounded-lg border-1"
                 type="text"
                 name="VALPH1"
-                //value={VALPH1}
+                value={VALPH1}
                 autoComplete="off"
                 id="VALPH1"
               />
@@ -115,7 +128,7 @@ function Pres({ pres }) {
                 className="w-16 p-1 m-2 rounded-lg border-1"
                 type="text"
                 name="VALPH2"
-                //value={VALPH2}
+                value={VALPH2}
                 autoComplete="off"
                 id="VALPH2"
               />
@@ -138,7 +151,7 @@ function Pres({ pres }) {
                   className="w-10 p-1 rounded-l-lg border-1"
                   type="text"
                   name="retiR1"
-                  //value={retiR1}
+                  value={retiR1}
                   autoComplete="off"
                   id="retiR1"
                 />
@@ -149,7 +162,7 @@ function Pres({ pres }) {
                   className="w-10 p-1 rounded-lg border-1"
                   type="text"
                   name="retiR2"
-                  //value={retiR2}
+                  value={retiR2}
                   autoComplete="off"
                   id="retiR2"
                 />
@@ -160,7 +173,7 @@ function Pres({ pres }) {
                   className="w-10 p-1 rounded-r-lg border-1"
                   type="text"
                   name="retiR3"
-                  //value={retiR3}
+                  value={retiR3}
                   autoComplete="off"
                   id="retiR3"
                 />
@@ -176,7 +189,7 @@ function Pres({ pres }) {
                   className="w-10 p-1 rounded-lg border-1"
                   type="text"
                   name="retiL1"
-                  //value={retiL1}
+                  value={retiL1}
                   autoComplete="off"
                   id="retiL1"
                 />
@@ -187,7 +200,7 @@ function Pres({ pres }) {
                   className="w-10 p-1 rounded-lg border-1"
                   type="text"
                   name="retiL2"
-                  //value={retiL2}
+                  value={retiL2}
                   autoComplete="off"
                   id="retiL2"
                 />
@@ -198,7 +211,7 @@ function Pres({ pres }) {
                   className="w-10 p-1 rounded-lg border-1"
                   type="text"
                   name="retiL3"
-                  //value={retiL3}
+                  value={retiL3}
                   autoComplete="off"
                   id="retiL3"
                 />
