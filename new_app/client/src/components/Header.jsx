@@ -81,7 +81,7 @@ function Header() {
           // />
           <img
             className="w-10 h-10 cursor-pointer hover:scale-110 border-black border-[1px] p-[1px] rounded-full"
-            src={`${url}/ProfilePictures/${me.pic}`}
+            src={me.pic}
             alt="profile picture"
             onClick={onHandleClick}
             ref={iconRef}

@@ -74,11 +74,7 @@ function ChangePic(props) {
 
         <div className="w-80 h-80">
           <img
-            src={
-              pic
-                ? URL.createObjectURL(pic)
-                : `${url}/ProfilePictures/${props.user.pic}`
-            }
+            src={pic ? URL.createObjectURL(pic) : `${props.user.pic}`}
             className="object-cover w-full h-full rounded-full"
             alt=""
           />

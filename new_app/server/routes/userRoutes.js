@@ -5,12 +5,22 @@ const { protect } = require('../middleware/authMiddleware')
 const multer = require("multer")
 const path = require("path")
 
+function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/ProfilePictures')
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + "_" + req.user.firstName + path.extname(file.originalname))
+
+        cb(null, generateRandomString(10) + path.extname(file.originalname))
     }
 })
 
