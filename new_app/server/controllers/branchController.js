@@ -10,15 +10,20 @@ const setBranch = asyncHandler(async (req, res) => {
             throw new Error('User not found')
         }
 
+        const branchData = JSON.parse(req.body.branchData);
+
+        console.log(branchData);
+
+
         const branch = await Branch.create({
             user: user._id,
-            branchName: req.body.branchName,
-            branchCoordinator: req.body.branchCoordinator,
-            address: req.body.address,
-            email: req.body.email,
-            contactNumber: req.body.contactNumber,
-            contactNumber2: req.body.contactNumber2,
-            branchImg: req.body.branchImg.base64,
+            branchName: branchData.branchName,
+            branchCoordinator: branchData.branchCoordinator,
+            address: branchData.address,
+            email: branchData.email,
+            contactNumber: branchData.contactNumber,
+            contactNumber2: branchData.contactNumber2,
+            branchImg: req.file.filename,
         })
 
         if (branch) {

@@ -10,6 +10,7 @@ import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
 import { getBranches } from "../apis/branchAPIs";
 import { useAuthToken } from "../apis/useAuthToken";
 import Loading from "../components/spinners/Loading";
+import { url } from "../config/config";
 
 function Contacts() {
   const [branches, setBranches] = useState([]);
@@ -79,10 +80,10 @@ function Contacts() {
               <>
                 {branch.status !== "disabled" && (
                   <div className="rounded-2xl w-[360px] bg-[#395066] text-white h-fit">
-                    <div className="bg-red-300 h-60 rounded-t-2xl">
+                    <div className="bg-white h-60 rounded-t-2xl">
                       <img
                         className="object-cover w-full h-full rounded-t-2xl"
-                        src={branch.branchImg}
+                        src={`${url}/Branches/${branch.branchImg}`}
                       ></img>
                     </div>
                     <div className="p-5">
