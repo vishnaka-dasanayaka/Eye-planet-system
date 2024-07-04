@@ -159,7 +159,9 @@ function Admin(props) {
               user control
             </h1>
             <button
-              onClick={() => setAddUserPopup(true)}
+              onClick={() => {
+                setAddUserPopup(true);
+              }}
               className="flex items-center justify-center capitalize btn_green"
             >
               <AddIcon className="mr-1" />
@@ -417,8 +419,19 @@ function Admin(props) {
           </div>
         </div>
       </div>
-      {addUserPopup && <AddUser onClose={() => setAddUserPopup(false)} />}
-      {addBranchPopup && <AddBranch onClose={() => setAddBranchPopup(false)} />}
+
+      <AddBranch
+        addTrigger={addBranchPopup}
+        setAddTrigger={setAddBranchPopup}
+      ></AddBranch>
+
+      <AddUser
+        addTrigger={addUserPopup}
+        setAddTrigger={setAddUserPopup}
+      ></AddUser>
+
+      {/* {addUserPopup && <AddUser onClose={() => setAddUserPopup(false)} />}
+      {addBranchPopup && <AddBranch onClose={() => setAddBranchPopup(false)} />} */}
     </div>
   );
 }
