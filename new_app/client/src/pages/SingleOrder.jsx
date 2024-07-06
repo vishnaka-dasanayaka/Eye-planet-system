@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { findPatient } from "../apis/patientAPIs";
 import { useAuthToken } from "../apis/useAuthToken";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../components/spinners/Loading";
 import { getOrder } from "../apis/orderAPIs";
 import { getPrescriptions } from "../apis/prescriptionAPIs";
@@ -76,9 +76,11 @@ function SingleOrder() {
       <div className="lg:ml-[288px] w-full">
         <Header />
         <div className="flex flex-col m-5 mt-28 md:mt-8">
-          <h1 className="text-2xl font-semibold tracking-wide capitalize">
-            {patient.name}
-          </h1>
+          <Link to={`../patient/${pId}`}>
+            <h1 className="text-2xl font-semibold tracking-wide capitalize">
+              {patient.name}
+            </h1>
+          </Link>
 
           <div className="grid grid-cols-3 mt-10">
             <div className="flex flex-col ">
