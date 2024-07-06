@@ -106,6 +106,9 @@ function AddOrder() {
   };
 
   const handleChange = (e) => {
+    if (e.target.name === "status") {
+      setStts(e.target.value);
+    }
     setOrderForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
