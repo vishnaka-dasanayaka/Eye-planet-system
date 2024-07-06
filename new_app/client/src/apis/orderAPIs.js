@@ -7,8 +7,10 @@ import { toast } from 'sonner';
 const getConfig = (token) => ({
     headers: {
         Authorization: `Bearer ${token}`,
+
     },
 });
+
 
 const getOrders = async (token) => {
     const config = getConfig(token);
@@ -53,4 +55,18 @@ const getOrder = async (token, id) => {
     }
 }
 
-export { getOrders, findOrders, getOrder }
+const addOrder = async (token, id, data) => {
+    const config = getConfig(token);
+
+    try {
+        const response = await axios.post(`${url}/api/orders/add-order/${id}`, data, config)
+        console.log(data);
+        toast.success("Order added")
+        return response;
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data)
+    }
+}
+
+export { getOrders, findOrders, getOrder, addOrder }

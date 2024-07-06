@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Order = require('../models/orderModel')
 const User = require('../models/userModel')
 const Patient = require('../models/patientModel')
+const Prescription = require('../models/prescriptionModel')
 
 const getActiveOrders = asyncHandler(async (req, res) => {
     try {
@@ -96,4 +97,98 @@ const getOrder = asyncHandler(async (req, res) => {
 
 
 })
-module.exports = { getActiveOrders, findOrders, getOrder }
+
+const addOrder = asyncHandler(async (req, res) => {
+    const orderData = JSON.parse(req.body.orderData);
+    const presData = JSON.parse(req.body.presData);
+    const frameData = JSON.parse(req.body.frameData);
+
+
+
+    if (!orderData.date || !orderData.branch || !orderData.orderNumber || !orderData.billNumber || !orderData.lenses || !orderData.price || !orderData.status) {
+        res.status(400)
+        throw new Error('Please add order details')
+    }
+
+    if (!presData) {
+        res.status(400)
+        throw new Error('Please add prescription data')
+    }
+
+    try {
+
+
+        const order = await Order.create({
+            patient: req.params.id,
+            date: orderData.date,
+            branch: orderData.branch,
+            orderNumber: orderData.orderNumber,
+            billNumber: orderData.billNumber,
+            lenses: orderData.lenses,
+            price: orderData.price,
+            advance: orderData.advance,
+            balance: orderData.balance,
+            status: orderData.status,
+            sentDate: orderData.sentDate,
+            receivedDate: orderData.receivedDate,
+            deliveredDate: orderData.deliveredDate,
+            specialNote: orderData.specialNote,
+            frameImg: req.files.frame_img[0].filename,
+            frameDesc: frameData.frameDescription
+        })
+
+        const prescription = await Prescription.create({
+            patient: req.params.id,
+            order: order._id,
+            VAR: presData.VAR,
+            VAL: presData.VAL,
+            VARPH: presData.VARPH,
+            VALPH: presData.VALPH,
+            retiR: presData.retiR,
+            retiL: presData.retiL,
+            hbrxDate: presData.hbrxDate,
+            hbrxRSPH: presData.hbrxRSPH,
+            hbrxRCYL: presData.hbrxRCYL,
+            hbrxRAXIS: presData.hbrxRAXIS,
+            hbrxLSPH: presData.hbrxLSPH,
+            hbrxLCYL: presData.hbrxLCYL,
+            hbrxLAXIS: presData.hbrxLAXIS,
+            hbrxRSummary: presData.hbrxRSummary,
+            hbrxLSummary: presData.hbrxLSummary,
+            RSPH: presData.RSPH,
+            RCYL: presData.RCYL,
+            RAXIS: presData.RAXIS,
+            LSPH: presData.LSPH,
+            LCYL: presData.LCYL,
+            LAXIS: presData.LAXIS,
+            rSummary: presData.rSummary,
+            lSummary: presData.lSummary,
+            presNote: presData.presNote,
+            rvDate: presData.rvDate,
+            signedBy: presData.signedBy,
+            presImg: req.files.pres_img[0].filename
+        })
+
+        const updatedPatient = await Patient.findByIdAndUpdate(
+            req.params.id,
+            { $push: { orders: order._id } },
+            { new: true } // This option returns the modified document rather than the original
+        );
+
+        const updatedOrder = await Order.findByIdAndUpdate(
+            order._id,
+            { $push: { prescriptions: prescription._id } },
+            { new: true } // This option returns the modified document rather than the original
+        );
+
+
+        res.status(200).json({
+            patient: updatedPatient,
+            order: updatedOrder,
+            prescription: prescription
+        })
+    } catch (error) {
+        res.status(500).json('server error')
+    }
+})
+module.exports = { getActiveOrders, findOrders, getOrder, addOrder }

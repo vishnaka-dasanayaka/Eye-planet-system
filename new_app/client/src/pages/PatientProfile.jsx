@@ -1,10 +1,8 @@
 import AddIcon from "@mui/icons-material/Add";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import OrderCard from "../components/search_results/OrderCard";
 import { useEffect, useState } from "react";
-import AddOrder from "../components/popups/add_patient_popups/AddOrder";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAuthToken } from "../apis/useAuthToken";
 import { findPatient } from "../apis/patientAPIs";
 import Loading from "../components/spinners/Loading";
@@ -40,7 +38,6 @@ function PatientProfile() {
   const [orders, setOrders] = useState();
 
   const id = useParams().id;
-  const [addOrderPopup, setAddOrderPopup] = useState(false);
 
   const fetchData = async () => {
     if (token) {
@@ -121,13 +118,12 @@ function PatientProfile() {
             </button>
           </div>
           <div className="ml-3">
-            <button
-              onClick={() => setAddOrderPopup(true)}
-              className="flex items-center capitalize btn"
-            >
-              <AddIcon className="mr-2" />
-              new order
-            </button>{" "}
+            <Link to={`../add-order/${patient._id}`}>
+              <button className="flex items-center capitalize btn">
+                <AddIcon className="mr-2" />
+                new order
+              </button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 gap-2 m-3 md:gap-5 md:grid-cols-3">
@@ -150,11 +146,6 @@ function PatientProfile() {
           </div>
         </div>
       </div>
-
-      <AddOrder
-        addTrigger={addOrderPopup}
-        setAddTrigger={setAddOrderPopup}
-      ></AddOrder>
     </div>
   );
 }

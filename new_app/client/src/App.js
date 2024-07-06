@@ -11,6 +11,7 @@ import PatientProfile from "./pages/PatientProfile";
 import SingleOrder from "./pages/SingleOrder";
 import { Toaster } from 'sonner'
 import PrivateRoute from './PrivateRoute'; // import the PrivateRoute component
+import AddOrder from "./pages/AddOrder";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/patient/:id" element={<PrivateRoute element={PatientProfile} />} />
           <Route path="/order/:Oid/:Pid" element={<PrivateRoute element={SingleOrder} />} />
           <Route path="/admin" element={<PrivateRoute element={Admin} />} />
+          <Route path="/add-order/:Pid" element={<PrivateRoute element={AddOrder} />} />
         </Routes>
       </BrowserRouter>
       <Toaster richColors />
