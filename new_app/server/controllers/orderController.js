@@ -172,18 +172,20 @@ const addOrder = asyncHandler(async (req, res) => {
         const updatedPatient = await Patient.findByIdAndUpdate(
             req.params.id,
             { $push: { orders: order._id } },
-            { new: true } // This option returns the modified document rather than the original
+            { new: true }
         );
+
+        const final = await Patient.findByIdAndUpdate(req.params.id, { $push: { history: `New order added by ${req.user.firstName}` } }, { new: true })
 
         const updatedOrder = await Order.findByIdAndUpdate(
             order._id,
             { $push: { prescriptions: prescription._id } },
-            { new: true } // This option returns the modified document rather than the original
+            { new: true }
         );
 
 
         res.status(200).json({
-            patient: updatedPatient,
+            patient: final,
             order: updatedOrder,
             prescription: prescription
         })
