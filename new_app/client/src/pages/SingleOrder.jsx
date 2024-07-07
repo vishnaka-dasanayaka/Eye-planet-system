@@ -9,8 +9,10 @@ import { getOrder } from "../apis/orderAPIs";
 import { getPrescriptions } from "../apis/prescriptionAPIs";
 import { url } from "../config/config";
 import Pres from "../components/popups/single_order_popups/Pres";
+import AddPres from "../components/popups/single_order_popups/AddPres";
 
 function SingleOrder() {
+  const [addPresPopup, setAddPresPopup] = useState(false);
   const token = useAuthToken();
   const params = useParams();
 
@@ -161,15 +163,27 @@ function SingleOrder() {
             )}
           </div>
 
-          {prescriptions &&
-            canShow &&
-            prescriptions.map((prescription) => (
-              <>
-                <div className="mt-10">
-                  <Pres pres={prescription} />
-                </div>
-              </>
-            ))}
+          {prescriptions && canShow && (
+            <>
+              <div className="justify-start w-full my-5 ">
+                <button
+                  onClick={() => setAddPresPopup(true)}
+                  className="w-full capitalize md:w-fit btn_green"
+                >
+                  add prescription
+                </button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                {prescriptions.map((prescription) => (
+                  <>
+                    <div className="p-5 mt-10 ">
+                      <Pres pres={prescription} />
+                    </div>
+                  </>
+                ))}
+              </div>
+            </>
+          )}
 
           <div className="grid grid-cols-3 mt-10">
             <div className="flex flex-col ">
@@ -249,6 +263,13 @@ function SingleOrder() {
           </div>
         </div>
       </div>
+
+      <AddPres
+        addTrigger={addPresPopup}
+        setAddTrigger={setAddPresPopup}
+        oId={oId}
+        pId={pId}
+      ></AddPres>
     </div>
   );
 }

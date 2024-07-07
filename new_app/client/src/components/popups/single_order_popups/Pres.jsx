@@ -17,7 +17,7 @@ function Pres({ pres }) {
   const [VARPH1, VARPH2] = splitValues(pres.VARPH);
 
   return (
-    <div className="grid grid-cols-1 p-2 md:grid-cols-2">
+    <div className="">
       <div className="flex flex-col w-full p-5 mt-5 bg-gray-300 rounded-lg md:mt-0">
         <div className="grid items-center justify-center grid-cols-1">
           <div></div>
