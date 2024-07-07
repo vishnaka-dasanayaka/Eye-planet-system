@@ -489,11 +489,7 @@ function Pres({ pres }) {
 
         {pres.presImg && (
           <div className="flex justify-center w-full">
-            <img
-              src={`${url}/Prescriptions/${pres.presImg}`}
-              className="w-2/3 h-fit"
-              alt=""
-            />
+            <img src={pres.presImg} className="w-2/3 h-fit" alt="" />
           </div>
         )}
       </div>

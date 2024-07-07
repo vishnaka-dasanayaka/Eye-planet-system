@@ -90,6 +90,8 @@ const getOrder = asyncHandler(async (req, res) => {
     try {
         const order = await Order.findById(req.params.id);
 
+        order.frameImg = `${process.env.API_END_POINT}/Frames/${order.frameImg}`
+
         res.status(200).json(order)
     } catch (error) {
         res.status(500).json("sever Error")

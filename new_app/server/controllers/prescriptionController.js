@@ -32,8 +32,16 @@ const getPrescriptions = asyncHandler(async (req, res) => {
         return res.status(500).json('Server Error');
     }
 
+    const updatedPrescriptions = prescriptions.map(prescription => {
+        return {
+            ...prescription._doc, // spread operator to retain other branch properties
+            presImg: `${process.env.API_END_POINT}/Prescriptions/${prescription.presImg}`
+        };
+    });
 
-    res.status(200).json(prescriptions);
+
+
+    res.status(200).json(updatedPrescriptions);
 })
 
 const addPres = asyncHandler(async (req, res) => {
