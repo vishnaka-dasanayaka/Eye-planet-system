@@ -9,6 +9,7 @@ const getConfig = (token) => ({
     },
 });
 
+
 const getPrescriptions = async (token, [id]) => {
     const config = getConfig(token);
     try {
@@ -25,4 +26,17 @@ const getPrescriptions = async (token, [id]) => {
     }
 }
 
-export { getPrescriptions }
+const addPrescription = async (token, pId, oId, data) => {
+    const config = getConfig(token)
+
+    try {
+        const response = await axios.post(`${url}/api/prescriptions/add-prescription/${pId}/${oId}`, data, config)
+        toast.success('prescription added succesfully')
+        return response
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message)
+    }
+}
+
+export { getPrescriptions, addPrescription }

@@ -141,7 +141,12 @@ function PatientProfile() {
               history
             </label>
             <div className="mt-5 ml-5">
-              <p>{patient.history[0]}</p>
+              {patient.history.map((record) => (
+                <>
+                  <p>{record}</p>
+                  <br />
+                </>
+              ))}
             </div>
           </div>
         </div>
