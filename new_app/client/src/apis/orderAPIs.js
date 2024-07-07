@@ -65,7 +65,7 @@ const addOrder = async (token, id, data) => {
         return response;
     } catch (error) {
         console.log(error);
-        toast.error(error.response.data)
+        toast.error(error.response.data.message)
     }
 }
 
