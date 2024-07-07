@@ -136,6 +136,8 @@ function AddOrder() {
         form.append("presData", JSON.stringify(presData));
 
         await addOrder(token, pId, form);
+
+        navigate(`../patient/${pId}`);
       } catch (error) {
         toast.error("An error occurred. Please try again.");
       }
