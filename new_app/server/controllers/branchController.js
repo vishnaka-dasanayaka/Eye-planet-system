@@ -48,8 +48,16 @@ const getBranches = asyncHandler(async (req, res) => {
 
         const branches = await Branch.find()
 
+        const updatedBranches = branches.map(branch => {
+            return {
+                ...branch._doc, // spread operator to retain other branch properties
+                branchImg: `${process.env.API_END_POINT}/Branches/${branch.branchImg}`
+            };
+        });
+
+
         if (branches) {
-            res.status(200).json(branches)
+            res.status(200).json(updatedBranches)
         } else {
             res.status(409)
             throw new Error('No branches found')

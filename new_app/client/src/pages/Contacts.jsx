@@ -83,7 +83,7 @@ function Contacts() {
                     <div className="bg-white h-60 rounded-t-2xl">
                       <img
                         className="object-cover w-full h-full rounded-t-2xl"
-                        src={`${url}/Branches/${branch.branchImg}`}
+                        src={branch.branchImg}
                       ></img>
                     </div>
                     <div className="p-5">

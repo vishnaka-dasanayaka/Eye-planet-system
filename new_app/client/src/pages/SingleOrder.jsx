@@ -129,7 +129,7 @@ function SingleOrder() {
             <div className="flex flex-col items-start justify-start">
               <h2 className="text-sm text-purple-500 capitalize">frame </h2>
               <img
-                src={`${url}/Frames/${order.frameImg}`}
+                src={order.frameImg}
                 className="w-full mt-2 md:pr-5 h-fit"
                 alt=""
               />
