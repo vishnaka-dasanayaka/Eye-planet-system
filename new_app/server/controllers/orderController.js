@@ -44,8 +44,18 @@ const findOrders = asyncHandler(async (req, res) => {
 
     let filter = {}
 
-    if (orderNumber !== null && orderNumber !== '') filter.orderNumber = orderNumber
-    if (billNumber !== null && billNumber !== '') filter.billNumber = billNumber
+    // if (orderNumber !== null && orderNumber !== '') filter.orderNumber = orderNumber
+    //  if (billNumber !== null && billNumber !== '') filter.billNumber = billNumber
+
+    if (orderNumber !== null && orderNumber !== '') {
+        const orderNumberRegex = new RegExp(orderNumber.trim().toLowerCase(), 'i'); // 'i' for case-insensitive
+        filter.orderNumber = { $regex: orderNumberRegex };
+    }
+
+    if (billNumber !== null && billNumber !== '') {
+        const billNumberRegex = new RegExp(billNumber.trim().toLowerCase(), 'i'); // 'i' for case-insensitive
+        filter.billNumber = { $regex: billNumberRegex };
+    }
 
     const orders = await Order.find(filter).lean();
 
@@ -90,7 +100,7 @@ const getOrder = asyncHandler(async (req, res) => {
     try {
         const order = await Order.findById(req.params.id);
 
-        order.frameImg = `${process.env.API_END_POINT}/Frames/${order.frameImg}`
+        order.frameImg = order.frameImg ? `${process.env.API_END_POINT}/Frames/${order.frameImg}` : ""
 
         res.status(200).json(order)
     } catch (error) {

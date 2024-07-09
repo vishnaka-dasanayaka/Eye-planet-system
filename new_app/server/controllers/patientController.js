@@ -17,24 +17,33 @@ const setPatient = asyncHandler(async (req, res) => {
     const frameData = JSON.parse(req.body.frameData);
 
 
-    if (!patientData.fullName || !patientData.contactNumber || !patientData.dob || !patientData.address) {
-        res.status(400);
+    if (!patientData.fullName || !patientData.contactNumber || !patientData.dob) {
+        res.status(400)
         throw new Error('Please add patient personal data')
     }
 
-    if (!patientData.date || !patientData.branch || !patientData.orderNumber || !patientData.billNumber || !patientData.lenses || !patientData.price || !patientData.status) {
+    if (!patientData.date || !patientData.branch || !patientData.orderNumber || !patientData.status) {
         res.status(400)
         throw new Error('Please add order details')
     }
 
-    if (!presData) {
-        res.status(400)
-        throw new Error('Please add prescription data')
-    }
+
+
+
 
     try {
+        const checkExist = await Order.findOne({ orderNumber: patientData.orderNumber });
+
+        if (checkExist) {
+            res.status(400)
+            throw new Error('Order number is alredy in the system')
+        }
+
+        const trimmedName = patientData.fullName.trim().toLowerCase()
+
+
         const patient = await Patient.create({
-            name: patientData.fullName,
+            name: trimmedName,
             contactNumber: patientData.contactNumber,
             dob: patientData.dob,
             address: patientData.address,
@@ -57,62 +66,81 @@ const setPatient = asyncHandler(async (req, res) => {
             receivedDate: patientData.receivedDate,
             deliveredDate: patientData.deliveredDate,
             specialNote: patientData.specialNote,
-            frameImg: req.files.frame_img[0].filename,
-            frameDesc: frameData.frameDescription
+            frameImg: req.files.frameImg ? req.files.frame_img[0].filename : '',
+            frameDesc: frameData ? frameData.frameDescription : ""
         })
 
-        const prescription = await Prescription.create({
-            patient: patient._id,
-            order: order._id,
-            VAR: presData.VAR,
-            VAL: presData.VAL,
-            VARPH: presData.VARPH,
-            VALPH: presData.VALPH,
-            retiR: presData.retiR,
-            retiL: presData.retiL,
-            hbrxDate: presData.hbrxDate,
-            hbrxRSPH: presData.hbrxRSPH,
-            hbrxRCYL: presData.hbrxRCYL,
-            hbrxRAXIS: presData.hbrxRAXIS,
-            hbrxLSPH: presData.hbrxLSPH,
-            hbrxLCYL: presData.hbrxLCYL,
-            hbrxLAXIS: presData.hbrxLAXIS,
-            hbrxRSummary: presData.hbrxRSummary,
-            hbrxLSummary: presData.hbrxLSummary,
-            RSPH: presData.RSPH,
-            RCYL: presData.RCYL,
-            RAXIS: presData.RAXIS,
-            LSPH: presData.LSPH,
-            LCYL: presData.LCYL,
-            LAXIS: presData.LAXIS,
-            rSummary: presData.rSummary,
-            lSummary: presData.lSummary,
-            presNote: presData.presNote,
-            rvDate: presData.rvDate,
-            signedBy: presData.signedBy,
-            presImg: req.files.pres_img[0].filename
-        })
 
-        const updatedPatient = await Patient.findByIdAndUpdate(
-            patient._id,
-            { $push: { orders: order._id } },
-            { new: true } // This option returns the modified document rather than the original
-        );
+        if (presData) {
 
-        const updatedOrder = await Order.findByIdAndUpdate(
-            order._id,
-            { $push: { prescriptions: prescription._id } },
-            { new: true } // This option returns the modified document rather than the original
-        );
+            const prescription = await Prescription.create({
+                patient: patient._id,
+                order: order._id,
+                VAR: presData.VAR,
+                VAL: presData.VAL,
+                VARPH: presData.VARPH,
+                VALPH: presData.VALPH,
+                retiR: presData.retiR,
+                retiL: presData.retiL,
+                hbrxDate: presData.hbrxDate,
+                hbrxRSPH: presData.hbrxRSPH,
+                hbrxRCYL: presData.hbrxRCYL,
+                hbrxRAXIS: presData.hbrxRAXIS,
+                hbrxLSPH: presData.hbrxLSPH,
+                hbrxLCYL: presData.hbrxLCYL,
+                hbrxLAXIS: presData.hbrxLAXIS,
+                hbrxRSummary: presData.hbrxRSummary,
+                hbrxLSummary: presData.hbrxLSummary,
+                RSPH: presData.RSPH,
+                RCYL: presData.RCYL,
+                RAXIS: presData.RAXIS,
+                LSPH: presData.LSPH,
+                LCYL: presData.LCYL,
+                LAXIS: presData.LAXIS,
+                rSummary: presData.rSummary,
+                lSummary: presData.lSummary,
+                presNote: presData.presNote,
+                rvDate: presData.rvDate,
+                signedBy: presData.signedBy,
+                presImg: req.files.pres_img[0].filename
+            })
+
+            const updatedOrder = await Order.findByIdAndUpdate(
+                order._id,
+                { $push: { prescriptions: prescription._id } },
+                { new: true } // This option returns the modified document rather than the original
+            );
+
+            const updatedPatient = await Patient.findByIdAndUpdate(
+                patient._id,
+                { $push: { orders: order._id } },
+                { new: true } // This option returns the modified document rather than the original
+            );
+
+            res.status(200).json({
+                patient: updatedPatient,
+                order: updatedOrder,
+                prescription: prescription
+            })
+        } else {
 
 
-        res.status(200).json({
-            patient: updatedPatient,
-            order: updatedOrder,
-            prescription: prescription
-        })
+            const updatedPatient = await Patient.findByIdAndUpdate(
+                patient._id,
+                { $push: { orders: order._id } },
+                { new: true } // This option returns the modified document rather than the original
+            );
+
+
+            res.status(200).json({
+                patient: updatedPatient,
+                order: order,
+                prescription: 'no pres added prescription'
+            })
+        }
     } catch (error) {
-        res.status(500).json('server error')
+        res.status(500)
+        throw new Error(error)
     }
 })
 
@@ -190,8 +218,15 @@ const findPatients = asyncHandler(async (req, res) => {
     const date = new Date(dob);
     const isoDateStr = date.toISOString();
 
-    if (name !== null && name !== '') filter.name = name
-    if (contactNumber !== null && contactNumber !== '') filter.contactNumber = contactNumber
+    if (name !== null && name !== '') {
+        const nameRegex = new RegExp(name.trim().toLowerCase(), 'i'); // 'i' for case-insensitive
+        filter.name = { $regex: nameRegex };
+    }
+
+    if (contactNumber !== null && contactNumber !== '') {
+        const numberRegex = new RegExp(contactNumber.trim().toLowerCase(), 'i');
+        filter.contactNumber = { $regex: numberRegex }
+    }
     if (dob !== null && dob !== '') filter.dob = isoDateStr
 
 

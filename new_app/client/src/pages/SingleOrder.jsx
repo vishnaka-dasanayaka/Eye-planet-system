@@ -128,19 +128,23 @@ function SingleOrder() {
           <div className="grid grid-cols-1 mt-10 md:grid-cols-2">
             <div className="flex flex-col items-start justify-start">
               <h2 className="text-sm text-purple-500 capitalize">frame </h2>
-              <img
-                src={order.frameImg}
-                className="w-full mt-2 md:pr-5 h-fit"
-                alt=""
-              />
+              {order.frameImg !== "" ? (
+                <img
+                  src={order.frameImg}
+                  className="w-full mt-2 md:pr-5 h-fit"
+                  alt=""
+                />
+              ) : (
+                <p className="italic">- no frame photo added - </p>
+              )}
             </div>
             <div className="mt-5 md:mt-5">
               <p className="font-semibold">
-                {order.frameDesc} Lorem ipsum dolor sit amet, consectetur
-                adipisicing elit. Facere expedita rerum possimus dolorum
-                accusantium, suscipit molestias provident ad deleniti eveniet
-                dolores optio nihil fuga numquam incidunt officia adipisci vel!
-                Modi.
+                {order.frameDesc ? (
+                  order.frameDesc
+                ) : (
+                  <p className="italic">- no frame description added - </p>
+                )}
               </p>
             </div>
           </div>

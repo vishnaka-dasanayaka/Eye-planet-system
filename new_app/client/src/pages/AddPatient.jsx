@@ -37,8 +37,14 @@ function AddPatient(props) {
     ).map((checkbox) => checkbox.value);
     patientData.lenses = lenses;
 
-    if (!patientData) {
-      toast.error("Fill the form");
+    if (
+      patientData.date === "" ||
+      patientData.orderNumber === "" ||
+      patientData.fullName === "" ||
+      patientData.contactNumber === "" ||
+      patientData.dob === ""
+    ) {
+      toast.error("Fill required fields");
       return;
     } else {
       try {

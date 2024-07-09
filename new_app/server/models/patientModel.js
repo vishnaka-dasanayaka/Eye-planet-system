@@ -27,7 +27,6 @@ const patientSchema = mongoose.Schema(
         },
         address: {
             type: String,
-            required: [true, 'Please a the permenant address']
         },
         status: {
             type: String,

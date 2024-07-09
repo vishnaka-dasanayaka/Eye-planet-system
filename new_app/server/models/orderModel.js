@@ -26,15 +26,12 @@ const orderSchema = mongoose.Schema(
         },
         billNumber: {
             type: String,
-            required: true
         },
         lenses: {
             type: [String],
-            required: true
         },
         price: {
             type: String,
-            required: true
         },
         advance: {
             type: String,
