@@ -33,7 +33,7 @@ function PatientCard({ patient }) {
         pathname: `/patient/${patient._id}`,
       }}
     >
-      <div className="w-full transition duration-200 ease-in-out bg-yellow-300 rounded-lg cursor-pointer hover:scale-105 hover:bg-yellow-400 h-fit">
+      <div className="w-full transition duration-200 ease-in-out bg-yellow-300 rounded-lg cursor-pointer hover:scale-[1.03] hover:bg-yellow-400 h-fit">
         <div className="py-5 pl-3">
           <h1 className="text-2xl font-extrabold tracking-wide capitalize">
             {patient.name}
@@ -46,7 +46,13 @@ function PatientCard({ patient }) {
               {calculateAge(patient.dob)}
             </span>
           </h2>
-          <h2 className="font-thin ">{patient.address}</h2>
+          <h2 className="font-thin ">
+            {patient.address ? (
+              patient.address
+            ) : (
+              <span>- address isn't provided -</span>
+            )}
+          </h2>
         </div>
       </div>
     </Link>
