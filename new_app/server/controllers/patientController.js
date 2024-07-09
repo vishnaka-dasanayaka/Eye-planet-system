@@ -4,10 +4,28 @@ const Order = require('../models/orderModel')
 const Prescription = require('../models/prescriptionModel')
 const User = require('../models/userModel')
 
+// const getPatients = asyncHandler(async (req, res) => {
+//     const patients = await Patient.find({ status: 'active' });
+//     res.status(200).json(patients)
+// })
+
 const getPatients = asyncHandler(async (req, res) => {
-    const patients = await Patient.find({ status: 'active' });
-    res.status(200).json(patients)
-})
+    try {
+        // Fetch patients with their orders populated
+        const patients = await Patient.find({ status: 'active' }).populate('orders');
+
+        // Sort patients by the date of their first order in ascending order
+        patients.sort((a, b) => {
+            if (a.orders.length === 0) return 1;
+            if (b.orders.length === 0) return -1;
+            return new Date(a.orders[0].date) - new Date(b.orders[0].date);
+        });
+
+        res.status(200).json(patients);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+});
 
 const setPatient = asyncHandler(async (req, res) => {
 
@@ -66,7 +84,7 @@ const setPatient = asyncHandler(async (req, res) => {
             receivedDate: patientData.receivedDate,
             deliveredDate: patientData.deliveredDate,
             specialNote: patientData.specialNote,
-            frameImg: req.files.frameImg ? req.files.frame_img[0].filename : '',
+            frameImg: frameData ? req.files.frame_img[0].filename : "",
             frameDesc: frameData ? frameData.frameDescription : ""
         })
 
