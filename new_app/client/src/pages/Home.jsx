@@ -7,7 +7,8 @@ import Loading from "../components/spinners/Loading";
 import { getPatients } from "../apis/patientAPIs";
 import { getBranches } from "../apis/branchAPIs";
 import { getOrders } from "../apis/orderAPIs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getBranchesForRedux } from "../features/branch/branchSlice";
 
 function Home() {
   const [users, setUsers] = useState([]);
@@ -18,6 +19,16 @@ function Home() {
   const [branches, setBranches] = useState([]);
   const [orders, setOrders] = useState([]);
   const token = useAuthToken();
+
+  // start
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getBranchesForRedux(token));
+    }
+  }, [token]);
+  // end
 
   const { user } = useSelector((state) => state.auth);
 
