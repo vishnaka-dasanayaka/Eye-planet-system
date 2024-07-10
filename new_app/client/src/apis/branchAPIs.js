@@ -17,8 +17,8 @@ const addBranch = async (token, data) => {
         toast.success('Branch Added')
         return response
     } catch (error) {
-        console.log(error);
-        toast.error("An error occurred. Please try again.");
+        console.log(error.response.data);
+        toast.error(error.response.data.message);
     }
 }
 
@@ -30,7 +30,7 @@ const getBranches = async (token) => {
         return await axios.get(`${url}/api/branches/getall`, config);
     } catch (error) {
         console.log(error);
-        toast.error("An error occurred. Please try again.");
+        toast.error(error.response.data.message);
     }
 };
 

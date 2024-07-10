@@ -33,7 +33,7 @@ const setBranch = asyncHandler(async (req, res) => {
             throw new Error('Can not create branch')
         }
     } catch (error) {
-        res.status(500).json("error")
+        res.status(500).json(error)
     }
 })
 
