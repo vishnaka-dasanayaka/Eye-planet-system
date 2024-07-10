@@ -8,6 +8,7 @@ import AddFramePopup from "../components/popups/add_patient_popups/AddFramePopup
 import { toast } from "sonner";
 import { useAuthToken } from "../apis/useAuthToken";
 import { addPatient } from "../apis/patientAPIs";
+import { useSelector } from "react-redux";
 
 function AddPatient(props) {
   const [addPrescriptionPopup, setAddPrescriptionPopup] = useState(false);
@@ -17,6 +18,8 @@ function AddPatient(props) {
   const [frameImg, setFrameImg] = useState(null);
   const [presImg, setPresImg] = useState(null);
   const [stts, setStts] = useState("");
+
+  const { branch } = useSelector((state) => state.branch);
 
   const handleChange = (e) => {
     if (e.target.name === "status") {
@@ -144,9 +147,26 @@ function AddPatient(props) {
                 onChange={handleChange}
               >
                 <option value="">Select a Branch</option>
-                <option value="Matale-Main_branch">Matale - Main Branch</option>
-                <option value="Kumundu">Kumudu Hospital Branch</option>
-                <option value="Coop">CO-OP Hospital Branch</option>
+                {branch.data &&
+                  branch.data.map((branch) => (
+                    <>
+                      {branch.status !== "disabled" && (
+                        <option
+                          value={
+                            branch.status === "main"
+                              ? `${branch.branchName}- Main Branch`
+                              : branch.branchName
+                          }
+                        >
+                          {branch.status === "main"
+                            ? `${branch.branchName}- Main Branch`
+                            : branch.branchName}
+                        </option>
+                      )}
+                    </>
+                  ))}
+                {/* <option value="Kumundu">Kumudu Hospital Branch</option>
+                <option value="Coop">CO-OP Hospital Branch</option> */}
               </select>
             </div>
 
