@@ -3,9 +3,12 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useAuthToken } from "../../../apis/useAuthToken";
 import { addBranch } from "../../../apis/branchAPIs";
+import { useDispatch } from "react-redux";
+import { setBranchesViaRedux } from "../../../features/branch/branchSlice";
 
 function AddBranch(props) {
   const token = useAuthToken();
+  const dispatch = useDispatch();
 
   const [img, setImg] = useState("");
 
@@ -47,7 +50,9 @@ function AddBranch(props) {
         form.append("branch_pic", img);
         form.append("branchData", JSON.stringify(formData));
 
-        await addBranch(token, form);
+        // await addBranch(token, form);
+        dispatch(setBranchesViaRedux(form));
+
         props.setAddTrigger(false);
       } catch (error) {
         toast.error("An error occurred. Please try again.");

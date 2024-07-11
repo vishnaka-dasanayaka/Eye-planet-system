@@ -147,8 +147,8 @@ function AddPatient(props) {
                 onChange={handleChange}
               >
                 <option value="">Select a Branch</option>
-                {branch.data &&
-                  branch.data.map((branch) => (
+                {branch &&
+                  branch.map((branch) => (
                     <>
                       {branch.status !== "disabled" && (
                         <option

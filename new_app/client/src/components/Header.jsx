@@ -9,6 +9,7 @@ import { url } from "../config/config";
 import { getUser } from "../apis/userAPI";
 import { useAuthToken } from "../apis/useAuthToken";
 import Loading from "../components/spinners/Loading";
+import { clearData } from "../features/branch/branchSlice";
 
 function Header() {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ function Header() {
 
   const onLogoutClick = () => {
     dispatch(logout());
+    dispatch(clearData());
     dispatch(reset());
     navigate("/login");
     toast.success("User Logged Out !");

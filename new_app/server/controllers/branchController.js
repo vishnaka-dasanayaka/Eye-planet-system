@@ -12,7 +12,6 @@ const setBranch = asyncHandler(async (req, res) => {
 
         const branchData = JSON.parse(req.body.branchData);
 
-        console.log(branchData);
 
 
         const branch = await Branch.create({
