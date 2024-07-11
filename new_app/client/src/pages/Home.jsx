@@ -25,7 +25,7 @@ function Home() {
 
   useEffect(() => {
     if (token) {
-      dispatch(getBranchesForRedux(token));
+      dispatch(getBranchesForRedux());
     }
   }, [token]);
   // end

@@ -8,9 +8,9 @@ const getConfig = (token) => ({
     },
 });
 
-const addBranch = async (token, data) => {
+const addBranch = async (data, token) => {
 
-    const config = getConfig(token, data);
+    const config = getConfig(token);
 
     try {
         const response = await axios.post(`${url}/api/branches`, data, config);
