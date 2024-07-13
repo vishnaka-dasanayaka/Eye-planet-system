@@ -60,5 +60,28 @@ const findPatient = async (token, id) => {
     }
 }
 
+const updatePatient = async (token, id, data) => {
+    const config = getConfig(token)
 
-export { addPatient, getPatients, findPatients, findPatient }
+    try {
+        await axios.put(`${url}/api/patients/${id}`, data, config)
+        toast.success('Patient Details Updated')
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message)
+    }
+}
+
+const deletePatientt = async (token, id) => {
+    const config = getConfig(token);
+
+    try {
+        await axios.delete(`${url}/api/patients/${id}`, config)
+        toast.success('Patient Deleted Successfully')
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message)
+    }
+}
+
+export { addPatient, getPatients, findPatients, findPatient, updatePatient, deletePatientt }
