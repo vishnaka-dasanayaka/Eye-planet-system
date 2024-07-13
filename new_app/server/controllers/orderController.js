@@ -120,18 +120,19 @@ const addOrder = asyncHandler(async (req, res) => {
 
 
 
-    if (!orderData.date || !orderData.branch || !orderData.orderNumber || !orderData.billNumber || !orderData.lenses || !orderData.price || !orderData.status) {
+    if (!orderData.date || !orderData.branch || !orderData.orderNumber || !orderData.status) {
         res.status(400)
         throw new Error('Please add order details')
     }
+    const checkExist = await Order.findOne({ orderNumber: orderData.orderNumber });
 
-    if (!presData) {
+    if (checkExist) {
         res.status(400)
-        throw new Error('Please add prescription data')
+        throw new Error('Order number is alredy in the system')
+
     }
 
     try {
-
 
         const order = await Order.create({
             patient: req.params.id,
@@ -148,8 +149,8 @@ const addOrder = asyncHandler(async (req, res) => {
             receivedDate: orderData.receivedDate,
             deliveredDate: orderData.deliveredDate,
             specialNote: orderData.specialNote,
-            frameImg: req.files.frame_img[0].filename,
-            frameDesc: frameData.frameDescription
+            frameImg: frameData ? req.files.frame_img[0].filename : "",
+            frameDesc: frameData ? frameData.frameDescription : ""
         })
 
         const prescription = await Prescription.create({
@@ -205,7 +206,7 @@ const addOrder = asyncHandler(async (req, res) => {
             prescription: prescription
         })
     } catch (error) {
-        res.status(500).json('server error')
+        throw new Error(error)
     }
 })
 module.exports = { getActiveOrders, findOrders, getOrder, addOrder }

@@ -229,7 +229,7 @@ const deletePatient = asyncHandler(async (req, res) => {
 
     const result = await Order.updateMany(
         { _id: { $in: orders } }, // Filter to match orders with IDs in the array
-        { $set: { isDeleted: true } } // Update operation to set the status to 'deleted'
+        { $set: { isDeleted: true, orderNumber: null } } // Update operation to set the status to 'deleted'
     );
 
 
