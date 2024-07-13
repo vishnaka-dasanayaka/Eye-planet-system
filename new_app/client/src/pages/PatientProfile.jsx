@@ -2,9 +2,13 @@ import AddIcon from "@mui/icons-material/Add";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuthToken } from "../apis/useAuthToken";
-import { findPatient } from "../apis/patientAPIs";
+import {
+  deletePatientt,
+  findPatient,
+  updatePatient,
+} from "../apis/patientAPIs";
 import Loading from "../components/spinners/Loading";
 import OrderLabel from "../components/popups/profile_popups/OrderLabel";
 
@@ -52,6 +56,39 @@ function PatientProfile() {
     fetchData();
   }, []);
 
+  const onSaveClick = async (e) => {
+    e.preventDefault();
+    const data = {
+      name: patient.name,
+      contactNumber: patient.contactNumber,
+      dob: patient.dob,
+      address: patient.address,
+    };
+
+    const response = await updatePatient(token, id, data);
+
+    fetchData();
+  };
+
+  const [isEdited, setIsEdited] = useState(false);
+
+  const handleChange = (e) => {
+    setIsEdited(true);
+
+    setPatient((state) => ({
+      ...state,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const navigate = useNavigate();
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    await deletePatientt(token, id);
+    navigate("/add");
+  };
+
   if (!patient && !orders) return <Loading />;
 
   return (
@@ -62,6 +99,16 @@ function PatientProfile() {
 
         <div className="flex flex-col m-5 bg-white mt-28 md:mt-8">
           <div className="grid grid-cols-1 md:gap-5 md:grid-cols-3">
+            <div></div>
+            <div></div>
+            <div className="m-3">
+              <button
+                onClick={handleDelete}
+                className="w-full capitalize btn_delete"
+              >
+                delete
+              </button>
+            </div>
             <div className="flex flex-col items-start justify-start p-2 m-1 ">
               <label className="font-semibold capitalize text-md" htmlFor="">
                 full name
@@ -70,6 +117,8 @@ function PatientProfile() {
                 className="w-full p-1 px-4 mt-2 capitalize border-2 border-purple-400 rounded-md outline-none"
                 type="text"
                 value={patient.name}
+                name="name"
+                onChange={handleChange}
               />
             </div>
 
@@ -81,6 +130,8 @@ function PatientProfile() {
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="text"
                 value={patient.contactNumber}
+                name="contactNumber"
+                onChange={handleChange}
               />
             </div>
 
@@ -92,6 +143,8 @@ function PatientProfile() {
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="date"
                 value={formatDate(patient.dob)}
+                name="dob"
+                onChange={handleChange}
               />
               <h1 className="p-1 px-4 ">
                 Age:
@@ -109,13 +162,20 @@ function PatientProfile() {
               className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
               type="text"
               value={patient.address}
+              onChange={handleChange}
+              name="address"
             />
           </div>
 
           <div className="flex justify-end m-3">
-            <button className="h-10 text-xl capitalize w-60 btn">
-              save details
-            </button>
+            {isEdited && (
+              <button
+                onClick={onSaveClick}
+                className="h-10 text-xl capitalize w-60 btn"
+              >
+                save details
+              </button>
+            )}
           </div>
           <div className="ml-3">
             <Link to={`../add-order/${patient._id}`}>

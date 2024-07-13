@@ -162,6 +162,33 @@ const setPatient = asyncHandler(async (req, res) => {
     }
 })
 
+// const updatePatient = asyncHandler(async (req, res) => {
+
+//     let user;
+
+//     try {
+//         user = await User.findById(req.user.id)
+//     } catch (error) {
+//         res.status(500).json('Server Error')
+//     }
+
+//     if (!user) {
+//         res.status(400).json('User not found')
+//     }
+
+//     const patient = Patient.findById(req.params.id)
+
+//     if (!patient) {
+//         res.status(400)
+//         throw new Error('Patient not fond')
+//     }
+
+//     const updatedPatient = await Patient.findByIdAndUpdate(req.params.id, req.body, {
+//         new: true
+//     })
+
+//     res.status(201).json(updatedPatient)
+// })
 const updatePatient = asyncHandler(async (req, res) => {
 
     let user;
@@ -189,7 +216,6 @@ const updatePatient = asyncHandler(async (req, res) => {
 
     res.status(201).json(updatedPatient)
 })
-
 
 const deletePatient = asyncHandler(async (req, res) => {
     const patient = await Patient.findById(req.params.id)
@@ -248,11 +274,13 @@ const findPatients = asyncHandler(async (req, res) => {
     if (dob !== null && dob !== '') filter.dob = isoDateStr
 
 
-    const patients = await Patient.find(filter)
+    const patients = await Patient.find(filter);
 
+    // Filter out patients with status 'deleted'
+    const filteredPatients = patients.filter(patient => patient.status !== 'deleted');
 
+    res.status(200).json(filteredPatients);
 
-    res.status(200).json(patients)
 })
 
 const findPatient = asyncHandler(async (req, res) => {
@@ -273,6 +301,10 @@ const findPatient = asyncHandler(async (req, res) => {
 
 
     const patient = await Patient.findById(req.params.id)
+
+    if (patient.status === 'deleted') {
+        res.status(400).json('Patient not found')
+    }
 
     const orders = await Order.find({ patient: req.params.id })
 

@@ -57,7 +57,10 @@ const findOrders = asyncHandler(async (req, res) => {
         filter.billNumber = { $regex: billNumberRegex };
     }
 
-    const orders = await Order.find(filter).lean();
+    const filteredOrders = await Order.find(filter).lean();
+
+    const orders = filteredOrders.filter(order => order.isDeleted !== true);
+
 
     const patientIDs = orders.map(order => order.patient);
 
