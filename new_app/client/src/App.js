@@ -30,7 +30,10 @@ function App() {
           <Route path="/addpatient" element={<PrivateRoute element={AddPatient} />} />
           <Route path="/patient/:id" element={<PrivateRoute element={PatientProfile} />} />
           <Route path="/order/:Oid/:Pid" element={<PrivateRoute element={SingleOrder} />} />
-          <Route path="/admin" element={<PrivateRoute element={Admin} />} />
+          {/* <Route path="/admin" element={<PrivateRoute element={Admin} />} />
+           */}
+          <Route path="/admin" element={<PrivateRoute element={Admin} adminRoute={true} />} />
+
           <Route path="/add-order/:Pid" element={<PrivateRoute element={AddOrder} />} />
         </Routes>
       </BrowserRouter>

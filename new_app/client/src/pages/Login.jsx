@@ -22,7 +22,7 @@ function Login() {
   const { email, password } = formData;
 
   useEffect(() => {
-    if (isError) toast.error(message);
+    if (isError) toast.error(message.response.data);
     if (isSuccess) {
       navigate("/");
       toast.success("Login Successfull");
