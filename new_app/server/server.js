@@ -17,6 +17,9 @@ app.use(express.static('public'));
 
 connectDB();
 
+//get counts
+app.use('/api/counts', require('./routes/countRoutes'))
+
 // routes for patients
 app.use('/api/patients', require('./routes/patientRoutes'))
 
