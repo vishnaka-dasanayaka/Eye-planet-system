@@ -164,7 +164,7 @@ function AddPrescription(props) {
     <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen backdrop-blur-sm backdrop-brightness-75">
       <div
         style={{ maxHeight: "90vh", overflowY: "auto" }}
-        className=" scrollable-form relative w-11/12 bg-white p-3 md:w-[700px] flex flex-col items-center justify-start"
+        className=" scrollable-form relative w-11/12 bg-white p-3 md:w-[750px] flex flex-col items-center justify-start"
       >
         <CloseIcon
           onClick={onCloseclick}
@@ -410,8 +410,11 @@ function AddPrescription(props) {
               </h2>
             </div>
 
-            <div className="grid grid-cols-6">
+            <div className="grid grid-cols-8">
               <h3 className="py-1 text-center border-2 border-shop_black border-t-transparent">
+                VA
+              </h3>
+              <h3 className="py-1 text-center border-2 border-shop_black border-t-transparent border-l-transparent">
                 SPH
               </h3>
               <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
@@ -428,12 +431,26 @@ function AddPrescription(props) {
               </h3>
               <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
                 AXIS
+              </h3>
+              <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
+                VA
               </h3>
             </div>
 
-            <div className="grid grid-cols-6">
+            <div className="grid grid-cols-8">
+              <div className="flex items-center justify-center w-full p-1 text-center border-2 border-shop_black border-t-transparent">
+                <input
+                  className="p-1 mr-1 bg-white rounded-md w-7"
+                  type="text"
+                />
+                <label htmlFor="">/</label>
+                <input
+                  className="p-1 ml-1 bg-white rounded-md w-7"
+                  type="text"
+                />
+              </div>
               <input
-                className="p-1 text-center border-2 border-shop_black border-t-transparent"
+                className="p-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent"
                 type="text"
                 name="hbrxRSPH"
                 value={hbrxRSPH}
@@ -486,6 +503,18 @@ function AddPrescription(props) {
                 id="hbrxLAXIS"
                 onChange={onChange}
               />
+
+              <div className="flex items-center justify-center w-full p-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
+                <input
+                  className="p-1 mr-1 bg-white rounded-md w-7"
+                  type="text"
+                />
+                <label htmlFor="">/</label>
+                <input
+                  className="p-1 ml-1 bg-white rounded-md w-7"
+                  type="text"
+                />
+              </div>
             </div>
             <div className="grid grid-cols-2">
               <input
@@ -521,15 +550,9 @@ function AddPrescription(props) {
               </h2>
             </div>
 
-            <div className="grid grid-cols-6">
+            <div className="grid grid-cols-8">
               <h3 className="py-1 text-center border-2 border-shop_black border-t-transparent">
-                SPH
-              </h3>
-              <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
-                CYL
-              </h3>
-              <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
-                AXIS
+                VA
               </h3>
               <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
                 SPH
@@ -539,12 +562,35 @@ function AddPrescription(props) {
               </h3>
               <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
                 AXIS
+              </h3>
+              <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
+                SPH
+              </h3>
+              <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
+                CYL
+              </h3>
+              <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
+                AXIS
+              </h3>
+              <h3 className="py-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
+                VA
               </h3>
             </div>
 
-            <div className="grid grid-cols-6">
+            <div className="grid grid-cols-8">
+              <div className="flex items-center justify-center w-full p-1 text-center border-2 border-shop_black border-t-transparent">
+                <input
+                  className="p-1 mr-1 bg-white rounded-md w-7"
+                  type="text"
+                />
+                <label htmlFor="">/</label>
+                <input
+                  className="p-1 ml-1 bg-white rounded-md w-7"
+                  type="text"
+                />
+              </div>
               <input
-                className="p-1 text-center border-2 border-shop_black border-t-transparent"
+                className="p-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent"
                 type="text"
                 name="RSPH"
                 value={RSPH}
@@ -597,6 +643,17 @@ function AddPrescription(props) {
                 id="LAXIS"
                 onChange={onChange}
               />
+              <div className="flex items-center justify-center w-full p-1 text-center border-2 border-shop_black border-l-transparent border-t-transparent">
+                <input
+                  className="p-1 mr-1 bg-white rounded-md w-7"
+                  type="text"
+                />
+                <label htmlFor="">/</label>
+                <input
+                  className="p-1 ml-1 bg-white rounded-md w-7"
+                  type="text"
+                />
+              </div>
             </div>
             <div className="grid grid-cols-2">
               <input
