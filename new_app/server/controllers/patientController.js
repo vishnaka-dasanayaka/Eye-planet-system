@@ -234,7 +234,7 @@ const deletePatient = asyncHandler(async (req, res) => {
 
 
 
-    const updatedPatient = await Patient.findByIdAndUpdate(req.params.id, { status: 'deleted' }, {
+    const updatedPatient = await Patient.findByIdAndUpdate(req.params.id, { status: 'deleted', $push: { history: `Deleted by ${req.user.firstName}` } }, {
         new: true
     })
 
