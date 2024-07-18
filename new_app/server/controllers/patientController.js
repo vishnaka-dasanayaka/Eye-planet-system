@@ -84,7 +84,7 @@ const setPatient = asyncHandler(async (req, res) => {
             receivedDate: patientData.receivedDate,
             deliveredDate: patientData.deliveredDate,
             specialNote: patientData.specialNote,
-            frameImg: frameData ? req.files.frame_img[0].filename : "",
+            frameImg: req.files && req.files.frame_img ? req.files.frame_img[0].filename : "",
             frameDesc: frameData ? frameData.frameDescription : ""
         })
 
@@ -101,6 +101,8 @@ const setPatient = asyncHandler(async (req, res) => {
                 retiR: presData.retiR,
                 retiL: presData.retiL,
                 hbrxDate: presData.hbrxDate,
+                hbrxzRVA: presData.hbrxRVA,
+                hbrxzLVA: presData.hbrxLVA,
                 hbrxRSPH: presData.hbrxRSPH,
                 hbrxRCYL: presData.hbrxRCYL,
                 hbrxRAXIS: presData.hbrxRAXIS,
@@ -109,6 +111,8 @@ const setPatient = asyncHandler(async (req, res) => {
                 hbrxLAXIS: presData.hbrxLAXIS,
                 hbrxRSummary: presData.hbrxRSummary,
                 hbrxLSummary: presData.hbrxLSummary,
+                RVA: presData.RVA,
+                LVA: presData.LVA,
                 RSPH: presData.RSPH,
                 RCYL: presData.RCYL,
                 RAXIS: presData.RAXIS,
@@ -120,7 +124,7 @@ const setPatient = asyncHandler(async (req, res) => {
                 presNote: presData.presNote,
                 rvDate: presData.rvDate,
                 signedBy: presData.signedBy,
-                presImg: req.files.pres_img[0].filename
+                presImg: req.files && req.files.pres_img ? req.files.pres_img[0].filename : ""
             })
 
             const updatedOrder = await Order.findByIdAndUpdate(

@@ -24,17 +24,25 @@ function AddPrescription(props) {
     retiL2: "",
     retiL3: "",
     hbrxDate: "",
+    hbrxRVA1: "",
+    hbrxRVA2: "",
     hbrxRSPH: "",
     hbrxRCYL: "",
     hbrxRAXIS: "",
+    hbrxLVA1: "",
+    hbrxLVA2: "",
     hbrxLSPH: "",
     hbrxLCYL: "",
     hbrxLAXIS: "",
     hbrxRSummary: "",
     hbrxLSummary: "",
+    RVA1: "",
+    RVA2: "",
     RSPH: "",
     RCYL: "",
     RAXIS: "",
+    LVA1: "",
+    LVA2: "",
     LSPH: "",
     LCYL: "",
     LAXIS: "",
@@ -61,17 +69,25 @@ function AddPrescription(props) {
     retiL2,
     retiL3,
     hbrxDate,
+    hbrxLVA1,
+    hbrxLVA2,
     hbrxRSPH,
     hbrxRCYL,
     hbrxRAXIS,
+    hbrxRVA1,
+    hbrxRVA2,
     hbrxLSPH,
     hbrxLCYL,
     hbrxLAXIS,
     hbrxRSummary,
     hbrxLSummary,
+    RVA1,
+    RVA2,
     RSPH,
     RCYL,
     RAXIS,
+    LVA1,
+    LVA2,
     LSPH,
     LCYL,
     LAXIS,
@@ -103,6 +119,10 @@ function AddPrescription(props) {
       VALPH: `${VALPH1}-${VALPH2}`,
       retiR: `${retiR1}-${retiR2}-${retiR3}`,
       retiL: `${retiL1}-${retiL2}-${retiL3}`,
+      hbrxRVA: `${hbrxRVA1}-${hbrxRVA2}`,
+      hbrxLVA: `${hbrxLVA1}-${hbrxLVA2}`,
+      RVA: `${RVA1}-${RVA2}`,
+      LVA: `${LVA1}-${LVA2}`,
       hbrxDate: hbrxDate,
       hbrxRSPH: hbrxRSPH,
       hbrxRCYL: hbrxRCYL,
@@ -442,11 +462,19 @@ function AddPrescription(props) {
                 <input
                   className="p-1 mr-1 bg-white rounded-md w-7"
                   type="text"
+                  name="hbrxRVA1"
+                  onChange={onChange}
+                  value={hbrxRVA1}
+                  autoComplete="off"
                 />
                 <label htmlFor="">/</label>
                 <input
                   className="p-1 ml-1 bg-white rounded-md w-7"
                   type="text"
+                  name="hbrxRVA2"
+                  onChange={onChange}
+                  value={hbrxRVA2}
+                  autoComplete="off"
                 />
               </div>
               <input
@@ -508,11 +536,19 @@ function AddPrescription(props) {
                 <input
                   className="p-1 mr-1 bg-white rounded-md w-7"
                   type="text"
+                  name="hbrxLVA1"
+                  onChange={onChange}
+                  autoComplete="off"
+                  value={hbrxLVA1}
                 />
                 <label htmlFor="">/</label>
                 <input
                   className="p-1 ml-1 bg-white rounded-md w-7"
                   type="text"
+                  name="hbrxLVA2"
+                  onChange={onChange}
+                  autoComplete="off"
+                  value={hbrxLVA2}
                 />
               </div>
             </div>
@@ -582,11 +618,19 @@ function AddPrescription(props) {
                 <input
                   className="p-1 mr-1 bg-white rounded-md w-7"
                   type="text"
+                  onChange={onChange}
+                  autoComplete="off"
+                  value={RVA1}
+                  name="RVA1"
                 />
                 <label htmlFor="">/</label>
                 <input
                   className="p-1 ml-1 bg-white rounded-md w-7"
                   type="text"
+                  onChange={onChange}
+                  autoComplete="off"
+                  value={RVA2}
+                  name="RVA2"
                 />
               </div>
               <input
@@ -647,11 +691,19 @@ function AddPrescription(props) {
                 <input
                   className="p-1 mr-1 bg-white rounded-md w-7"
                   type="text"
+                  onChange={onChange}
+                  autoComplete="off"
+                  value={LVA1}
+                  name="LVA1"
                 />
                 <label htmlFor="">/</label>
                 <input
                   className="p-1 ml-1 bg-white rounded-md w-7"
                   type="text"
+                  onChange={onChange}
+                  autoComplete="off"
+                  value={LVA2}
+                  name="LVA2"
                 />
               </div>
             </div>
