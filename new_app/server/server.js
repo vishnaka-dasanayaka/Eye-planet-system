@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const connectDB = require('./config/dbConnection')
 const { errorHandler } = require('./middleware/errorMiddleware')
-const path = require('path')
+//const path = require('path')
 
 require('dotenv').config();
 
@@ -14,12 +14,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
-//app.use(express.static('public'));
+// app.use(express.static('public'));
 
-//static path
-const staticFilePath = path.join(__dirname, 'public');
-app.use('/api', express.static(staticFilePath));
-//
+app.use('/api', express.static('public'));
+
+
+
 connectDB();
 
 //get counts
