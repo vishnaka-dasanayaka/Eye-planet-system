@@ -98,7 +98,7 @@ const getMe = asyncHandler(async (req, res) => {
         address,
         email,
         status,
-        //pic: `${process.env.API_END_POINT}/ProfilePictures/${pic}`
+        pic: `${process.env.API_END_POINT}/ProfilePictures/${pic}`
     })
 })
 
