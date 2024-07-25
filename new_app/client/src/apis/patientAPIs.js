@@ -84,4 +84,15 @@ const deletePatientt = async (token, id) => {
     }
 }
 
-export { addPatient, getPatients, findPatients, findPatient, updatePatient, deletePatientt }
+const getOrderNum = async (token) => {
+    const config = getConfig(token);
+
+    try {
+        return await axios.get(`${url}/api/patients/get-new-order-number`, config)
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message)
+    }
+}
+
+export { addPatient, getPatients, findPatients, findPatient, updatePatient, deletePatientt, getOrderNum }

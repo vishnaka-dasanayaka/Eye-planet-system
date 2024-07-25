@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -7,7 +7,7 @@ import AddPrescription from "../components/popups/add_patient_popups/AddPrescrip
 import AddFramePopup from "../components/popups/add_patient_popups/AddFramePopup";
 import { toast } from "sonner";
 import { useAuthToken } from "../apis/useAuthToken";
-import { addPatient } from "../apis/patientAPIs";
+import { addPatient, getOrderNum } from "../apis/patientAPIs";
 import { useSelector } from "react-redux";
 
 function AddPatient(props) {
@@ -112,6 +112,15 @@ function AddPatient(props) {
     setFrameData(formData);
     setFrameImg(img);
     setAddFramePopup(false); // Close the popup
+  };
+
+  useEffect(() => {
+    getOrderNo();
+  }, []);
+
+  const getOrderNo = async () => {
+    const response = await getOrderNum(token);
+    setPatientData({ orderNumber: response.data });
   };
 
   return (

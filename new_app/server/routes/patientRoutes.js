@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getPatients, setPatient, deletePatient, updatePatient, findPatients, findPatient } = require('../controllers/patientController')
+const { getPatients, setPatient, deletePatient, updatePatient, findPatients, findPatient, getNewOrderNumber } = require('../controllers/patientController')
 const { protect } = require('../middleware/authMiddleware')
 const multer = require("multer")
 const path = require("path")
@@ -28,5 +28,6 @@ router.delete('/:id', protect, deletePatient)
 
 router.post('/findpatients', protect, findPatients)
 router.get('/findpatient/:id', protect, findPatient)
+router.get('/get-new-order-number', protect, getNewOrderNumber)
 
 module.exports = router
