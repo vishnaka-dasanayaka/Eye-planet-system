@@ -317,11 +317,33 @@ const findPatient = asyncHandler(async (req, res) => {
     res.status(200).json({ patient, orders })
 })
 
+const getNewOrderNumber = asyncHandler(async (req, res) => {
+
+    let latestOrder;
+
+    try {
+        latestOrder = await Order.findOne().sort({ date: -1 }).exec();
+    } catch (error) {
+        res.status(500).json('Server not responding')
+    }
+
+    if (!latestOrder) {
+        res.status(200).json(5000)
+    }
+
+    console.log(latestOrder);
+
+    const newOrderNumber = parseInt(latestOrder.orderNumber, 10) + 1;
+
+    res.status(200).json(`${newOrderNumber}`)
+})
+
 module.exports = {
     getPatients,
     setPatient,
     updatePatient,
     deletePatient,
     findPatients,
-    findPatient
+    findPatient,
+    getNewOrderNumber
 }
