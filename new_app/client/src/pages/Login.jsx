@@ -79,7 +79,7 @@ function Login() {
             <PasswordIcon />
           </div>
 
-          <button onClick={onSubmit} className="w-full bg-red-500">
+          <button onClick={onSubmit} className="w-full btn">
             login
           </button>
 
