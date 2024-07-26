@@ -10,6 +10,10 @@ const setBranch = asyncHandler(async (req, res) => {
             throw new Error('User not found')
         }
 
+        // if (user.role == "user") {
+        //     res.status(400).json('normal users cannot crete branchs')
+        // }
+
         const branchData = JSON.parse(req.body.branchData);
 
 
