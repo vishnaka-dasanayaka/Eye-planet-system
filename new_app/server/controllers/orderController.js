@@ -149,9 +149,7 @@ const addOrder = asyncHandler(async (req, res) => {
             receivedDate: orderData.receivedDate,
             deliveredDate: orderData.deliveredDate,
             specialNote: orderData.specialNote,
-            //frameImg: frameData ? req.files.frame_img[0].filename : "",
-            //presImg: req.files.pres_img[0].filename,
-            frameImg: req.files.frame_imgß[0].filename,
+            frameImg: frameData ? req.files.frame_img[0].filename : "",
             frameDesc: frameData ? frameData.frameDescription : ""
         })
 
@@ -184,7 +182,10 @@ const addOrder = asyncHandler(async (req, res) => {
             presNote: presData.presNote,
             rvDate: presData.rvDate,
             signedBy: presData.signedBy,
-            presImg: req.files.pres_img[0].filename
+            // presImg: req.files.pres_img[0].filename
+            // frameImg: frameData ? req.files.frame_img[0].filename : "",
+            presImg: presData ? req.files.pres_img[0].filename : "",
+
         })
 
         const updatedPatient = await Patient.findByIdAndUpdate(
