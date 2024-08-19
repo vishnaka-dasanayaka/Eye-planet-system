@@ -149,7 +149,9 @@ const addOrder = asyncHandler(async (req, res) => {
             receivedDate: orderData.receivedDate,
             deliveredDate: orderData.deliveredDate,
             specialNote: orderData.specialNote,
-            frameImg: frameData ? req.files.frame_img[0].filename : "",
+            //frameImg: frameData ? req.files.frame_img[0].filename : "",
+            //presImg: req.files.pres_img[0].filename,
+            frameImg: req.files.frame_imgß[0].filename,
             frameDesc: frameData ? frameData.frameDescription : ""
         })
 
