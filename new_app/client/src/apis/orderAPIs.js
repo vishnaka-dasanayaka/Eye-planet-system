@@ -69,4 +69,16 @@ const addOrder = async (token, id, data) => {
     }
 }
 
-export { getOrders, findOrders, getOrder, addOrder }
+const deleteSingleOrder = async (token, oId) => {
+    const config = getConfig(token);
+
+    try {
+        await axios.delete(`${url}/api/orders/delete-order/${oId}`, config);
+        toast.success("Order deleted Successfully.")
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message)
+    }
+}
+
+export { getOrders, findOrders, getOrder, addOrder, deleteSingleOrder }

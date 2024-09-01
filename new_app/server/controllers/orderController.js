@@ -212,4 +212,28 @@ const addOrder = asyncHandler(async (req, res) => {
         throw new Error(error)
     }
 })
-module.exports = { getActiveOrders, findOrders, getOrder, addOrder }
+
+const deleteOrder = asyncHandler(async (req, res) => {
+    let user;
+
+    try {
+        user = await User.findById(req.user.id)
+    } catch (error) {
+        res.status(500).json('Server Error')
+    }
+
+    if (!user) {
+        res.status(400).json('User not found')
+    }
+
+    try {
+        const order = await Order.findByIdAndUpdate(req.params.id, { orderNumber: null, isDeleted: true });
+
+        console.log(order)
+        res.status(200).json(order)
+    } catch (error) {
+        res.status(500).json("sever Error")
+    }
+})
+
+module.exports = { getActiveOrders, findOrders, getOrder, addOrder, deleteOrder }

@@ -310,7 +310,7 @@ const findPatient = asyncHandler(async (req, res) => {
         res.status(400).json('Patient not found')
     }
 
-    const orders = await Order.find({ patient: req.params.id })
+    const orders = await Order.find({ patient: req.params.id, isDeleted: false })
 
 
 
@@ -322,10 +322,13 @@ const getNewOrderNumber = asyncHandler(async (req, res) => {
     let latestOrder;
 
     try {
-        latestOrder = await Order.findOne().sort({ date: -1 }).exec();
+        latestOrder = await Order.findOne({ orderNumber: { $ne: null } })
+            .sort({ date: -1 })
+            .exec();
     } catch (error) {
-        res.status(500).json('Server not responding')
+        res.status(500).json('Server not responding');
     }
+
 
     if (!latestOrder) {
         res.status(200).json(5000)
