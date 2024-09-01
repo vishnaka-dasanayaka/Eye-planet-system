@@ -3,9 +3,9 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { findPatient } from "../apis/patientAPIs";
 import { useAuthToken } from "../apis/useAuthToken";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/spinners/Loading";
-import { getOrder } from "../apis/orderAPIs";
+import { deleteSingleOrder, getOrder } from "../apis/orderAPIs";
 import { getPrescriptions } from "../apis/prescriptionAPIs";
 import { url } from "../config/config";
 import Pres from "../components/popups/single_order_popups/Pres";
@@ -15,6 +15,7 @@ function SingleOrder() {
   const [addPresPopup, setAddPresPopup] = useState(false);
   const token = useAuthToken();
   const params = useParams();
+  const navigate = useNavigate();
 
   const pId = params.Pid;
   const oId = params.Oid;
@@ -41,7 +42,7 @@ function SingleOrder() {
   };
 
   const fetchPrescriptions = async () => {
-    console.log(presIds);
+    //console.log(presIds);
     if (token) {
       const response = await getPrescriptions(token, [presIds]);
       setPrescriptions(response.data);
@@ -62,6 +63,13 @@ function SingleOrder() {
     fetchOrder();
   }, [token]);
 
+  const deleteOrder = async () => {
+    if (token) {
+      await deleteSingleOrder(token, oId);
+      navigate(`../patient/${pId}`);
+    }
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -78,11 +86,17 @@ function SingleOrder() {
       <div className="lg:ml-[288px] w-full">
         <Header />
         <div className="flex flex-col m-5 mt-28 md:mt-8">
-          <Link to={`../patient/${pId}`}>
-            <h1 className="text-2xl font-semibold tracking-wide capitalize">
-              {patient.name}
-            </h1>
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link to={`../patient/${pId}`}>
+              <h1 className="text-2xl font-semibold tracking-wide capitalize">
+                {patient.name}
+              </h1>
+            </Link>
+
+            <button onClick={deleteOrder} className="capitalize btn_delete">
+              delete
+            </button>
+          </div>
 
           <div className="grid grid-cols-3 mt-10">
             <div className="flex flex-col ">
