@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuthToken } from "../apis/useAuthToken";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { findPatient } from "../apis/patientAPIs";
+import { findPatient, getOrderNum } from "../apis/patientAPIs";
 import { useEffect } from "react";
 import Loading from "../components/spinners/Loading";
 import Sidebar from "../components/Sidebar";
@@ -12,6 +12,7 @@ import AddFramePopup from "../components/popups/add_patient_popups/AddFramePopup
 import AddPrescription from "../components/popups/add_patient_popups/AddPrescription";
 import { toast } from "sonner";
 import { addOrder } from "../apis/orderAPIs";
+import { useSelector } from "react-redux";
 
 function AddOrder() {
   const token = useAuthToken();
@@ -50,9 +51,10 @@ function AddOrder() {
     receivedDate,
     deliveredDate,
     specialNote,
-    branch,
     lenses,
   } = orderForm;
+
+  const { branch } = useSelector((state) => state.branch);
 
   const fetchPatient = async () => {
     if (token) {
@@ -151,6 +153,15 @@ function AddOrder() {
     toast.warning("Order not added");
   };
 
+  useEffect(() => {
+    getOrderNo();
+  }, []);
+
+  const getOrderNo = async () => {
+    const response = await getOrderNum(token);
+    setOrderForm({ orderNumber: response.data });
+  };
+
   if (!patient) return <Loading />;
 
   return (
@@ -239,11 +250,26 @@ function AddOrder() {
                   onChange={handleChange}
                 >
                   <option value="">Select a Branch</option>
-                  <option value="Matale-Main_branch">
-                    Matale - Main Branch
-                  </option>
-                  <option value="Kumundu">Kumudu Hospital Branch</option>
-                  <option value="Coop">CO-OP Hospital Branch</option>
+                  {branch &&
+                    branch.map((branch) => (
+                      <>
+                        {branch.status !== "disabled" && (
+                          <option
+                            value={
+                              branch.status === "main"
+                                ? `${branch.branchName}- Main Branch`
+                                : branch.branchName
+                            }
+                          >
+                            {branch.status === "main"
+                              ? `${branch.branchName}- Main Branch`
+                              : branch.branchName}
+                          </option>
+                        )}
+                      </>
+                    ))}
+                  {/* <option value="Kumundu">Kumudu Hospital Branch</option>
+                <option value="Coop">CO-OP Hospital Branch</option> */}
                 </select>
               </div>
 

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getPrescriptions, addPres } = require('../controllers/prescriptionController')
+const { getPrescriptions, addPres, deletePrescription } = require('../controllers/prescriptionController')
 const { protect } = require('../middleware/authMiddleware')
 const multer = require("multer")
 const path = require("path")
@@ -30,6 +30,7 @@ const upload = multer({
 
 router.post('/', protect, getPrescriptions)
 router.post('/add-prescription/:pId/:oId', protect, upload.single('pres_img'), addPres)
+router.delete('/delete-pres/:id', protect, deletePrescription);
 
 
 module.exports = router

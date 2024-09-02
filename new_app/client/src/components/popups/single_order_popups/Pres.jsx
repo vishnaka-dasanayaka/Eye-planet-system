@@ -1,8 +1,11 @@
 import React from "react";
 import { url } from "../../../config/config";
+import { useAuthToken } from "../../../apis/useAuthToken";
+import { deletePrescription } from "../../../apis/prescriptionAPIs";
+import { useNavigate } from "react-router-dom";
 
 function Pres({ pres }) {
-  console.log(pres);
+  const token = useAuthToken();
   const splitValues = (value) => {
     if (!value) return ["", "", ""];
     const values = value.split("-");
@@ -15,6 +18,15 @@ function Pres({ pres }) {
   const [VAL1, VAL2] = splitValues(pres.VAL);
   const [VALPH1, VALPH2] = splitValues(pres.VALPH);
   const [VARPH1, VARPH2] = splitValues(pres.VARPH);
+
+  const navigate = useNavigate();
+
+  const onDelete = async () => {
+    if (token) {
+      await deletePrescription(token, pres._id);
+      navigate(`../order/${pres.order}/${pres.patient}`);
+    }
+  };
 
   return (
     <div className="">
@@ -478,20 +490,26 @@ function Pres({ pres }) {
           </div>
         </div>
 
-        <div className="grid justify-between grid-cols-3 my-5 mt-10 ">
+        {/* <div className="grid justify-between grid-cols-3 my-5 mt-10 ">
           <div>
             <h2 className="font-extrabold ">Add prescription photo</h2>
           </div>
           <div>
             <input type="file" name="presImg" label="Image" id="presImg" />
           </div>
-        </div>
+        </div> */}
 
         {pres.presImg && (
           <div className="flex justify-center w-full">
             <img src={pres.presImg} className="w-2/3 h-fit" alt="" />
           </div>
         )}
+
+        <div className="flex justify-end mt-10 mr-5">
+          <button className="capitalize btn_delete" onClick={onDelete}>
+            delete
+          </button>
+        </div>
       </div>
     </div>
   );

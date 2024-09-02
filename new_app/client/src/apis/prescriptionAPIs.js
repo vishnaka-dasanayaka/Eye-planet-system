@@ -39,4 +39,17 @@ const addPrescription = async (token, pId, oId, data) => {
     }
 }
 
-export { getPrescriptions, addPrescription }
+const deletePrescription = async (token, presId) => {
+
+    const config = getConfig(token);
+
+    try {
+        await axios.delete(`${url}/api/prescriptions/delete-pres/${presId}`, config);
+        toast.success("Delete succesfully")
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message)
+    }
+}
+
+export { getPrescriptions, addPrescription, deletePrescription }

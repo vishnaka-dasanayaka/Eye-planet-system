@@ -108,7 +108,45 @@ const addPres = asyncHandler(async (req, res) => {
 
 })
 
+const deletePrescription = asyncHandler(async (req, res) => {
+    let user;
+
+    try {
+        user = await User.findById(req.user.id)
+    } catch (error) {
+        res.status(500).json('Server Error')
+    }
+
+    if (!user) {
+        res.status(400).json('User not found')
+    }
+
+    try {
+        const pres = await Prescription.findByIdAndDelete(req.params.id);
+        const order = await Order.findByIdAndUpdate(
+            pres.order,
+            { $pull: { prescriptions: req.params.id } },
+            { new: true } // This returns the updated document
+        );
+
+        if (!order) {
+            return res.status(404).send('Order not found');
+        }
+
+        res.status(200).send(order);
+
+    } catch (error) {
+        res.status(500).json('Server Error')
+    }
+
+
+
+
+    res.status(200).json(updatedPrescriptions);
+})
+
 module.exports = {
     getPrescriptions,
-    addPres
+    addPres,
+    deletePrescription
 }

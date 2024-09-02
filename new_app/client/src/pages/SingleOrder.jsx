@@ -145,7 +145,7 @@ function SingleOrder() {
               {order.frameImg !== "" ? (
                 <img
                   src={order.frameImg}
-                  className="w-full mt-2 md:pr-5 h-fit"
+                  className="object-cover w-full h-32 mt-2 md:pr-5"
                   alt=""
                 />
               ) : (
