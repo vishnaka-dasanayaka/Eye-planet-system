@@ -149,7 +149,8 @@ const addOrder = asyncHandler(async (req, res) => {
             receivedDate: orderData.receivedDate,
             deliveredDate: orderData.deliveredDate,
             specialNote: orderData.specialNote,
-            frameImg: frameData ? req.files.frame_img[0].filename : "",
+            // frameImg: frameData ? req.files.frame_img[0].filename : "",
+            frameImg: req.files && req.files.frame_img ? req.files.frame_img[0].filename : "",
             frameDesc: frameData ? frameData.frameDescription : ""
         })
 
@@ -182,9 +183,10 @@ const addOrder = asyncHandler(async (req, res) => {
             presNote: presData.presNote,
             rvDate: presData.rvDate,
             signedBy: presData.signedBy,
+            presImg: req.files && req.files.pres_img ? req.files.pres_img[0].filename : ""
             // presImg: req.files.pres_img[0].filename
             // frameImg: frameData ? req.files.frame_img[0].filename : "",
-            presImg: presData ? req.files.pres_img[0].filename : "",
+            // presImg: presData ? req.files.pres_img[0].filename : "",
 
         })
 
