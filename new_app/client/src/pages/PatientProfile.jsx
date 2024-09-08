@@ -11,6 +11,7 @@ import {
 } from "../apis/patientAPIs";
 import Loading from "../components/spinners/Loading";
 import OrderLabel from "../components/popups/profile_popups/OrderLabel";
+import DeleteConfirmation from "../components/popups/confirmation_popups/DeleteConfirmation";
 
 function PatientProfile() {
   const formatDate = (dateString) => {
@@ -40,6 +41,7 @@ function PatientProfile() {
   const token = useAuthToken();
   const [patient, setPatient] = useState();
   const [orders, setOrders] = useState();
+  const [deleteConfirmationPopup, setDeleteConfirmationPopup] = useState(false);
 
   const id = useParams().id;
 
@@ -103,7 +105,7 @@ function PatientProfile() {
             <div></div>
             <div className="m-3">
               <button
-                onClick={handleDelete}
+                onClick={() => setDeleteConfirmationPopup(true)}
                 className="w-full capitalize btn_delete"
               >
                 delete
@@ -211,6 +213,12 @@ function PatientProfile() {
           </div>
         </div>
       </div>
+
+      <DeleteConfirmation
+        addTrigger={deleteConfirmationPopup}
+        setAddTrigger={setDeleteConfirmationPopup}
+        onDelete={handleDelete}
+      ></DeleteConfirmation>
     </div>
   );
 }

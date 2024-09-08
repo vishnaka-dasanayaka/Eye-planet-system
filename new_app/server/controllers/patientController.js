@@ -230,20 +230,49 @@ const deletePatient = asyncHandler(async (req, res) => {
     }
 
     const orders = patient.orders
+    deleteOrdersAndPrescriptions(orders);
 
-    const result = await Order.updateMany(
-        { _id: { $in: orders } }, // Filter to match orders with IDs in the array
-        { $set: { isDeleted: true, orderNumber: null } } // Update operation to set the status to 'deleted'
-    );
+    // const result = await Order.updateMany(
+    //     { _id: { $in: orders } }, // Filter to match orders with IDs in the array
+    //     { $set: { isDeleted: true, orderNumber: null } } // Update operation to set the status to 'deleted'
+    // );
 
 
 
-    const updatedPatient = await Patient.findByIdAndUpdate(req.params.id, { status: 'deleted', $push: { history: `Deleted by ${req.user.firstName}` } }, {
-        new: true
-    })
+    // const updatedPatient = await Patient.findByIdAndUpdate(req.params.id, { status: 'deleted', $push: { history: `Deleted by ${req.user.firstName}` } }, {
+    //     new: true
+    // })
+
+    const updatedPatient = await Patient.findByIdAndDelete(req.params.id);
 
     res.status(201).json(updatedPatient)
 })
+
+const deleteOrdersAndPrescriptions = async (orderIds) => {
+    try {
+        // Find all orders by their IDs
+        const orders = await Order.find({ _id: { $in: orderIds } });
+
+        // Gather all prescription IDs from all orders
+        const allPrescriptionIds = orders.reduce((acc, order) => {
+            return acc.concat(order.prescriptions);
+        }, []);
+
+        // Delete all prescriptions in one operation
+        if (allPrescriptionIds.length > 0) {
+            await Prescription.deleteMany({ _id: { $in: allPrescriptionIds } });
+            console.log(`Deleted all prescriptions`);
+        }
+
+        // Now, delete all orders in one operation
+        await Order.deleteMany({ _id: { $in: orderIds } });
+        console.log('Deleted all orders');
+
+    } catch (error) {
+        console.error('Error deleting orders and prescriptions:', error);
+        throw error;
+    }
+};
 
 const findPatients = asyncHandler(async (req, res) => {
     const { name, contactNumber, dob } = req.body
