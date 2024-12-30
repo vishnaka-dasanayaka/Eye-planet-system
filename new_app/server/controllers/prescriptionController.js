@@ -5,7 +5,6 @@ const Order = require('../models/orderModel')
 const Patient = require('../models/patientModel')
 
 
-
 const getPrescriptions = asyncHandler(async (req, res) => {
     let user;
 
@@ -26,7 +25,7 @@ const getPrescriptions = asyncHandler(async (req, res) => {
 
     try {
         prescriptions = await Prescription.find({
-            _id: { $in: presIds }
+            _id: {$in: presIds}
         });
     } catch (error) {
         return res.status(500).json('Server Error');
@@ -38,7 +37,6 @@ const getPrescriptions = asyncHandler(async (req, res) => {
             presImg: `${process.env.API_END_POINT}/Prescriptions/${prescription.presImg}`
         };
     });
-
 
 
     res.status(200).json(updatedPrescriptions);
@@ -90,11 +88,11 @@ const addPres = asyncHandler(async (req, res) => {
         })
 
 
-        const updatedPatient = await Patient.findByIdAndUpdate(req.params.pId, { $push: { history: `New prescription added by ${req.user.firstName} to order ${order.orderNumber}` } }, { new: true })
+        const updatedPatient = await Patient.findByIdAndUpdate(req.params.pId, {$push: {history: `New prescription added by ${req.user.firstName} to order ${order.orderNumber}`}}, {new: true})
         const updatedOrder = await Order.findByIdAndUpdate(
             order._id,
-            { $push: { prescriptions: prescription._id } },
-            { new: true }
+            {$push: {prescriptions: prescription._id}},
+            {new: true}
         );
 
         res.status(200).json({
@@ -125,8 +123,8 @@ const deletePrescription = asyncHandler(async (req, res) => {
         const pres = await Prescription.findByIdAndDelete(req.params.id);
         const order = await Order.findByIdAndUpdate(
             pres.order,
-            { $pull: { prescriptions: req.params.id } },
-            { new: true } // This returns the updated document
+            {$pull: {prescriptions: req.params.id}},
+            {new: true} // This returns the updated document
         );
 
         if (!order) {
@@ -138,8 +136,6 @@ const deletePrescription = asyncHandler(async (req, res) => {
     } catch (error) {
         res.status(500).json('Server Error')
     }
-
-
 
 
     res.status(200).json(updatedPrescriptions);
