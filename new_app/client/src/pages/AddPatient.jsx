@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import AddPrescription from "../components/popups/add_patient_popups/AddPrescription";
-import AddFramePopup from "../components/popups/add_patient_popups/AddFramePopup";
-import { toast } from "sonner";
-import { useAuthToken } from "../apis/useAuthToken";
-import { addPatient, getOrderNum } from "../apis/patientAPIs";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import AddPrescription from '../components/popups/add_patient_popups/AddPrescription';
+import AddFramePopup from '../components/popups/add_patient_popups/AddFramePopup';
+import { toast } from 'sonner';
+import { useAuthToken } from '../apis/useAuthToken';
+import { addPatient, getOrderNum } from '../apis/patientAPIs';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function AddPatient(props) {
   const [addPrescriptionPopup, setAddPrescriptionPopup] = useState(false);
@@ -17,12 +18,14 @@ function AddPatient(props) {
   const [frameData, setFrameData] = useState(null);
   const [frameImg, setFrameImg] = useState(null);
   const [presImg, setPresImg] = useState(null);
-  const [stts, setStts] = useState("");
+  const [stts, setStts] = useState('');
+
+  const navigate = useNavigate();
 
   const { branch } = useSelector((state) => state.branch);
 
   const handleChange = (e) => {
-    if (e.target.name === "status") {
+    if (e.target.name === 'status') {
       setStts(e.target.value);
     }
     setPatientData((prevState) => ({
@@ -41,49 +44,50 @@ function AddPatient(props) {
     patientData.lenses = lenses;
 
     if (
-      patientData.date === "" ||
-      patientData.orderNumber === "" ||
-      patientData.fullName === "" ||
-      patientData.contactNumber === "" ||
-      patientData.dob === ""
+      patientData.date === '' ||
+      patientData.orderNumber === '' ||
+      patientData.fullName === '' ||
+      patientData.contactNumber === '' ||
+      patientData.dob === ''
     ) {
-      toast.error("Fill required fields");
+      toast.error('Fill required fields');
       return;
     } else {
       try {
         patientData.balance = price - advance;
         const form = new FormData();
-        form.append("pres_img", presImg);
-        form.append("frame_img", frameImg);
+        form.append('pres_img', presImg);
+        form.append('frame_img', frameImg);
 
-        form.append("patientData", JSON.stringify(patientData));
-        form.append("frameData", JSON.stringify(frameData));
-        form.append("presData", JSON.stringify(presData));
+        form.append('patientData', JSON.stringify(patientData));
+        form.append('frameData', JSON.stringify(frameData));
+        form.append('presData', JSON.stringify(presData));
 
         await addPatient(token, form);
+        navigate('/add');
       } catch (error) {
-        toast.error("An error occurred. Please try again.");
+        toast.error('An error occurred. Please try again.');
       }
     }
   };
 
   const [patientData, setPatientData] = useState({
-    date: "",
-    branch: "",
-    orderNumber: "",
-    billNumber: "",
-    fullName: "",
-    contactNumber: "",
-    dob: "",
-    address: "",
+    date: '',
+    branch: '',
+    orderNumber: '',
+    billNumber: '',
+    fullName: '',
+    contactNumber: '',
+    dob: '',
+    address: '',
     lenses: [],
-    price: "",
-    advance: "",
-    status: "",
-    sentDate: "",
-    receivedDate: "",
-    deliveredDate: "",
-    specialNote: "",
+    price: '',
+    advance: '',
+    status: '',
+    sentDate: '',
+    receivedDate: '',
+    deliveredDate: '',
+    specialNote: '',
   });
 
   const {
@@ -133,7 +137,7 @@ function AddPatient(props) {
           <div className="grid grid-cols-1 md:gap-5 md:grid-cols-3">
             <div className="flex flex-col items-start justify-start p-2 m-1 ">
               <label className="font-semibold capitalize text-md" htmlFor="">
-                date
+                date <span className="text-red-600">*</span>
               </label>
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
@@ -147,7 +151,7 @@ function AddPatient(props) {
 
             <div className="flex flex-col items-start justify-start p-2 m-1 ">
               <label className="font-semibold capitalize text-md" htmlFor="">
-                branch
+                branch <span className="text-red-600">*</span>
               </label>
               <select
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
@@ -159,15 +163,15 @@ function AddPatient(props) {
                 {branch &&
                   branch.map((branch) => (
                     <>
-                      {branch.status !== "disabled" && (
+                      {branch.status !== 'disabled' && (
                         <option
                           value={
-                            branch.status === "main"
+                            branch.status === 'main'
                               ? `${branch.branchName}- Main Branch`
                               : branch.branchName
                           }
                         >
-                          {branch.status === "main"
+                          {branch.status === 'main'
                             ? `${branch.branchName}- Main Branch`
                             : branch.branchName}
                         </option>
@@ -183,7 +187,7 @@ function AddPatient(props) {
 
             <div className="flex flex-col items-start justify-start p-2 m-1 ">
               <label className="font-semibold capitalize text-md" htmlFor="">
-                order number
+                order number <span className="text-red-600">*</span>
               </label>
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
@@ -213,7 +217,7 @@ function AddPatient(props) {
 
             <div className="flex flex-col items-start justify-start p-2 m-1 ">
               <label className="font-semibold capitalize text-md" htmlFor="">
-                full name
+                full name <span className="text-red-600">*</span>
               </label>
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
@@ -227,7 +231,7 @@ function AddPatient(props) {
 
             <div className="flex flex-col items-start justify-start p-2 m-1 ">
               <label className="font-semibold capitalize text-md" htmlFor="">
-                contact number
+                contact number <span className="text-red-600">*</span>
               </label>
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
@@ -241,8 +245,9 @@ function AddPatient(props) {
 
             <div className="flex flex-col items-start justify-start p-2 m-1 ">
               <label className="font-semibold capitalize text-md" htmlFor="">
-                date <span className="lowercase">of</span> birth
-              </label>
+                date <span className="lowercase">of</span> birth{' '}
+                <span className="text-red-600">*</span>
+              </label>{' '}
               <input
                 className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
                 type="date"
@@ -316,7 +321,7 @@ function AddPatient(props) {
                   />
                 </>
               )}
-            </div>{" "}
+            </div>{' '}
           </div>
 
           <div className="flex flex-col items-start justify-start p-2 m-1 ">
@@ -513,7 +518,7 @@ function AddPatient(props) {
             <div></div>
             <div></div>
 
-            {stts === "sent" ? (
+            {stts === 'sent' ? (
               <>
                 <div className="flex flex-col items-start justify-start p-2 m-1 ">
                   <label
@@ -536,7 +541,7 @@ function AddPatient(props) {
               <></>
             )}
 
-            {stts === "received" ? (
+            {stts === 'received' ? (
               <>
                 <div className="flex flex-col items-start justify-start p-2 m-1 ">
                   <label
@@ -575,7 +580,7 @@ function AddPatient(props) {
             ) : (
               <></>
             )}
-            {stts === "delivered" ? (
+            {stts === 'delivered' ? (
               <>
                 <div className="flex flex-col items-start justify-start p-2 m-1 ">
                   <label
@@ -643,7 +648,7 @@ function AddPatient(props) {
               id="specialNote"
               value={specialNote}
               onChange={handleChange}
-            ></textarea>{" "}
+            ></textarea>{' '}
           </div>
 
           <div className="flex justify-end m-3">

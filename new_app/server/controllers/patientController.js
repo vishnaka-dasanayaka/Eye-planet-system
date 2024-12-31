@@ -30,6 +30,8 @@ const getPatients = asyncHandler(async (req, res) => {
 const setPatient = asyncHandler(async (req, res) => {
 
 
+
+
     const patientData = JSON.parse(req.body.patientData);
     const presData = JSON.parse(req.body.presData);
     const frameData = JSON.parse(req.body.frameData);
@@ -352,7 +354,7 @@ const getNewOrderNumber = asyncHandler(async (req, res) => {
 
     try {
         latestOrder = await Order.findOne({ orderNumber: { $ne: null } })
-            .sort({ date: -1 })
+            .sort({ createdAt: -1 })
             .exec();
     } catch (error) {
         res.status(500).json('Server not responding');
@@ -362,8 +364,6 @@ const getNewOrderNumber = asyncHandler(async (req, res) => {
     if (!latestOrder) {
         res.status(200).json(5000)
     }
-
-    console.log(latestOrder);
 
     const newOrderNumber = parseInt(latestOrder.orderNumber, 10) + 1;
 
