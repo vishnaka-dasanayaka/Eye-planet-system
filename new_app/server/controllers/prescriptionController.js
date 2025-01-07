@@ -84,7 +84,7 @@ const addPres = asyncHandler(async (req, res) => {
             presNote: presData.presNote,
             rvDate: presData.rvDate,
             signedBy: presData.signedBy,
-            presImg: req.file.filename
+            presImg: req.files && req.files.pres_img ? req.files.pres_img[0].filename : ""
         })
 
 

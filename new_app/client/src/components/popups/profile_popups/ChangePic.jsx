@@ -1,12 +1,11 @@
-import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
-import pica from "pica";
-import { changeProfilePic } from "../../../apis/userAPI";
-import { useAuthToken } from "../../../apis/useAuthToken";
-import { url } from "../../../config/config";
+import CloseIcon from '@mui/icons-material/Close';
+import { useState } from 'react';
+import pica from 'pica';
+import { changeProfilePic } from '../../../apis/userAPI';
+import { useAuthToken } from '../../../apis/useAuthToken';
+import { url } from '../../../config/config';
 
 function ChangePic(props) {
-  console.log(props.pic);
   const token = useAuthToken();
 
   const onCloseclick = () => {
@@ -23,20 +22,20 @@ function ChangePic(props) {
   const handleClick = (e) => {
     e.preventDefault();
     const formdata = new FormData();
-    formdata.append("pro_pic", pic);
+    formdata.append('pro_pic', pic);
     changeProfilePic(token, formdata);
     props.setAddTrigger(false);
   };
 
   const resizeImage = (file, maxSizeKB, callback) => {
-    const img = document.createElement("img");
+    const img = document.createElement('img');
     const reader = new FileReader();
 
     reader.onload = (event) => {
       img.src = event.target.result;
       img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
         const { width, height } = img;
         const scale = Math.sqrt((maxSizeKB * 1024) / (width * height));
         canvas.width = width * scale;
@@ -47,7 +46,7 @@ function ChangePic(props) {
             quality: 3,
           })
           .then((result) => {
-            return pica().toBlob(result, "image/jpeg", 0.7); // Adjust the quality to meet size requirement
+            return pica().toBlob(result, 'image/jpeg', 0.7); // Adjust the quality to meet size requirement
           })
           .then((blob) => {
             const resizedFile = new File([blob], file.name, {
@@ -87,7 +86,7 @@ function ChangePic(props) {
       </div>
     </div>
   ) : (
-    ""
+    ''
   );
 }
 
