@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
-import { findPatient } from "../apis/patientAPIs";
-import { useAuthToken } from "../apis/useAuthToken";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Loading from "../components/spinners/Loading";
-import { deleteSingleOrder, getOrder } from "../apis/orderAPIs";
-import { getPrescriptions } from "../apis/prescriptionAPIs";
-import { url } from "../config/config";
-import Pres from "../components/popups/single_order_popups/Pres";
-import AddPres from "../components/popups/single_order_popups/AddPres";
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import { findPatient } from '../apis/patientAPIs';
+import { useAuthToken } from '../apis/useAuthToken';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Loading from '../components/spinners/Loading';
+import { deleteSingleOrder, getOrder } from '../apis/orderAPIs';
+import { getPrescriptions } from '../apis/prescriptionAPIs';
+import { url } from '../config/config';
+import Pres from '../components/popups/single_order_popups/Pres';
+import AddPres from '../components/popups/single_order_popups/AddPres';
 
 function SingleOrder() {
   const [addPresPopup, setAddPresPopup] = useState(false);
+
   const token = useAuthToken();
   const params = useParams();
   const navigate = useNavigate();
@@ -20,10 +21,10 @@ function SingleOrder() {
   const pId = params.Pid;
   const oId = params.Oid;
 
-  const [patient, setPatient] = useState("");
-  const [order, setOrder] = useState("");
+  const [patient, setPatient] = useState('');
+  const [order, setOrder] = useState('');
   const [presIds, setPresIds] = useState([]);
-  const [prescriptions, setPrescriptions] = useState("");
+  const [prescriptions, setPrescriptions] = useState('');
   const [canShow, setCanShow] = useState(false);
 
   const fetchPatient = async () => {
@@ -61,7 +62,8 @@ function SingleOrder() {
   useEffect(() => {
     fetchPatient();
     fetchOrder();
-  }, [token]);
+    fetchPrescriptions();
+  }, [token, addPresPopup]);
 
   const deleteOrder = async () => {
     if (token) {
@@ -73,8 +75,8 @@ function SingleOrder() {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
 
@@ -110,14 +112,14 @@ function SingleOrder() {
 
             <div className="flex flex-col ">
               <h2 className="text-xs text-purple-500 capitalize">
-                order number{" "}
+                order number{' '}
               </h2>
               <h1 className="text-xl font-semibold">{order.orderNumber}</h1>
             </div>
 
             <div className="flex flex-col ">
               <h2 className="text-xs text-purple-500 capitalize">
-                bill number{" "}
+                bill number{' '}
               </h2>
               <h1 className="text-xl font-semibold">{order.billNumber}</h1>
             </div>
@@ -142,7 +144,7 @@ function SingleOrder() {
           <div className="grid grid-cols-1 mt-10 md:grid-cols-2">
             <div className="flex flex-col items-start justify-start">
               <h2 className="text-sm text-purple-500 capitalize">frame </h2>
-              {order.frameImg !== "" ? (
+              {order.frameImg !== '' ? (
                 <img
                   src={order.frameImg}
                   className="object-cover w-full h-32 mt-2 md:pr-5"
@@ -223,7 +225,7 @@ function SingleOrder() {
           <div className="grid grid-cols-3 mt-10">
             <div className="flex flex-col ">
               <h2 className="text-sm text-purple-500 capitalize">
-                order status{" "}
+                order status{' '}
               </h2>
               <h1 className="text-xl font-semibold">{order.status}</h1>
             </div>
@@ -232,7 +234,7 @@ function SingleOrder() {
             <div></div>
           </div>
 
-          {order.status !== "order_accepted" ? (
+          {order.status !== 'order_accepted' ? (
             <div className="grid grid-cols-3 mt-10">
               {order.sentDate && (
                 <div className="flex flex-col ">

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
-import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import RoomIcon from "@mui/icons-material/Room";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import CallIcon from "@mui/icons-material/Call";
-import CopyrightIcon from "@mui/icons-material/Copyright";
-import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
-import { getBranches } from "../apis/branchAPIs";
-import { useAuthToken } from "../apis/useAuthToken";
-import Loading from "../components/spinners/Loading";
-import { url } from "../config/config";
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import RoomIcon from '@mui/icons-material/Room';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import CallIcon from '@mui/icons-material/Call';
+import CopyrightIcon from '@mui/icons-material/Copyright';
+import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
+import { getBranches } from '../apis/branchAPIs';
+import { useAuthToken } from '../apis/useAuthToken';
+import Loading from '../components/spinners/Loading';
+import { url } from '../config/config';
 
 function Contacts() {
   const [branches, setBranches] = useState([]);
@@ -78,52 +78,62 @@ function Contacts() {
           {branches &&
             branches.map((branch) => (
               <>
-                {branch.status !== "disabled" && (
-                  <div className="rounded-2xl w-[360px] bg-[#395066] text-white h-fit">
-                    <div className="bg-white h-60 rounded-t-2xl">
-                      <img
-                        className="object-cover w-full h-full rounded-t-2xl"
-                        src={branch.branchImg}
-                      ></img>
-                    </div>
-                    <div className="p-5">
-                      <h1 className="text-xl font-extrabold text-center">
-                        {branch.branchName}{" "}
-                        {branch.status === "main" ? <>- Main Branch</> : <></>}
-                      </h1>
-                      <div className="flex items-center justify-start mt-5">
-                        <SupportAgentIcon className="scale-90" />
-                        <h2 className="ml-2 text-lg font-semibold">
-                          {branch.branchCoordinator}
-                        </h2>
-                      </div>
-                      <div className="flex items-center justify-start mt-3">
-                        <RoomIcon className="scale-90" />
-                        <h2 className="ml-2 text-lg font-semibold">
-                          {branch.address}
-                        </h2>
-                      </div>
-                      <div className="flex items-center justify-start mt-3">
-                        <AlternateEmailIcon className="scale-90" />
-                        <h2 className="ml-2 text-lg font-semibold">
-                          {branch.email}
-                        </h2>
-                      </div>
-                      <div className="flex items-center justify-start mt-3">
-                        <CallIcon className="scale-90" />
-                        <h2 className="ml-2 text-lg font-semibold">
-                          {branch.contactNumber}
-                        </h2>
-                      </div>
-                      <div className="flex items-center justify-start mt-3">
-                        <CallIcon className="scale-90" />
-                        <h2 className="ml-2 text-lg font-semibold">
-                          {branch.contactNumber2}
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                {branches &&
+                  branches.map(
+                    (branch, index) =>
+                      branch.status !== 'disabled' && (
+                        <div
+                          key={branch._id || index} // Fallback to index if branch.id is not unique
+                          className="rounded-2xl w-[360px] bg-[#395066] text-white h-fit"
+                        >
+                          <div className="bg-white h-60 rounded-t-2xl">
+                            <img
+                              className="object-cover w-full h-full rounded-t-2xl"
+                              src={branch.branchImg}
+                              alt="Branch"
+                            />
+                          </div>
+                          <div className="p-5">
+                            <h1 className="text-xl font-extrabold text-center">
+                              {branch.branchName}{' '}
+                              {branch.status === 'main' ? (
+                                <>- Main Branch</>
+                              ) : null}
+                            </h1>
+                            <div className="flex items-center justify-start mt-5">
+                              <SupportAgentIcon className="scale-90" />
+                              <h2 className="ml-2 text-lg font-semibold">
+                                {branch.branchCoordinator}
+                              </h2>
+                            </div>
+                            <div className="flex items-center justify-start mt-3">
+                              <RoomIcon className="scale-90" />
+                              <h2 className="ml-2 text-lg font-semibold">
+                                {branch.address}
+                              </h2>
+                            </div>
+                            <div className="flex items-center justify-start mt-3">
+                              <AlternateEmailIcon className="scale-90" />
+                              <h2 className="ml-2 text-lg font-semibold">
+                                {branch.email}
+                              </h2>
+                            </div>
+                            <div className="flex items-center justify-start mt-3">
+                              <CallIcon className="scale-90" />
+                              <h2 className="ml-2 text-lg font-semibold">
+                                {branch.contactNumber}
+                              </h2>
+                            </div>
+                            <div className="flex items-center justify-start mt-3">
+                              <CallIcon className="scale-90" />
+                              <h2 className="ml-2 text-lg font-semibold">
+                                {branch.contactNumber2}
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                  )}
               </>
             ))}
         </div>

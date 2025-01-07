@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
-import ChangePic from "../components/popups/profile_popups/ChangePic";
-import { useAuthToken } from "../apis/useAuthToken";
-import { getUser, updatePassword } from "../apis/userAPI";
-import Loading from "../components/spinners/Loading";
-import { toast } from "sonner";
-import { url } from "../config/config";
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import ChangePic from '../components/popups/profile_popups/ChangePic';
+import { useAuthToken } from '../apis/useAuthToken';
+import { getUser, updatePassword } from '../apis/userAPI';
+import Loading from '../components/spinners/Loading';
+import { toast } from 'sonner';
+import { url } from '../config/config';
 
 function Profile(props) {
   const [addPicturePopup, setAddPicturePopup] = useState(false);
   const [user, setUser] = useState([]);
   const [passwords, setPasswords] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmNewPassword: "",
+    currentPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
   });
 
   const { currentPassword, newPassword, confirmNewPassword } = passwords;
@@ -34,7 +34,7 @@ function Profile(props) {
 
   const onClickPasswordChange = async () => {
     if (newPassword !== confirmNewPassword) {
-      toast.error("New password and Confirm Password should be matched");
+      toast.error('New password and Confirm Password should be matched');
     } else {
       try {
         await updatePassword(token, passwords);
@@ -63,13 +63,13 @@ function Profile(props) {
               <div className="flex items-center justify-center w-40 h-40 mt-10 mb-5 border-2 rounded-full ">
                 <img
                   src={
-                    user.data.pic === ""
+                    user.data.pic === ''
                       ? `../assets/imgs/dummyUser.png`
                       : `${user.data.pic}`
                   }
                   className="object-cover w-full h-full rounded-full"
                   alt=""
-                />{" "}
+                />{' '}
               </div>
 
               <div>
@@ -109,6 +109,7 @@ function Profile(props) {
                 </div>
                 <div className="flex items-center justify-start w-2/3 h-10 m-1 b">
                   <input
+                    readOnly
                     className="w-full p-1 capitalize bg-gray-100 outline-none"
                     value={user.data.firstName}
                     type="text"
@@ -127,6 +128,7 @@ function Profile(props) {
                 </div>
                 <div className="flex items-center justify-start w-2/3 h-10 m-1 b">
                   <input
+                    readOnly
                     className="w-full p-1 capitalize bg-gray-100 outline-none"
                     value={user.data.lastName}
                     type="text"
@@ -145,6 +147,7 @@ function Profile(props) {
                 </div>
                 <div className="flex items-center justify-start w-2/3 h-10 m-1 b">
                   <input
+                    readOnly
                     className="w-full p-1 capitalize bg-gray-100 outline-none"
                     value={user.data.address}
                     type="text"
@@ -163,6 +166,7 @@ function Profile(props) {
                 </div>
                 <div className="flex items-center justify-start w-2/3 h-10 m-1 b">
                   <input
+                    readOnly
                     className="w-full p-1 bg-gray-100 outline-none"
                     value={user.data.email}
                     type="text"
@@ -181,6 +185,7 @@ function Profile(props) {
                 </div>
                 <div className="flex items-center justify-start w-2/3 h-10 m-1 b">
                   <input
+                    readOnly
                     className="w-full p-1 capitalize bg-gray-100 outline-none "
                     value={user.data.contactNumber}
                     type="text"
@@ -258,8 +263,8 @@ function Profile(props) {
               <div
                 className={`m-3 btn ${
                   newPassword && currentPassword && confirmNewPassword
-                    ? "block"
-                    : "hidden"
+                    ? 'block'
+                    : 'hidden'
                 }`}
               >
                 <button className="capitalize" onClick={onClickPasswordChange}>

@@ -1,4 +1,4 @@
-import { Oval } from "react-loader-spinner";
+import { Oval } from 'react-loader-spinner';
 
 function Loading() {
   return (
@@ -18,7 +18,7 @@ function Loading() {
       </div>
 
       <div className="relative w-12">
-        <img src="../assets/imgs/logo.png" alt="" />
+        <img src="/assets/imgs/logo.png" alt="" />
       </div>
     </div>
   );
