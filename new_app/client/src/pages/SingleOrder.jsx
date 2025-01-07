@@ -62,8 +62,7 @@ function SingleOrder() {
   useEffect(() => {
     fetchPatient();
     fetchOrder();
-    fetchPrescriptions();
-  }, [token, addPresPopup]);
+  }, [token]);
 
   const deleteOrder = async () => {
     if (token) {
