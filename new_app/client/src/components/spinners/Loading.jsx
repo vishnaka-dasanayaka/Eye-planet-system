@@ -1,8 +1,8 @@
-import { Oval } from 'react-loader-spinner';
+import { Oval } from "react-loader-spinner";
 
 function Loading() {
   return (
-    <div className="fixed flex items-center justify-center w-screen h-screen backdrop-blur-sm backdrop-brightness-50">
+    <div className="fixed z-50 flex items-center justify-center w-screen h-screen backdrop-blur-sm backdrop-brightness-50">
       <div className="absolute">
         <Oval
           visible={true}
