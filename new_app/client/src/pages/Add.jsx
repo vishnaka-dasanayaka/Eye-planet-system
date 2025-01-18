@@ -36,7 +36,7 @@ function Add() {
           <Link to={"/addpatient"}>
             <button className="flex items-center m-5 capitalize w-fit btn_green">
               <AddIcon className="mr-2" />
-              add patient
+              add patienttt
             </button>
           </Link>
           <div className="grid grid-cols-1 gap-3 m-5 md:grid-cols-3">
