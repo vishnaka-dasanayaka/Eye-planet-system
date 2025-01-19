@@ -10,10 +10,13 @@ import {
   updatePatient,
 } from "../apis/patientAPIs";
 import Loading from "../components/spinners/Loading";
+import Waiting from "../components/spinners/Waiting";
 import OrderLabel from "../components/popups/profile_popups/OrderLabel";
 import DeleteConfirmation from "../components/popups/confirmation_popups/DeleteConfirmation";
 
 function PatientProfile() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -59,6 +62,7 @@ function PatientProfile() {
   }, []);
 
   const onSaveClick = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const data = {
       name: patient.name,
@@ -70,6 +74,8 @@ function PatientProfile() {
     const response = await updatePatient(token, id, data);
 
     fetchData();
+
+    setIsLoading(false);
   };
 
   const [isEdited, setIsEdited] = useState(false);
@@ -95,6 +101,7 @@ function PatientProfile() {
 
   return (
     <div className="flex items-start justify-start h-full">
+      {isLoading && <Waiting />}
       <Sidebar className="" />
       <div className="lg:ml-[288px] w-full">
         <Header />

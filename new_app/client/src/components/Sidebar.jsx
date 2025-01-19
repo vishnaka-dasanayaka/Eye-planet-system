@@ -23,7 +23,7 @@ const Sidebar = () => {
     setSideMenu(!sideMenu);
   };
 
-  if (!user) return <Loading />;
+  //if (!user) return <Loading />;
 
   return (
     <>

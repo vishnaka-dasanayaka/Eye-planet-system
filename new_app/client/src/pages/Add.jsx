@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { getPatients } from "../apis/patientAPIs";
 import { useAuthToken } from "../apis/useAuthToken";
 import Loading from "../components/spinners/Loading";
-import Waiting from "../components/spinners/Waiting";
 
 function Add() {
   const [patients, setPatients] = useState([]);
@@ -25,9 +24,9 @@ function Add() {
     fetchPatients();
   }, []);
 
+  if (!patients) return <Loading />;
   return (
     <div className="flex items-start justify-start h-screen">
-      {!patients && <Waiting />}
       <Sidebar className="" />
       <div className="lg:ml-[288px] ml-0 w-full">
         <Header />
@@ -36,7 +35,7 @@ function Add() {
           <Link to={"/addpatient"}>
             <button className="flex items-center m-5 capitalize w-fit btn_green">
               <AddIcon className="mr-2" />
-              add patienttt
+              add patient
             </button>
           </Link>
           <div className="grid grid-cols-1 gap-3 m-5 md:grid-cols-3">

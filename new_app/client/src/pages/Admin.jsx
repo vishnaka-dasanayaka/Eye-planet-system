@@ -10,7 +10,6 @@ import Loading from "../components/spinners/Loading";
 import { toast } from "sonner";
 import { getBranches, updateBranch } from "../apis/branchAPIs";
 import { useSelector } from "react-redux";
-import Waiting from "../components/spinners/Waiting";
 
 function Admin(props) {
   const [addUserPopup, setAddUserPopup] = useState(false);
@@ -147,7 +146,7 @@ function Admin(props) {
   }, [token, addUserPopup, addBranchPopup]);
 
   if (!users && !branches) {
-    return <Waiting />;
+    return <Loading />;
   }
 
   return (

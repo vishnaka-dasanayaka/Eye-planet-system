@@ -62,6 +62,7 @@ function Header() {
   }, []);
 
   if (!me) return <Loading />;
+
   return (
     <div className="">
       <div className="fixed flex items-center justify-between w-full px-5 pt-10 pb-5 bg-white md:relative md:bg-transparent lg:justify-end">
