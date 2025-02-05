@@ -1,12 +1,12 @@
-import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
-import pica from 'pica';
-import { useAuthToken } from '../../../apis/useAuthToken';
-import { addPrescription } from '../../../apis/prescriptionAPIs';
-import { useNavigate } from 'react-router-dom';
+import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
+import pica from "pica";
+import { useAuthToken } from "../../../apis/useAuthToken";
+import { addPrescription } from "../../../apis/prescriptionAPIs";
+import { useNavigate } from "react-router-dom";
 
 function AddPres(props) {
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState("");
   const onCloseclick = () => {
     props.setAddTrigger(false);
   };
@@ -16,40 +16,40 @@ function AddPres(props) {
   const navigate = useNavigate();
 
   const [presData, setPresData] = useState({
-    VAR1: '',
-    VAR2: '',
-    VAL1: '',
-    VAL2: '',
-    VARPH1: '',
-    VARPH2: '',
-    VALPH1: '',
-    VALPH2: '',
-    retiR1: '',
-    retiR2: '',
-    retiR3: '',
-    retiL1: '',
-    retiL2: '',
-    retiL3: '',
-    hbrxDate: '',
-    hbrxRSPH: '',
-    hbrxRCYL: '',
-    hbrxRAXIS: '',
-    hbrxLSPH: '',
-    hbrxLCYL: '',
-    hbrxLAXIS: '',
-    hbrxRSummary: '',
-    hbrxLSummary: '',
-    RSPH: '',
-    RCYL: '',
-    RAXIS: '',
-    LSPH: '',
-    LCYL: '',
-    LAXIS: '',
-    rSummary: '',
-    lSummary: '',
-    presNote: '',
-    rvDate: '',
-    signedBy: '',
+    VAR1: "",
+    VAR2: "",
+    VAL1: "",
+    VAL2: "",
+    VARPH1: "",
+    VARPH2: "",
+    VALPH1: "",
+    VALPH2: "",
+    retiR1: "",
+    retiR2: "",
+    retiR3: "",
+    retiL1: "",
+    retiL2: "",
+    retiL3: "",
+    hbrxDate: "",
+    hbrxRSPH: "",
+    hbrxRCYL: "",
+    hbrxRAXIS: "",
+    hbrxLSPH: "",
+    hbrxLCYL: "",
+    hbrxLAXIS: "",
+    hbrxRSummary: "",
+    hbrxLSummary: "",
+    RSPH: "",
+    RCYL: "",
+    RAXIS: "",
+    LSPH: "",
+    LCYL: "",
+    LAXIS: "",
+    rSummary: "",
+    lSummary: "",
+    presNote: "",
+    rvDate: "",
+    signedBy: "",
   });
 
   const {
@@ -133,9 +133,9 @@ function AddPres(props) {
     };
 
     const form = new FormData();
-    form.append('pres_img', img);
+    form.append("pres_img", img);
 
-    form.append('presData', JSON.stringify(formData));
+    form.append("presData", JSON.stringify(formData));
 
     await addPrescription(token, props.pId, props.oId, form);
 
@@ -143,14 +143,14 @@ function AddPres(props) {
   };
 
   const resizeImage = (file, maxSizeKB, callback) => {
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     const reader = new FileReader();
 
     reader.onload = (event) => {
       img.src = event.target.result;
       img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
         const { width, height } = img;
         const scale = Math.sqrt((maxSizeKB * 1024) / (width * height));
         canvas.width = width * scale;
@@ -161,7 +161,7 @@ function AddPres(props) {
             quality: 3,
           })
           .then((result) => {
-            return pica().toBlob(result, 'image/jpeg', 0.7); // Adjust the quality to meet size requirement
+            return pica().toBlob(result, "image/jpeg", 0.7); // Adjust the quality to meet size requirement
           })
           .then((blob) => {
             const resizedFile = new File([blob], file.name, {
@@ -177,7 +177,7 @@ function AddPres(props) {
   return props.addTrigger ? (
     <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen backdrop-blur-sm backdrop-brightness-75">
       <div
-        style={{ maxHeight: '90vh', overflowY: 'auto' }}
+        style={{ maxHeight: "90vh", overflowY: "auto" }}
         className=" scrollable-form relative w-11/12 bg-white p-3 md:w-[700px] flex flex-col items-center justify-start"
       >
         <CloseIcon
@@ -187,7 +187,7 @@ function AddPres(props) {
         <h1 className="mt-10 mb-5 text-2xl font-extrabold text-[#B522B5] ">
           Add a Prescription
         </h1>
-        <div className="flex flex-col w-full p-5 mt-5 bg-gray-100 rounded-lg md:mt-0">
+        <div className="flex flex-col w-full p-5 mt-5 bg-gray-300 rounded-lg md:mt-0">
           <div className="grid items-center justify-center grid-cols-1">
             <div></div>
           </div>
@@ -723,7 +723,7 @@ function AddPres(props) {
       </div>
     </div>
   ) : (
-    ''
+    ""
   );
 }
 

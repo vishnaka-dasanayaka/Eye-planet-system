@@ -193,7 +193,7 @@ function AddPrescription(props) {
         <h1 className="mt-10 mb-5 text-2xl font-extrabold text-[#B522B5] ">
           Add a Prescription
         </h1>
-        <div className="flex flex-col w-full p-5 mt-5 bg-gray-100 rounded-lg md:mt-0">
+        <div className="flex flex-col w-full p-5 mt-5 bg-gray-300 rounded-lg md:mt-0">
           <div className="grid items-center justify-center grid-cols-1">
             <div></div>
           </div>

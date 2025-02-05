@@ -99,6 +99,23 @@ const updateOrder = async (token, id, data) => {
   }
 };
 
+const addAnotherFrame = async (token, oId, form) => {
+  const config = getOrder(token);
+
+  try {
+    const response = await axios.post(
+      `${url}/api/orders/add-another-frame`,
+      form,
+      config
+    );
+    toast.success("Another Frame Uploaded Successfully");
+    return response;
+  } catch (error) {
+    console.log(error);
+    toast.error(error.response.data.message);
+  }
+};
+
 export {
   getOrders,
   findOrders,
@@ -106,4 +123,5 @@ export {
   addOrder,
   deleteSingleOrder,
   updateOrder,
+  addAnotherFrame,
 };
