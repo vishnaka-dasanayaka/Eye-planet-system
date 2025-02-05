@@ -28,12 +28,24 @@ function Pres({ pres }) {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <div className="">
       <div className="flex flex-col w-full p-5 mt-5 bg-gray-300 rounded-lg md:mt-0">
         <div className="grid items-center justify-center grid-cols-1">
           <div></div>
         </div>
+
+        <h1 className="font-bold">
+          Created On : <span>{formatDate(pres.createdAt)}</span>
+        </h1>
 
         <div className="flex flex-col items-center justify-between md:flex-row">
           <div>

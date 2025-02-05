@@ -12,11 +12,14 @@ import Pres from "../components/popups/single_order_popups/Pres";
 import AddPres from "../components/popups/single_order_popups/AddPres";
 import DeleteConfirmation from "../components/popups/confirmation_popups/DeleteConfirmation";
 import EditOrder from "../components/popups/single_order_popups/EditOrder";
+import AddIcon from "@mui/icons-material/Add";
+import AddFramePopup from "../components/popups/add_patient_popups/AddFramePopup";
 
 function SingleOrder() {
   const [addPresPopup, setAddPresPopup] = useState(false);
   const [deleteConfirmationPopup, setDeleteConfirmationPopup] = useState(false);
   const [editOrderPopup, setEditOrderPopup] = useState(false);
+  const [addFramePopup, setAddFramePopup] = useState(false);
 
   const token = useAuthToken();
   const params = useParams();
@@ -93,7 +96,7 @@ function SingleOrder() {
         <div className="flex flex-col m-5 mt-28 md:mt-8">
           <div className="flex items-center justify-between">
             <Link to={`../patient/${pId}`}>
-              <h1 className="text-2xl font-semibold tracking-wide capitalize">
+              <h1 className="text-2xl font-semibold text-blue-700 underline tracking-wide capitalize">
                 {patient.name}
               </h1>
             </Link>
@@ -156,9 +159,16 @@ function SingleOrder() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 mt-10 md:grid-cols-2">
+          <div className="grid border-black border-[1px] rounded p-3 grid-cols-1 mt-10 md:grid-cols-2">
+            <div
+              onClick={() => setAddFramePopup(true)}
+              className="flex justify-left cursor-pointer rounded-lg bg-green-500 w-fit px-3 py-1 text-black  items-center"
+            >
+              <AddIcon className="text-white" fontSize="small" />
+              <h2 className="text-sm ml-2 capitalize">frame </h2>
+            </div>
+            <div></div>
             <div className="flex flex-col items-start justify-start">
-              <h2 className="text-sm text-purple-500 capitalize">frame </h2>
               {order.frameImg !== "" ? (
                 <img
                   src={order.frameImg}
@@ -265,7 +275,7 @@ function SingleOrder() {
               {order.receivedDate && (
                 <div className="flex flex-col ">
                   <h2 className="text-sm text-purple-500 capitalize">
-                    sent date
+                    received date
                   </h2>
                   <h1 className="text-lg font-semibold sm:text-xl">
                     {formatDate(order.receivedDate)}
@@ -276,7 +286,7 @@ function SingleOrder() {
               {order.deliveredDate && (
                 <div className="flex flex-col ">
                   <h2 className="text-sm text-purple-500 capitalize">
-                    sent date
+                    delivered date
                   </h2>
                   <h1 className="text-lg font-semibold sm:text-xl">
                     {formatDate(order.deliveredDate)}
@@ -320,6 +330,13 @@ function SingleOrder() {
           order={order}
         ></EditOrder>
       )}
+
+      <AddFramePopup
+        addTrigger={addFramePopup}
+        setAddTrigger={setAddFramePopup}
+        fromOrderPage={true}
+        oId={oId}
+      ></AddFramePopup>
     </div>
   );
 }

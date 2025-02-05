@@ -1,8 +1,12 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import pica from "pica";
+import { addAnotherFrame } from "../../../apis/orderAPIs";
+import { useAuthToken } from "../../../apis/useAuthToken";
 
 function AddFramePopup(props) {
+  const token = useAuthToken();
+
   const [img, setImg] = useState("");
   const onCloseclick = () => {
     props.setAddTrigger(false);
@@ -26,10 +30,21 @@ function AddFramePopup(props) {
     resizeImage(file, 500, setImg);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    props.onAddFrame(frameData, img);
+    if (props.fromOrderPage) {
+      const form = new FormData();
+      form.append("frame_img", img);
+
+      form.append("frameData", JSON.stringify(frameData));
+
+      console.log(props);
+
+      await addAnotherFrame(token, props.oId, form);
+    } else {
+      props.onAddFrame(frameData, img);
+    }
   };
 
   const resizeImage = (file, maxSizeKB, callback) => {
