@@ -155,7 +155,7 @@ function Admin(props) {
       <div className="lg:ml-[288px] w-full">
         <Header />
         <div className="w-full h-full mt-28 md:mt-5">
-          <div className="flex items-center justify-between mr-5">
+          <div className="flex items-center justify-between mx-3">
             <h1 className="text-3xl font-semibold tracking-wider capitalize">
               user control
             </h1>
@@ -170,8 +170,8 @@ function Admin(props) {
             </button>
           </div>
 
-          <div className="mt-10 mr-5">
-            <table className="w-full bg-white">
+          <div className="mt-10 mx-3 overflow-x-auto">
+            <table className="w-full bg-white max-w-full">
               <thead className="h-10 font-semibold tracking-wide capitalize bg-gray-100 border-b-2 text-start">
                 <tr>
                   <th className="pl-3">Name</th>
@@ -255,7 +255,7 @@ function Admin(props) {
             </table>
           </div>
 
-          <div className="flex items-center justify-between mt-20 mr-5">
+          <div className="flex items-center justify-between mt-20 mx-3">
             <h1 className="text-3xl font-semibold tracking-wider capitalize">
               branch control
             </h1>
@@ -268,8 +268,8 @@ function Admin(props) {
             </button>
           </div>
 
-          <div className="my-10 mr-5">
-            <table className="w-full bg-white">
+          <div className="my-10 mx-3 overflow-x-auto">
+            <table className="w-full bg-white max-w-full">
               <thead className="h-10 font-semibold tracking-wide capitalize bg-gray-100 border-b-2 text-start">
                 <tr>
                   <th className="pl-3">Branch Name</th>

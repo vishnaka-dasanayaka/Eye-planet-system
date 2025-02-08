@@ -8,6 +8,7 @@ import AddFramePopup from "../components/popups/add_patient_popups/AddFramePopup
 import { toast } from "sonner";
 import { useAuthToken } from "../apis/useAuthToken";
 import { addPatient, getOrderNum } from "../apis/patientAPIs";
+import { getBranches } from "../apis/branchAPIs";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Waiting from "../components/spinners/Waiting";
@@ -20,6 +21,7 @@ function AddPatient(props) {
   const [frameImg, setFrameImg] = useState(null);
   const [presImg, setPresImg] = useState(null);
   const [stts, setStts] = useState("");
+  const [branches, setBranches] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -125,11 +127,17 @@ function AddPatient(props) {
 
   useEffect(() => {
     getOrderNo();
+    getBranchesForAddPatient();
   }, []);
 
   const getOrderNo = async () => {
     const response = await getOrderNum(token);
     setPatientData({ orderNumber: response.data });
+  };
+
+  const getBranchesForAddPatient = async () => {
+    const response = await getBranches(token);
+    setBranches(response.data);
   };
 
   return (
@@ -167,8 +175,8 @@ function AddPatient(props) {
                 onChange={handleChange}
               >
                 <option value="">Select a Branch</option>
-                {branch &&
-                  branch.map((branch) => (
+                {branches &&
+                  branches.map((branch) => (
                     <>
                       {branch.status !== "disabled" && (
                         <option
