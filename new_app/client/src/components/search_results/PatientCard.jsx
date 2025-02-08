@@ -33,7 +33,7 @@ function PatientCard({ patient }) {
         pathname: `/patient/${patient._id}`,
       }}
     >
-      <div className="w-full transition duration-200 ease-in-out bg-yellow-300 rounded-lg cursor-pointer hover:scale-[1.03] hover:bg-yellow-400 h-fit">
+      <div className="w-full transition duration-200 ease-in-out bg-yellow-500 rounded-lg cursor-pointer hover:scale-[1.03] hover:bg-yellow-400 h-fit">
         <div className="py-5 pl-3">
           <h1 className="text-2xl font-extrabold tracking-wide capitalize">
             {patient.name}

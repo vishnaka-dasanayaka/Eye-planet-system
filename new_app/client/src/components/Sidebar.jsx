@@ -65,7 +65,7 @@ const Sidebar = () => {
                   alt=""
                 />
               </div> */}
-              <h1 className="ml-3 text-2xl font-extrabold tracking-wide uppercase text-shop_color">
+              <h1 className="ml-3 text-2xl font-semibold tracking-wide uppercase text-shop_color">
                 eye planet
               </h1>
             </div>

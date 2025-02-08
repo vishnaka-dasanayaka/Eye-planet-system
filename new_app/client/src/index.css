@@ -21,7 +21,7 @@ code {
 }
 
 .btn {
-  background: rgb(181, 34, 181);
+  background: rgb(53, 53, 53); /*rgb(181, 34, 181); */
   padding: 5px 10px;
   color: white;
   font-weight: bolder;
@@ -30,7 +30,7 @@ code {
 }
 
 .btn:hover {
-  background: purple;
+  background: rgb(0, 0, 0);
 }
 
 .btn_green {

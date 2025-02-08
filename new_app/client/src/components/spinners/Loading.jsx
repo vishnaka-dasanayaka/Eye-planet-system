@@ -8,8 +8,8 @@ function Loading() {
           visible={true}
           height="80"
           width="80"
-          color="purple"
-          secondaryColor="purple"
+          color="black"
+          secondaryColor="black"
           ariaLabel="oval-loading"
           wrapperStyle={{}}
           wrapperClass=""
