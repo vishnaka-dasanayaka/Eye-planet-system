@@ -65,12 +65,12 @@ function Header() {
 
   return (
     <div className="">
-      <div className="fixed flex items-center justify-between w-full px-5 pt-10 pb-5 bg-white md:relative md:bg-transparent lg:justify-end">
+      <div className="fixed flex items-center justify-between w-full px-5 pt-[38px] pb-5 bg-white md:relative md:bg-transparent lg:justify-end">
         <div></div>
         <Link to={"/"}>
           <div className="flex items-center justify-center lg:hidden rounded-2xl">
             <StoreIcon fontSize="large" className="text-shop_color" />
-            <h1 className="ml-3 text-2xl font-extrabold tracking-wide uppercase text-shop_color">
+            <h1 className="ml-3 text-2xl font-semibold tracking-wide uppercase text-shop_color">
               eye planet
             </h1>
           </div>

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import RoomIcon from '@mui/icons-material/Room';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import CallIcon from '@mui/icons-material/Call';
-import CopyrightIcon from '@mui/icons-material/Copyright';
-import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
-import { getBranches } from '../apis/branchAPIs';
-import { useAuthToken } from '../apis/useAuthToken';
-import Loading from '../components/spinners/Loading';
-import { url } from '../config/config';
+import React, { useEffect, useState } from "react";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import RoomIcon from "@mui/icons-material/Room";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import CallIcon from "@mui/icons-material/Call";
+import CopyrightIcon from "@mui/icons-material/Copyright";
+import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
+import { getBranches } from "../apis/branchAPIs";
+import { useAuthToken } from "../apis/useAuthToken";
+import Loading from "../components/spinners/Loading";
+import { url } from "../config/config";
 
 function Contacts() {
   const [branches, setBranches] = useState([]);
@@ -37,7 +37,7 @@ function Contacts() {
         <Header />
 
         <div className="flex flex-wrap justify-center gap-10 m-5 md:mt-0 mt-28 ">
-          <div className="rounded-2xl w-[360px] bg-[#641c7c] text-white h-fit">
+          <div className="rounded-2xl w-[360px] bg-gray-700 text-white h-fit">
             <div className="bg-gray-200 h-60 rounded-t-2xl">
               <img
                 className="object-contain w-full h-full pb-1 rounded-t-2xl"
@@ -81,7 +81,7 @@ function Contacts() {
                 {branches &&
                   branches.map(
                     (branch, index) =>
-                      branch.status !== 'disabled' && (
+                      branch.status !== "disabled" && (
                         <div
                           key={branch._id || index} // Fallback to index if branch.id is not unique
                           className="rounded-2xl w-[360px] bg-[#395066] text-white h-fit"
@@ -95,8 +95,8 @@ function Contacts() {
                           </div>
                           <div className="p-5">
                             <h1 className="text-xl font-extrabold text-center">
-                              {branch.branchName}{' '}
-                              {branch.status === 'main' ? (
+                              {branch.branchName}{" "}
+                              {branch.status === "main" ? (
                                 <>- Main Branch</>
                               ) : null}
                             </h1>

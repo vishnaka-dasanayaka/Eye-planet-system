@@ -39,7 +39,7 @@ function Home() {
         <div className="m-5 mt-32 text-white bg-white md:mt-8">
           <div className="grid grid-cols-1 gap-10 p-10 sm:grid-cols-2">
             <Link to={user.role === "admin" ? "./admin" : "/"}>
-              <div className="h-44 w-full bg-[#3B76EF] flex flex-col justify-center items-start pl-5 rounded-lg ">
+              <div className="h-44 w-full bg-gray-600 flex flex-col justify-center items-start pl-5 rounded-lg ">
                 <h1 className="text-2xl font-extrabold capitalize">branches</h1>
                 <h1 className="mt-3 text-6xl font-extrabold">
                   {branch.filter((item) => item.status !== "disabled").length}
@@ -49,7 +49,7 @@ function Home() {
             </Link>
             {user.role === "admin" && (
               <Link to={"./admin"}>
-                <div className="h-44 w-full bg-[#63C7FF] flex flex-col justify-center items-start pl-5 rounded-lg ">
+                <div className="h-44 w-full bg-gray-400 flex flex-col justify-center items-start pl-5 rounded-lg ">
                   <h1 className="text-2xl font-extrabold capitalize">
                     user accounts
                   </h1>
@@ -61,7 +61,7 @@ function Home() {
               </Link>
             )}
             <Link to={"./add"}>
-              <div className="h-44 w-full bg-[#A66DD4] flex flex-col justify-center items-start pl-5 rounded-lg ">
+              <div className="h-44 w-full bg-gray-500 flex flex-col justify-center items-start pl-5 rounded-lg ">
                 <h1 className="text-2xl font-extrabold capitalize">
                   total patient count
                 </h1>
@@ -70,7 +70,7 @@ function Home() {
                 </h1>
               </div>
             </Link>
-            <div className="h-44 w-full bg-[#6DD4B1] flex flex-col justify-center items-start pl-5 rounded-lg ">
+            <div className="h-44 w-full bg-black flex flex-col justify-center items-start pl-5 rounded-lg ">
               <h1 className="text-2xl font-extrabold capitalize">
                 active orders
               </h1>
