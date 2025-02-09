@@ -74,6 +74,7 @@ function Contacts() {
 
           {branches &&
             branches.map(
+              // Maps branches
               (branch, index) =>
                 branch.status !== "disabled" && (
                   <div
