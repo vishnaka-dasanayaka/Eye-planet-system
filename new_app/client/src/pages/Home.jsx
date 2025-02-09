@@ -37,7 +37,7 @@ function Home() {
         <Header />
 
         <div className="m-5 mt-32 text-white bg-white md:mt-8">
-          <div className="grid grid-cols-1 gap-10 p-10 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-10 p-10 sm:grid-cols-3 2xl:grid-cols-4">
             <Link to={user.role === "admin" ? "./admin" : "/"}>
               <div className="h-44 w-full bg-gray-600 flex flex-col justify-center items-start pl-5 rounded-lg ">
                 <h1 className="text-2xl font-extrabold capitalize">branches</h1>
