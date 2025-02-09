@@ -155,7 +155,7 @@ function AddPatient(props) {
                 date <span className="text-red-600">*</span>
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 type="date"
                 id="date"
                 name="date"
@@ -169,7 +169,7 @@ function AddPatient(props) {
                 branch <span className="text-red-600">*</span>
               </label>
               <select
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 name="branch"
                 id="branch"
                 onChange={handleChange}
@@ -205,7 +205,7 @@ function AddPatient(props) {
                 order number <span className="text-red-600">*</span>
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 type="text"
                 id="orderNumber"
                 name="orderNumber"
@@ -219,7 +219,7 @@ function AddPatient(props) {
                 bill number
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 type="text"
                 id="billNumber"
                 name="billNumber"
@@ -235,7 +235,7 @@ function AddPatient(props) {
                 full name <span className="text-red-600">*</span>
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 type="text"
                 id="fullName"
                 name="fullName"
@@ -249,7 +249,7 @@ function AddPatient(props) {
                 contact number <span className="text-red-600">*</span>
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 type="text"
                 id="contactNumber"
                 name="contactNumber"
@@ -264,7 +264,7 @@ function AddPatient(props) {
                 <span className="text-red-600">*</span>
               </label>{" "}
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 type="date"
                 id="dob"
                 name="dob"
@@ -279,7 +279,7 @@ function AddPatient(props) {
               Permenant address
             </label>
             <input
-              className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+              className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
               type="text"
               id="address"
               name="address"
@@ -472,7 +472,7 @@ function AddPatient(props) {
                 price
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 type="text"
                 id="price"
                 name="price"
@@ -486,7 +486,7 @@ function AddPatient(props) {
                 advance
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 type="text"
                 id="advance"
                 name="advance"
@@ -500,7 +500,7 @@ function AddPatient(props) {
                 balance
               </label>
               <input
-                className="w-full p-1 px-4 mt-2 bg-purple-100 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 bg-gray-200 border-2 border-black rounded-md outline-none"
                 type="text"
                 id="balance"
                 name="balance"
@@ -517,7 +517,7 @@ function AddPatient(props) {
                 order status
               </label>
               <select
-                className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                 name="status"
                 id="status"
                 onChange={handleChange}
@@ -543,7 +543,7 @@ function AddPatient(props) {
                     sent date
                   </label>
                   <input
-                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                     type="date"
                     id="sentDate"
                     name="sentDate"
@@ -566,7 +566,7 @@ function AddPatient(props) {
                     sent date
                   </label>
                   <input
-                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                     type="date"
                     id="sentDate"
                     name="sentDate"
@@ -583,7 +583,7 @@ function AddPatient(props) {
                     received date
                   </label>
                   <input
-                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                     type="date"
                     id="receivedDate"
                     name="receivedDate"
@@ -605,7 +605,7 @@ function AddPatient(props) {
                     sent date
                   </label>
                   <input
-                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                     type="date"
                     id="sentDate"
                     name="sentDate"
@@ -622,7 +622,7 @@ function AddPatient(props) {
                     received date
                   </label>
                   <input
-                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                     type="date"
                     id="receivedDate"
                     name="receivedDate"
@@ -639,7 +639,7 @@ function AddPatient(props) {
                     Delivered date
                   </label>
                   <input
-                    className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none"
+                    className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none"
                     type="date"
                     id="deliveredDate"
                     name="deliveredDate"
@@ -658,7 +658,7 @@ function AddPatient(props) {
               special notes
             </label>
             <textarea
-              className="w-full p-1 px-4 mt-2 border-2 border-purple-400 rounded-md outline-none "
+              className="w-full p-1 px-4 mt-2 border-2 border-black rounded-md outline-none "
               name="specialNote"
               id="specialNote"
               value={specialNote}
