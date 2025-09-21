@@ -199,7 +199,7 @@ export class OrderDetailComponent {
         title: "Warning!",
         text: "Order Should be confirmed first",
         icon: "warning",
-        confirmButtonColor: "#ff820d",
+        confirmButtonColor: "#000000",
       });
       return;
     }
@@ -231,7 +231,7 @@ export class OrderDetailComponent {
         title: "Warning!",
         text: "Order Should be in pending status to edit",
         icon: "warning",
-        confirmButtonColor: "#ff820d",
+        confirmButtonColor: "#000000",
       });
       return;
     }

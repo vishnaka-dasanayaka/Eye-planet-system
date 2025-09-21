@@ -83,7 +83,7 @@
           </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
-          <tr class="bg-[#ff820d] text-white text-sm">
+          <tr class="bg-[#000000] text-white text-sm">
             <th
               *ngFor="let col of columns"
               [pSortableColumn]="col.field"
@@ -113,7 +113,7 @@
             >
               <div *ngSwitchCase="'code'">
                 <a
-                  class="text-[#ff820d] font-medium hover:underline"
+                  class="text-[#000000] font-medium hover:underline"
                   routerLink="/settings/stock-details/{{ rowData.id }}"
                 >
                   {{ rowData[col.field] }}
@@ -137,7 +137,7 @@
 
               <div *ngSwitchCase="'supplier'">
                 <a
-                  class="text-[#ff820d] font-medium hover:underline"
+                  class="text-[#000000] font-medium hover:underline"
                   routerLink="/settings/supplier-details/{{ rowData.id }}"
                 >
                   {{ rowData?.supplier_name }}

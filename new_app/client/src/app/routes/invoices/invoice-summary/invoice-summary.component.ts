@@ -71,7 +71,7 @@ export class InvoiceSummaryComponent {
         title: "Warning!",
         text: "Invoice Should be in pending status to edit",
         icon: "warning",
-        confirmButtonColor: "#ff820d",
+        confirmButtonColor: "#000000",
       });
       return;
     }
