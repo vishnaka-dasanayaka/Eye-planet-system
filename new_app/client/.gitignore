@@ -1,23 +1,57 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+## Angular specific ignores
+/node_modules/
+/dist/
+/.angular/
+/.angular-cache/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+## Environment files
+# /src/environments/environment*.ts
 
-# testing
-/coverage
+## IDE and editor settings
+/.idea/
+/.vscode/
 
-# production
-/build
+## Build and dependencies
+/package-lock.json
+/yarn.lock
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+## Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+## Angular cache files
+/.cache/
+
+## Temporary files
+/tmp/
+/out/
+
+## Git related
+.git/
+
+## MacOS specific
+.DS_Store
+
+## Windows specific
+Thumbs.db
+
+## Coverage reports
+/coverage/
+
+## Compiled files
+*.js
+*.map
+
+## Miscellaneous
+*.bak
+*.swp
+*.swo
+
+# Ignore generated files from Tailwind CSS
+/.tailwindcache/
+
+# Firebase files (if using Firebase Hosting)
+/firebase-debug.log
+.firebase/

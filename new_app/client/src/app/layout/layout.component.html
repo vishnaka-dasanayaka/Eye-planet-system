@@ -1,0 +1,19 @@
+<div class="min-h-screen flex flex-col w-full">
+  <!-- Fixed Header -->
+  <app-header class="fixed top-0 left-0 w-full h-16 z-50"></app-header>
+
+  <!-- Fixed Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main content -->
+  <main
+    class="flex-1 lg:ml-[220px] pt-20 p-5 bg-gray-100 dark:bg-[#1e1e1e] overflow-y-auto"
+  >
+    <router-outlet></router-outlet>
+  </main>
+  <div class="fixed bottom-0 flex w-full items-center justify-end pr-5">
+    <p class="text-xs text-orange-500">
+      Designed and Developed by <strong>Vishnaka</strong>
+    </p>
+  </div>
+</div>
