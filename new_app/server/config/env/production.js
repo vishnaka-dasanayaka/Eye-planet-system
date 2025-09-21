@@ -170,7 +170,7 @@ module.exports = {
      * > Be sure to use the right protocol!  ("http://" vs. "https://")         *
      *                                                                          *
      ***************************************************************************/
-    onlyAllowOrigins: ["https://sethneth.lk", "https://www.sethneth.lk"],
+    onlyAllowOrigins: ["https://eyeplanet.lk", "https://www.eyeplanet.lk"],
     /***************************************************************************
      *                                                                          *
      * If you are deploying a cluster of multiple servers and/or processes,     *
