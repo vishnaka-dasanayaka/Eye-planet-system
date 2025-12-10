@@ -241,7 +241,7 @@
         <div class="space-y-4">
           <div>
             <p class="text-sm text-gray-500">Final Price</p>
-            <p class="font-medium text-[#ff820d]">
+            <p class="font-medium text-[#186006]">
               LKR {{ order?.discounted_price | number : "0.2" }}
             </p>
           </div>
@@ -266,7 +266,7 @@
             <p class="font-medium">
               <span class="flex items-center" *ngIf="order?.invoice_id">
                 <a
-                  class="text-[#ff820d] font-medium hover:underline"
+                  class="text-[#186006] font-medium hover:underline"
                   routerLink="/invoices/invoice-details/{{
                     order?.invoice_id?.id
                   }}"
@@ -384,7 +384,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#ff820d] text-white text-sm">
+                      <tr class="bg-[#186006] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -418,7 +418,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#ff820d] font-medium hover:underline"
+                              class="text-[#186006] font-medium hover:underline"
                               routerLink="/invoices/invoice-details/{{
                                 rowData.id
                               }}"
@@ -494,7 +494,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#ff820d] text-white text-sm">
+                      <tr class="bg-[#186006] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -528,7 +528,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#ff820d] font-medium hover:underline"
+                              class="text-[#186006] font-medium hover:underline"
                               routerLink="/payments/payment-details/{{
                                 rowData.id
                               }}"
@@ -539,7 +539,7 @@
 
                           <div *ngSwitchCase="'inv_code'">
                             <a
-                              class="text-[#ff820d] font-medium hover:underline"
+                              class="text-[#186006] font-medium hover:underline"
                               routerLink="/invoices/invoice-details/{{
                                 rowData.inv.id
                               }}"
