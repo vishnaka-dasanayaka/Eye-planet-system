@@ -54,7 +54,7 @@ export class OrderSummaryComponent {
         title: "Warning!",
         text: "Order Should be in pending status to edit",
         icon: "warning",
-        confirmButtonColor: "#ff820d",
+        confirmButtonColor: "#186006",
       });
       return;
     }

@@ -268,7 +268,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#ff820d] text-white text-sm">
+                      <tr class="bg-[#186006] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -368,7 +368,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#ff820d] text-white text-sm">
+                      <tr class="bg-[#186006] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -402,7 +402,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#ff820d] font-medium hover:underline"
+                              class="text-[#186006] font-medium hover:underline"
                               routerLink="/orders/order-details/{{
                                 rowData.id
                               }}"
@@ -500,7 +500,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#ff820d] text-white text-sm">
+                      <tr class="bg-[#186006] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -535,7 +535,7 @@
                           <div *ngSwitchCase="'code'">
                             <a
                               *ngIf="rowData?.type == 'NORMAL'"
-                              class="text-[#ff820d] font-medium hover:underline"
+                              class="text-[#186006] font-medium hover:underline"
                               routerLink="/invoices/invoice-details/{{
                                 rowData.id
                               }}"
@@ -544,7 +544,7 @@
                             </a>
                             <a
                               *ngIf="rowData?.type == 'CONS'"
-                              class="text-[#ff820d] font-medium hover:underline"
+                              class="text-[#186006] font-medium hover:underline"
                               routerLink="/c-invoices/c-invoice-details/{{
                                 rowData.id
                               }}"
@@ -630,7 +630,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#ff820d] text-white text-sm">
+                      <tr class="bg-[#186006] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -664,7 +664,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#ff820d] font-medium hover:underline"
+                              class="text-[#186006] font-medium hover:underline"
                               routerLink="/payments/payment-details/{{
                                 rowData.id
                               }}"

@@ -142,7 +142,7 @@ body {
 
 .add_btn {
   color: white;
-  background-color: #ff820d;
+  background-color: #186006;
   padding: 10px 20px;
   border-radius: 12px;
   font-weight: 600;
@@ -252,23 +252,23 @@ body {
 
 .btn-outline-warning {
   border: 1px orange solid;
-  color: #ff820d;
+  color: #186006;
 }
 
 .btn-outline-warning:hover {
-  background-color: #ff820d;
+  background-color: #186006;
   color: white;
 }
 
 .btn-warning {
   color: white;
-  background-color: #ff820d;
+  background-color: #186006;
 }
 
 .btn-warning:hover {
-  color: #ff820d;
+  color: #186006;
   background-color: white;
-  border: #ff820d 1px solid;
+  border: #186006 1px solid;
 }
 
 .btn-gray {
