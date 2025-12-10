@@ -374,4 +374,137 @@ export class SharedService {
   getEditInvoiceClickEvent(): Observable<any> {
     return this.edit_invoice.asObservable();
   }
+
+  // Brand
+
+  private add_cons_type = new Subject<void>();
+  private edit_cons_type = new Subject<any>();
+  private cons_type_data: any = undefined;
+
+  setConsTypelData(data: any) {
+    this.cons_type_data = data;
+  }
+  openAddConsTypeModal() {
+    this.add_cons_type.next();
+  }
+  getAddConsTypeClickEvent(): Observable<any> {
+    return this.add_cons_type.asObservable();
+  }
+  getConsTypeyData(): any {
+    return this.cons_type_data;
+  }
+
+  // openEditClientModal() {
+  //   this.edit_supplier.next();
+  // }
+
+  // getEditClientClickEvent(): Observable<any> {
+  //   return this.edit_supplier.asObservable();
+  // }
+
+  // Invoice Item
+  private add_c_invoice_item = new Subject<void>();
+  private edit_c_invoice_item = new Subject<any>();
+  private c_invoice_item_data: any = undefined;
+
+  setCInvoiceItemData(data: any) {
+    this.c_invoice_item_data = data;
+  }
+  openAddCInvoiceItemModal() {
+    this.add_c_invoice_item.next();
+  }
+  getAddCInvoiceItemClickEvent(): Observable<any> {
+    return this.add_c_invoice_item.asObservable();
+  }
+  getCInvoiceItemData(): any {
+    return this.c_invoice_item_data;
+  }
+
+  // openEditClientModal() {
+  //   this.edit_supplier.next();
+  // }
+
+  // getEditClientClickEvent(): Observable<any> {
+  //   return this.edit_supplier.asObservable();
+  // }
+
+  // Doctor
+
+  private add_doctor = new Subject<void>();
+  private edit_doctor = new Subject<any>();
+  private doctor_data: any = undefined;
+
+  setDoctorData(data: any) {
+    this.cons_type_data = data;
+  }
+  openAddDoctorModal() {
+    this.add_doctor.next();
+  }
+  getAddDoctorClickEvent(): Observable<any> {
+    return this.add_doctor.asObservable();
+  }
+  getDoctorData(): any {
+    return this.doctor_data;
+  }
+
+  // openEditClientModal() {
+  //   this.edit_supplier.next();
+  // }
+
+  // getEditClientClickEvent(): Observable<any> {
+  //   return this.edit_supplier.asObservable();
+  // }
+
+  // User
+
+  private add_user = new Subject<void>();
+  private edit_user = new Subject<any>();
+  private user_data: any = undefined;
+
+  setUserData(data: any) {
+    this.user_data = data;
+  }
+  openAddUserModal() {
+    this.add_user.next();
+  }
+  getAddUserClickEvent(): Observable<any> {
+    return this.add_user.asObservable();
+  }
+  getUserData(): any {
+    return this.user_data;
+  }
+
+  // openEditClientModal() {
+  //   this.edit_supplier.next();
+  // }
+
+  // getEditClientClickEvent(): Observable<any> {
+  //   return this.edit_supplier.asObservable();
+  // }
+
+  // User Level
+  private add_user_level = new Subject<void>();
+  private edit_user_level = new Subject<any>();
+  private user_level_data: any = undefined;
+
+  setUserLevellData(data: any) {
+    this.user_level_data = data;
+  }
+  openAddUserLevelModal() {
+    this.add_user_level.next();
+  }
+  getAddUserLevelClickEvent(): Observable<any> {
+    return this.add_user_level.asObservable();
+  }
+  getUserLevelyData(): any {
+    return this.user_level_data;
+  }
+
+  // openEditClientModal() {
+  //   this.edit_supplier.next();
+  // }
+
+  // getEditClientClickEvent(): Observable<any> {
+  //   return this.edit_supplier.asObservable();
+  // }
 }

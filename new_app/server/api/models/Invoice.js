@@ -14,6 +14,9 @@ module.exports = {
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
     code: { type: "string", unique: true, required: true },
+    type: { type: "string", defaultsTo: "NORMAL" },
+    cons_type: { model: "ConsultationType" },
+    doctor_id: { model: "Doctor" },
     patient_id: { model: "Patient" },
     grosstotal: { type: "number", required: true },
     discount: { type: "number", defaultsTo: 0 },

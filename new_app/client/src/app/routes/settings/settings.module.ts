@@ -15,6 +15,14 @@ import { ModelsComponent } from "./models/models.component";
 import { StockSummaryComponent } from "./stock-summary/stock-summary.component";
 import { StockDetailComponent } from "./stock-detail/stock-detail.component";
 import { LensesComponent } from "./lenses/lenses.component";
+import { ConsultationSettingsComponent } from "./consultation-settings/consultation-settings.component";
+import { ConsultationTypesComponent } from "./consultation-types/consultation-types.component";
+import { DoctorSummaryComponent } from "./doctor-summary/doctor-summary.component";
+import { UserSettingsComponent } from "./user-settings/user-settings.component";
+import { UserSummaryComponent } from "./user-summary/user-summary.component";
+import { UserDetailComponent } from "./user-detail/user-detail.component";
+import { UserLevelsComponent } from "./user-levels/user-levels.component";
+import { UserPermissionsComponent } from "./user-permissions/user-permissions.component";
 
 const routes: Routes = [
   // Client paths
@@ -34,6 +42,38 @@ const routes: Routes = [
     component: PurchaseOrderDetailComponent,
   },
   { path: "stock-details/:id", component: StockDetailComponent },
+  {
+    path: "consultation-settings",
+    component: ConsultationSettingsComponent,
+  },
+  {
+    path: "consultation-types",
+    component: ConsultationTypesComponent,
+  },
+  {
+    path: "doctor-summary",
+    component: DoctorSummaryComponent,
+  },
+  {
+    path: "user-settings",
+    component: UserSettingsComponent,
+  },
+  {
+    path: "user-summary",
+    component: UserSummaryComponent,
+  },
+  {
+    path: "user-detail/:id",
+    component: UserDetailComponent,
+  },
+  {
+    path: "user-levels",
+    component: UserLevelsComponent,
+  },
+  {
+    path: "user-permissions",
+    component: UserPermissionsComponent,
+  },
 ];
 
 @NgModule({
@@ -51,6 +91,14 @@ const routes: Routes = [
     StockSummaryComponent,
     StockDetailComponent,
     LensesComponent,
+    ConsultationSettingsComponent,
+    ConsultationTypesComponent,
+    DoctorSummaryComponent,
+    UserSettingsComponent,
+    UserSummaryComponent,
+    UserDetailComponent,
+    UserLevelsComponent,
+    UserPermissionsComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
   exports: [RouterModule],

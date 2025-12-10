@@ -20,7 +20,9 @@ module.exports = {
         id: inputs.id,
       })
         .populate("patient_id")
-        .populate("created_by");
+        .populate("created_by")
+        .populate("cons_type")
+        .populate("doctor_id");
 
       if (!inv) {
         return exits.success({

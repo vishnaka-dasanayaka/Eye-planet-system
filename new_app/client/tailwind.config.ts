@@ -18,4 +18,4 @@ module.exports = {
   plugins: [],
 };
 
-// PRIMARY - #000000
+// PRIMARY - #ff820d

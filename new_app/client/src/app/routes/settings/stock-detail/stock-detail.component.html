@@ -100,7 +100,7 @@
           <div *ngIf="stock?.purchase_order">
             <p class="text-sm text-gray-500">Purchase Order</p>
             <a
-              class="text-[#000000] font-medium hover:underline"
+              class="text-[#ff820d] font-medium hover:underline"
               routerLink="/settings/purchase-order-details/{{
                 stock?.purchase_order?.id
               }}"
@@ -121,7 +121,7 @@
             <p class="text-sm text-gray-500">Supplier</p>
 
             <a
-              class="text-[#000000] font-medium hover:underline"
+              class="text-[#ff820d] font-medium hover:underline"
               routerLink="/settings/supplier-details/ {{ stock?.supplier?.id }}"
             >
               {{ stock?.supplier?.name }}
@@ -229,7 +229,7 @@
             <div class="text-xs text-gray-500">View category items</div>
           </div>
         </div>
-        <div class="text-[#000000] font-semibold text-sm cursor-pointer">
+        <div class="text-[#ff820d] font-semibold text-sm cursor-pointer">
           {{ stock?.category.name }}
         </div>
         <div class="text-xs mt-2 text-gray-500">
@@ -252,7 +252,7 @@
             <div class="text-xs text-gray-500">View brand details</div>
           </div>
         </div>
-        <div class="text-[#000000] font-semibold text-sm cursor-pointer">
+        <div class="text-[#ff820d] font-semibold text-sm cursor-pointer">
           {{ stock?.brand.name }}
         </div>
         <div class="text-xs mt-2 text-gray-500">
@@ -278,7 +278,7 @@
         </div>
         <div
           routerLink="/settings/supplier-details/{{ stock?.supplier.id }}"
-          class="text-[#000000] font-semibold text-sm cursor-pointer"
+          class="text-[#ff820d] font-semibold text-sm cursor-pointer"
         >
           <span class="hover:text-[#ff560de0]">{{ stock?.supplier.name }}</span>
         </div>

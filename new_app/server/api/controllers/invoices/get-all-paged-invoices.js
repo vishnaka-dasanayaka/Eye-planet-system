@@ -46,7 +46,7 @@ module.exports = {
       if (inputs.event.filters.global.matchMode == "contains") {
         var search_text = inputs.event.filters.global.value;
         global_search_filter =
-          "  WHERE (t1.code LIKE '%" +
+          " AND (t1.code LIKE '%" +
           search_text +
           "%' OR t2.name LIKE '%" +
           search_text +
@@ -58,7 +58,7 @@ module.exports = {
 
     var invoices_sql =
       "SELECT t1.*, t2.name as patient_name from invoices t1 " +
-      "LEFT JOIN patients t2 ON t2.id = t1.patient_id " +
+      "LEFT JOIN patients t2 ON t2.id = t1.patient_id WHERE t1.type = 'NORMAL'" +
       global_search_filter +
       " ORDER by " +
       order_by +
@@ -73,7 +73,7 @@ module.exports = {
 
     var invoices_count_sql =
       "SELECT COUNT(*) as no_of_invoices from invoices t1 " +
-      "LEFT JOIN patients t2 ON t2.id = t1.patient_id " +
+      "LEFT JOIN patients t2 ON t2.id = t1.patient_id WHERE t1.type = 'NORMAL'" +
       global_search_filter;
 
     var no_of_invoices = await sails.sendNativeQuery(invoices_count_sql);

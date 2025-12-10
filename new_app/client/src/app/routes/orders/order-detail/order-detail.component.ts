@@ -199,7 +199,7 @@ export class OrderDetailComponent {
         title: "Warning!",
         text: "Order Should be confirmed first",
         icon: "warning",
-        confirmButtonColor: "#000000",
+        confirmButtonColor: "#ff820d",
       });
       return;
     }
@@ -231,7 +231,7 @@ export class OrderDetailComponent {
         title: "Warning!",
         text: "Order Should be in pending status to edit",
         icon: "warning",
-        confirmButtonColor: "#000000",
+        confirmButtonColor: "#ff820d",
       });
       return;
     }
@@ -239,7 +239,7 @@ export class OrderDetailComponent {
     var obj = this.order;
     obj.patient_id = obj.patient_id.id;
     obj.branch_id = obj.branch_id.id;
-    obj.stock_id = obj.stock_id.id;
+    obj.stock_id = obj.stock_id?.id;
     this.sharedService.setOrderData(obj);
     this.sharedService.openEditOrderModal();
   }

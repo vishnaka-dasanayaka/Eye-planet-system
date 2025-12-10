@@ -83,8 +83,39 @@ module.exports.routes = {
   "GET /api/v1/settings/user/validate-logged-in": {
     action: "settings/user/validate-logged-in",
   },
+  "GET /api/v1/settings/user/get-user-levels": {
+    action: "settings/user/get-user-levels",
+  },
 
   // settings
+
+  // users
+
+  "POST /api/v1/settings/users/get-paged-users": {
+    action: "settings/users/get-paged-users",
+  },
+  "POST /api/v1/settings/users": {
+    action: "settings/users/create-user",
+  },
+  "GET /api/v1/settings/users/:id": {
+    action: "settings/users/get-user",
+  },
+  "PATCH /api/v1/settings/users/update-user-status": {
+    action: "settings/users/update-user-status",
+  },
+  "GET /api/v1/settings/users/get-user-levels": {
+    action: "settings/users/get-user-levels",
+  },
+  "POST /api/v1/settings/users/get-all-paged-user-levels": {
+    action: "settings/users/get-all-paged-user-levels",
+  },
+  "POST /api/v1/settings/users/create-user-level": {
+    action: "settings/users/create-user-level",
+  },
+
+  "POST /api/v1/settings/users/get-permission-by-userlevel": {
+    action: "settings/users/get-permission-by-userlevel",
+  },
 
   // supplier
   "POST /api/v1/settings/supplier/create-supplier": {
@@ -142,6 +173,10 @@ module.exports.routes = {
 
   "POST /api/v1/settings/stock/create-brand": {
     action: "settings/stock/create-brand",
+  },
+
+  "PATCH /api/v1/settings/stock/update-brand-status": {
+    action: "settings/stock/update-brand-status",
   },
 
   "GET /api/v1/settings/stock/get-active-categories": {
@@ -341,5 +376,56 @@ module.exports.routes = {
 
   "PATCH /api/v1/invoices/update-invoice-status": {
     action: "invoices/update-invoice-status",
+  },
+
+  "POST /api/v1/invoices/create-c-invoice": {
+    action: "invoices/create-c-invoice",
+  },
+
+  "POST /api/v1/invoices/get-all-paged-c-invoices": {
+    action: "invoices/get-all-paged-c-invoices",
+  },
+
+  "POST /api/v1/invoices/create-c-inv-item": {
+    action: "invoices/create-c-inv-item",
+  },
+
+  // Consultation Settinngs
+  "POST /api/v1/settings/consultation/create-cons-type": {
+    action: "settings/consultation/create-cons-type",
+  },
+
+  "POST /api/v1/settings/consultation/get-all-paged-cons-types": {
+    action: "settings/consultation/get-all-paged-cons-types",
+  },
+
+  "PATCH /api/v1/settings/consultation/update-cons-type-status": {
+    action: "settings/consultation/update-cons-type-status",
+  },
+
+  "GET /api/v1/settings/consultation/get-all-active-cons-types": {
+    action: "settings/consultation/get-all-active-cons-types",
+  },
+
+  "POST /api/v1/settings/consultation/create-doctor": {
+    action: "settings/consultation/create-doctor",
+  },
+
+  "POST /api/v1/settings/consultation/get-all-paged-doctors": {
+    action: "settings/consultation/get-all-paged-doctors",
+  },
+
+  "PATCH /api/v1/settings/consultation/update-doctor-status": {
+    action: "settings/consultation/update-doctor-status",
+  },
+
+  "GET /api/v1/settings/consultation/get-all-active-doctors": {
+    action: "settings/consultation/get-all-active-doctors",
+  },
+
+  // reports
+
+  "POST /api/v1/reports/generate-stock-report": {
+    action: "reports/generate-stock-report",
   },
 };

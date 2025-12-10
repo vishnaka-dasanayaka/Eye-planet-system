@@ -143,15 +143,22 @@
         <div class="space-y-4">
           <div>
             <p class="text-sm text-gray-500">Brand</p>
-            <p class="font-medium">
+            <p *ngIf="order?.stock_id" class="font-medium">
               {{ order?.stock_id?.category?.name }} >
               {{ order?.stock_id?.brand?.name }}
+            </p>
+
+            <p *ngIf="order?.stock_id == null" class="font-medium">
+              [ NO FRAME ]
             </p>
           </div>
           <div>
             <p class="text-sm text-gray-500">Model</p>
             <p class="font-medium">
               {{ order?.stock_id?.model?.name }}
+            </p>
+            <p *ngIf="order?.stock_id == null" class="font-medium">
+              [ NO FRAME ]
             </p>
           </div>
           <div>
@@ -160,6 +167,7 @@
               <span *ngFor="let item of lense_list; let last = last">
                 {{ item?.lense_id?.name }}<span *ngIf="!last"> | </span>
               </span>
+              <span *ngIf="lense_list.length == 0"> [ NO LENSES ] </span>
             </p>
           </div>
           <div>
@@ -208,7 +216,7 @@
           <div>
             <p class="text-sm text-gray-500">Frame Price</p>
             <p class="font-medium text-teal-600">
-              LKR {{ order?.stock_id?.selling_price | number : "0.2" }}
+              LKR {{ order?.frame_price | number : "0.2" }}
             </p>
           </div>
           <div>
@@ -233,7 +241,7 @@
         <div class="space-y-4">
           <div>
             <p class="text-sm text-gray-500">Final Price</p>
-            <p class="font-medium text-[#000000]">
+            <p class="font-medium text-[#ff820d]">
               LKR {{ order?.discounted_price | number : "0.2" }}
             </p>
           </div>
@@ -258,7 +266,7 @@
             <p class="font-medium">
               <span class="flex items-center" *ngIf="order?.invoice_id">
                 <a
-                  class="text-[#000000] font-medium hover:underline"
+                  class="text-[#ff820d] font-medium hover:underline"
                   routerLink="/invoices/invoice-details/{{
                     order?.invoice_id?.id
                   }}"
@@ -376,7 +384,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#000000] text-white text-sm">
+                      <tr class="bg-[#ff820d] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -410,7 +418,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#000000] font-medium hover:underline"
+                              class="text-[#ff820d] font-medium hover:underline"
                               routerLink="/invoices/invoice-details/{{
                                 rowData.id
                               }}"
@@ -486,7 +494,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#000000] text-white text-sm">
+                      <tr class="bg-[#ff820d] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -520,7 +528,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#000000] font-medium hover:underline"
+                              class="text-[#ff820d] font-medium hover:underline"
                               routerLink="/payments/payment-details/{{
                                 rowData.id
                               }}"
@@ -531,7 +539,7 @@
 
                           <div *ngSwitchCase="'inv_code'">
                             <a
-                              class="text-[#000000] font-medium hover:underline"
+                              class="text-[#ff820d] font-medium hover:underline"
                               routerLink="/invoices/invoice-details/{{
                                 rowData.inv.id
                               }}"
