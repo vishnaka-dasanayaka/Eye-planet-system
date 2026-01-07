@@ -4,7 +4,7 @@
   class="fixed inset-0 bg-black/50 z-99 flex items-center justify-center"
 >
   <!-- Modal Container -->
-  <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl mx-auto z-50">
+  <div class="rounded-lg shadow-lg bg-white w-full max-w-4xl mx-auto z-50">
     <!-- Modal Header -->
     <div class="flex justify-between items-center px-6 py-4 border-b">
       <h4 class="text-xl font-semibold text-gray-800">Add Stock</h4>
@@ -18,7 +18,7 @@
     </div>
 
     <!-- Modal Body -->
-    <div class="px-6 py-4">
+    <div class="px-6 py-4 overflow-y-auto max-h-[90vh] no-scrollbar">
       <form
         [formGroup]="valForm"
         (ngSubmit)="submitForm(valForm.value)"
