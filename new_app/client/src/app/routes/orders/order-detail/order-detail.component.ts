@@ -25,8 +25,6 @@ export class OrderDetailComponent {
 
   loading: boolean = false;
 
-  note: any;
-
   invoice_cols: any[] = [];
   invoices: any[] = [];
 
@@ -199,7 +197,7 @@ export class OrderDetailComponent {
         title: "Warning!",
         text: "Order Should be confirmed first",
         icon: "warning",
-        confirmButtonColor: "#186006",
+        confirmButtonColor: "#ff820d",
       });
       return;
     }
@@ -231,7 +229,7 @@ export class OrderDetailComponent {
         title: "Warning!",
         text: "Order Should be in pending status to edit",
         icon: "warning",
-        confirmButtonColor: "#186006",
+        confirmButtonColor: "#ff820d",
       });
       return;
     }

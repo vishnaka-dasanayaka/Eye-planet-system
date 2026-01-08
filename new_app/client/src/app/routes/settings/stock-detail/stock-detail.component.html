@@ -27,7 +27,7 @@
       <h1 class="text-xl font-semibold">Stock Details</h1>
       <h5 class="text-xs font-thin">{{ stock?.code }}</h5>
     </div>
-    <div>
+    <div *hasPermission="[[10], sysuser]">
       <button
         [disabled]="stock?.status == 2"
         class="mr-2 btn-lg btn-success"
@@ -100,7 +100,7 @@
           <div *ngIf="stock?.purchase_order">
             <p class="text-sm text-gray-500">Purchase Order</p>
             <a
-              class="text-[#186006] font-medium hover:underline"
+              class="text-[#ff820d] font-medium hover:underline"
               routerLink="/settings/purchase-order-details/{{
                 stock?.purchase_order?.id
               }}"
@@ -121,7 +121,7 @@
             <p class="text-sm text-gray-500">Supplier</p>
 
             <a
-              class="text-[#186006] font-medium hover:underline"
+              class="text-[#ff820d] font-medium hover:underline"
               routerLink="/settings/supplier-details/ {{ stock?.supplier?.id }}"
             >
               {{ stock?.supplier?.name }}
@@ -229,7 +229,7 @@
             <div class="text-xs text-gray-500">View category items</div>
           </div>
         </div>
-        <div class="text-[#186006] font-semibold text-sm cursor-pointer">
+        <div class="text-[#ff820d] font-semibold text-sm cursor-pointer">
           {{ stock?.category.name }}
         </div>
         <div class="text-xs mt-2 text-gray-500">
@@ -252,7 +252,7 @@
             <div class="text-xs text-gray-500">View brand details</div>
           </div>
         </div>
-        <div class="text-[#186006] font-semibold text-sm cursor-pointer">
+        <div class="text-[#ff820d] font-semibold text-sm cursor-pointer">
           {{ stock?.brand.name }}
         </div>
         <div class="text-xs mt-2 text-gray-500">
@@ -278,7 +278,7 @@
         </div>
         <div
           routerLink="/settings/supplier-details/{{ stock?.supplier.id }}"
-          class="text-[#186006] font-semibold text-sm cursor-pointer"
+          class="text-[#ff820d] font-semibold text-sm cursor-pointer"
         >
           <span class="hover:text-[#ff560de0]">{{ stock?.supplier.name }}</span>
         </div>
@@ -302,50 +302,7 @@
           </p-tablist>
           <p-tabpanels>
             <p-tabpanel value="0">
-              <div class="card">
-                <p-editor [(ngModel)]="note" [style]="{ height: '200px' }" />
-                <button class="add_btn flex my-3">Add Note</button>
-              </div>
-
-              <div
-                class="flex items-center mb-3 justify-between bg-gray-100 p-3 min-h-[5rem] rounded-lg"
-              >
-                <!-- Left section: Note content -->
-                <div class="flex flex-col items-start justify-around">
-                  <h6 class="font-medium text-gray-800">
-                    Supplier contacted for updated invoice
-                  </h6>
-                  <p class="text-sm text-gray-600 mt-1">
-                    Harsha Renuka •
-                    {{ stock?.created_on | date : "mediumDate" }}
-                  </p>
-                </div>
-                <div>
-                  <button class="btn btn-outline-danger">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div
-                class="flex items-center mb-3 justify-between bg-gray-100 p-3 min-h-[5rem] rounded-lg"
-              >
-                <!-- Left section: Note content -->
-                <div class="flex flex-col items-start justify-around">
-                  <h6 class="font-medium text-gray-800">
-                    Followed up regarding pending payment terms.
-                  </h6>
-                  <p class="text-sm text-gray-600 mt-1">
-                    Hashan Thennakoon •
-                    {{ stock?.created_on | date : "mediumDate" }}
-                  </p>
-                </div>
-                <div>
-                  <button class="btn btn-outline-danger">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </div>
+              <app-note [f_key]="id" [type]="'STOCK'"></app-note>
             </p-tabpanel>
           </p-tabpanels>
         </p-tabs>

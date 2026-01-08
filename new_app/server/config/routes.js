@@ -89,6 +89,20 @@ module.exports.routes = {
 
   // settings
 
+  // notes
+  "POST /api/v1/settings/add-note": {
+    action: "settings/add-note",
+  },
+  "PATCH /api/v1/settings/update-note": {
+    action: "settings/update-note",
+  },
+  "POST /api/v1/settings/get-notes": {
+    action: "settings/get-notes",
+  },
+  "POST /api/v1/settings/update-note-status": {
+    action: "settings/update-note-status",
+  },
+
   // users
 
   "POST /api/v1/settings/users/get-paged-users": {
@@ -115,6 +129,18 @@ module.exports.routes = {
 
   "POST /api/v1/settings/users/get-permission-by-userlevel": {
     action: "settings/users/get-permission-by-userlevel",
+  },
+
+  "POST /api/v1/settings/users/update-permission-group": {
+    action: "settings/users/update-permission-group",
+  },
+
+  "POST /api/v1/settings/users/get-user-list": {
+    action: "settings/users/get-user-list",
+  },
+
+  "POST /api/v1/settings/users/change-password": {
+    action: "settings/users/change-password",
   },
 
   // supplier
@@ -288,6 +314,22 @@ module.exports.routes = {
 
   "GET /api/v1/branches/get-all-active-branches": {
     action: "branches/get-all-active-branches",
+  },
+
+  "POST /api/v1/settings/branch/get-all-paged-branches": {
+    action: "settings/branch/get-all-paged-branches",
+  },
+
+  "POST /api/v1/settings/branch/create-branch": {
+    action: "settings/branch/create-branch",
+  },
+
+  "GET /api/v1/settings/branch/:id": {
+    action: "settings/branch/get-branch",
+  },
+
+  "PATCH /api/v1/settings/branch/update-branch-status": {
+    action: "settings/branch/update-branch-status",
   },
 
   // Payments

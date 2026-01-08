@@ -142,7 +142,15 @@ body {
 
 .add_btn {
   color: white;
-  background-color: #186006;
+  background-color: #ff820d;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.delete_btn {
+  color: white;
+  background-color: oklch(50.5% 0.213 27.518);
   padding: 10px 20px;
   border-radius: 12px;
   font-weight: 600;
@@ -252,23 +260,23 @@ body {
 
 .btn-outline-warning {
   border: 1px orange solid;
-  color: #186006;
+  color: #ff820d;
 }
 
 .btn-outline-warning:hover {
-  background-color: #186006;
+  background-color: #ff820d;
   color: white;
 }
 
 .btn-warning {
   color: white;
-  background-color: #186006;
+  background-color: #ff820d;
 }
 
 .btn-warning:hover {
-  color: #186006;
+  color: #ff820d;
   background-color: white;
-  border: #186006 1px solid;
+  border: #ff820d 1px solid;
 }
 
 .btn-gray {

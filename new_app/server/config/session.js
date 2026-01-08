@@ -6,7 +6,7 @@ const storeInstance = new MySQLStore({
   port: 3306,
   user: "root",
   password: "root",
-  database: "eyeplanet",
+  database: "sethneth",
   clearExpired: true,
   checkExpirationInterval: 900000,
   expiration: 86400000,

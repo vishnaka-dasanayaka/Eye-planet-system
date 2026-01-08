@@ -31,6 +31,7 @@
         <i class="fa-solid fa-circle-check mr-2"></i>Mark as Approved
       </button>
       <button
+        *hasPermission="[[7], sysuser]"
         [disabled]="patient?.status == 0"
         [ngClass]="{ 'btn-disable': patient?.status == 0 }"
         class="mr-2 btn-lg btn-primary"
@@ -39,6 +40,7 @@
         <i class="fa-solid fa-circle-check mr-2"></i>Mark as Pending
       </button>
       <button
+        *hasPermission="[[7], sysuser]"
         [disabled]="patient?.status == -2"
         class="mr-2 btn-lg btn-danger"
         [ngClass]="{ 'btn-disable': patient?.status == -2 }"
@@ -203,50 +205,7 @@
           </p-tablist>
           <p-tabpanels>
             <p-tabpanel value="0">
-              <div class="card">
-                <p-editor [(ngModel)]="note" [style]="{ height: '200px' }" />
-                <button class="add_btn flex my-3">Add Note</button>
-              </div>
-
-              <div
-                class="flex items-center mb-3 justify-between bg-gray-100 p-3 min-h-[5rem] rounded-lg"
-              >
-                <!-- Left section: Note content -->
-                <div class="flex flex-col items-start justify-around">
-                  <h6 class="font-medium text-gray-800">
-                    Supplier contacted for updated invoice
-                  </h6>
-                  <p class="text-sm text-gray-600 mt-1">
-                    Harsha Renuka •
-                    {{ patient?.created_on | date : "mediumDate" }}
-                  </p>
-                </div>
-                <div>
-                  <button class="btn btn-outline-danger">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div
-                class="flex items-center mb-3 justify-between bg-gray-100 p-3 min-h-[5rem] rounded-lg"
-              >
-                <!-- Left section: Note content -->
-                <div class="flex flex-col items-start justify-around">
-                  <h6 class="font-medium text-gray-800">
-                    Followed up regarding pending payment terms.
-                  </h6>
-                  <p class="text-sm text-gray-600 mt-1">
-                    Hashan Thennakoon •
-                    {{ patient?.created_on | date : "mediumDate" }}
-                  </p>
-                </div>
-                <div>
-                  <button class="btn btn-outline-danger">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </div>
+              <app-note [f_key]="id" [type]="'PATIENT'"></app-note>
             </p-tabpanel>
             <p-tabpanel value="1">
               <div class="flex items-end justify-end">
@@ -268,7 +227,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#186006] text-white text-sm">
+                      <tr class="bg-[#ff820d] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -368,7 +327,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#186006] text-white text-sm">
+                      <tr class="bg-[#ff820d] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -402,7 +361,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#186006] font-medium hover:underline"
+                              class="text-[#ff820d] font-medium hover:underline"
                               routerLink="/orders/order-details/{{
                                 rowData.id
                               }}"
@@ -500,7 +459,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#186006] text-white text-sm">
+                      <tr class="bg-[#ff820d] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -535,7 +494,7 @@
                           <div *ngSwitchCase="'code'">
                             <a
                               *ngIf="rowData?.type == 'NORMAL'"
-                              class="text-[#186006] font-medium hover:underline"
+                              class="text-[#ff820d] font-medium hover:underline"
                               routerLink="/invoices/invoice-details/{{
                                 rowData.id
                               }}"
@@ -544,7 +503,7 @@
                             </a>
                             <a
                               *ngIf="rowData?.type == 'CONS'"
-                              class="text-[#186006] font-medium hover:underline"
+                              class="text-[#ff820d] font-medium hover:underline"
                               routerLink="/c-invoices/c-invoice-details/{{
                                 rowData.id
                               }}"
@@ -630,7 +589,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#186006] text-white text-sm">
+                      <tr class="bg-[#ff820d] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -664,7 +623,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#186006] font-medium hover:underline"
+                              class="text-[#ff820d] font-medium hover:underline"
                               routerLink="/payments/payment-details/{{
                                 rowData.id
                               }}"

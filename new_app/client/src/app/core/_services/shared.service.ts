@@ -1,9 +1,19 @@
 import { Injectable } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Observable, Subject } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
 export class SharedService {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  htmlSanitize(html: string): SafeHtml | string {
+    if (!html) {
+      return "";
+    }
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
   sanitizeFormValues(values: any): any {
     const cleanedValues: any = {};
 
@@ -507,4 +517,52 @@ export class SharedService {
   // getEditClientClickEvent(): Observable<any> {
   //   return this.edit_supplier.asObservable();
   // }
+
+  // Branch
+  private add_branch = new Subject<void>();
+  private edit_branch = new Subject<any>();
+  private branch_data: any = undefined;
+
+  setBranchData(data: any) {
+    this.branch_data = data;
+  }
+  openAddBranchModal() {
+    this.add_branch.next();
+  }
+  getAddBranchClickEvent(): Observable<any> {
+    return this.add_branch.asObservable();
+  }
+  getBranchData(): any {
+    return this.branch_data;
+  }
+
+  // openEditClientModal() {
+  //   this.edit_supplier.next();
+  // }
+
+  // getEditClientClickEvent(): Observable<any> {
+  //   return this.edit_supplier.asObservable();
+  // }
+
+  // Change Password
+
+  private change_password = new Subject<void>();
+  private password_data: any = undefined;
+
+  setPasswordData(data: any) {
+    this.password_data = data;
+    console.log("setPasswordData");
+  }
+  openChangePasswordModal() {
+    this.change_password.next();
+    console.log("openChangePasswordModal");
+  }
+  getChangePasswordClickEvent(): Observable<any> {
+    console.log("getChangePasswordClickEvent");
+
+    return this.change_password.asObservable();
+  }
+  getPasswordData(): any {
+    return this.password_data;
+  }
 }

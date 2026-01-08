@@ -6,7 +6,7 @@
       class="text-blue-500 cursor-pointer"
       >Settings</span
     >
-    > Supplier Settings
+    > Supplier Summary
   </h6>
   <div class="flex items-end justify-between">
     <div>
@@ -78,7 +78,7 @@
           </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
-          <tr class="bg-[#186006] text-white text-sm">
+          <tr class="bg-[#ff820d] text-white text-sm">
             <th
               *ngFor="let col of columns"
               [pSortableColumn]="col.field"
@@ -108,7 +108,7 @@
             >
               <div *ngSwitchCase="'code'">
                 <a
-                  class="text-[#186006] font-medium hover:underline"
+                  class="text-[#ff820d] font-medium hover:underline"
                   routerLink="/settings/supplier-details/{{ rowData.id }}"
                 >
                   {{ rowData[col.field] }}
@@ -117,7 +117,7 @@
 
               <div *ngSwitchCase="'name'">
                 <a
-                  class="text-[#186006] font-medium hover:underline"
+                  class="text-[#ff820d] font-medium hover:underline"
                   routerLink="/settings/supplier-details/{{ rowData.id }}"
                 >
                   {{ rowData[col.field] }}

@@ -464,4 +464,92 @@ export class SettingsService {
       catchError(this.handleError)
     );
   }
+
+  createBranch(obj: any) {
+    let APIurl = this.BaseAPIurl + "branch/create-branch";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getAllBranches(obj: any) {
+    let APIurl = this.BaseAPIurl + "branch/get-all-paged-branches";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getBranch(id: number) {
+    let APIurl = this.BaseAPIurl + "branch/" + id;
+
+    return this.http.get<any>(APIurl).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  updateBranchStatus(obj: any) {
+    let APIurl = this.BaseAPIurl + "branch/update-branch-status";
+
+    return this.http.patch<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  addNote(obj: any) {
+    let APIurl = this.BaseAPIurl + "add-note";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getNotes(obj: any) {
+    let APIurl = this.BaseAPIurl + "get-notes";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  updateNoteStatus(obj: any) {
+    let APIurl = this.BaseAPIurl + "update-note-status";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  updateNote(obj: any) {
+    let APIurl = this.BaseAPIurl + "update-note";
+
+    return this.http.patch<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
 }

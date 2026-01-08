@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import swal from "sweetalert2";
 import { InvoiceService } from "../../../core/_services/invoice.service";
 import { SharedService } from "../../../core/_services/shared.service";
+import { SettingsService } from "../../../core/_services/settings.service";
 
 @Component({
   selector: "app-invoice-detail",
@@ -24,7 +25,6 @@ export class InvoiceDetailComponent {
 
   loading: boolean = false;
 
-  note: any;
   cols: any[] = [];
 
   payment_cols: any[] = [];
@@ -35,7 +35,8 @@ export class InvoiceDetailComponent {
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private invoiceService: InvoiceService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private settingsService: SettingsService
   ) {
     this.cols = [
       { field: "item", header: "Item", sortable: true },
@@ -228,7 +229,7 @@ export class InvoiceDetailComponent {
         title: "Warning!",
         text: "Order Should be in pending status to edit",
         icon: "warning",
-        confirmButtonColor: "#186006",
+        confirmButtonColor: "#ff820d",
       });
       return;
     }
@@ -303,7 +304,7 @@ export class InvoiceDetailComponent {
         title: "Warning!",
         text: "To make a payment invoice should have a open balance",
         icon: "warning",
-        confirmButtonColor: "#186006",
+        confirmButtonColor: "#ff820d",
       });
       return;
     }

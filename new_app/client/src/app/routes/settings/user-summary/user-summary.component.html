@@ -20,7 +20,11 @@
       <h1 class="text-xl font-semibold">Users Summary</h1>
       <h5 class="text-xs font-thin">Add, View and Edit users here</h5>
     </div>
-    <button (click)="openAddModal()" class="add_btn">
+    <button
+      *hasPermission="[[2], sysuser]"
+      (click)="openAddModal()"
+      class="add_btn"
+    >
       <i class="fa-solid fa-plus mr-2"></i>Add User
     </button>
   </div>
@@ -81,7 +85,7 @@
           </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
-          <tr class="bg-[#186006] text-white text-sm">
+          <tr class="bg-[#ff820d] text-white text-sm">
             <th
               *ngFor="let col of columns"
               [pSortableColumn]="col.field"
@@ -153,20 +157,24 @@
               </div>
 
               <div *ngSwitchCase="'actions'">
-                <button
-                  *ngIf="rowData?.disabled == 1 && rowData?.id != 1"
-                  class="btn btn-outline-success mr-2"
-                  (click)="updateStatus(rowData.id, 0)"
+                <ng-container *hasPermission="[[4], sysuser]">
+                  <button
+                    *ngIf="rowData?.disabled == 1 && rowData?.id != 1"
+                    class="btn btn-outline-success mr-2"
+                    (click)="updateStatus(rowData.id, 0)"
+                  >
+                    Enable
+                  </button></ng-container
                 >
-                  Enable
-                </button>
-                <button
-                  *ngIf="rowData?.disabled == 0 && rowData?.id != 1"
-                  class="btn btn-outline-danger mr-2"
-                  (click)="updateStatus(rowData.id, 1)"
-                >
-                  Disable
-                </button>
+                <ng-container *hasPermission="[[4], sysuser]">
+                  <button
+                    *ngIf="rowData?.disabled == 0 && rowData?.id != 1"
+                    class="btn btn-outline-danger mr-2"
+                    (click)="updateStatus(rowData.id, 1)"
+                  >
+                    Disable
+                  </button>
+                </ng-container>
 
                 <button
                   class="btn btn-outline-warning"

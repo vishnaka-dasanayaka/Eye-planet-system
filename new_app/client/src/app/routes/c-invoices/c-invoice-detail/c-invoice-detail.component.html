@@ -217,7 +217,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#186006] text-white text-sm">
+                      <tr class="bg-[#ff820d] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -318,50 +318,7 @@
               </div>
             </p-tabpanel>
             <p-tabpanel value="1">
-              <div class="card">
-                <p-editor [(ngModel)]="note" [style]="{ height: '200px' }" />
-                <button class="add_btn flex my-3">Add Note</button>
-              </div>
-
-              <div
-                class="flex items-center mb-3 justify-between bg-gray-100 p-3 min-h-[5rem] rounded-lg"
-              >
-                <!-- Left section: Note content -->
-                <div class="flex flex-col items-start justify-around">
-                  <h6 class="font-medium text-gray-800">
-                    Supplier contacted for updated invoice
-                  </h6>
-                  <p class="text-sm text-gray-600 mt-1">
-                    Harsha Renuka •
-                    {{ inv?.created_on | date : "mediumDate" }}
-                  </p>
-                </div>
-                <div>
-                  <button class="btn btn-outline-danger">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div
-                class="flex items-center mb-3 justify-between bg-gray-100 p-3 min-h-[5rem] rounded-lg"
-              >
-                <!-- Left section: Note content -->
-                <div class="flex flex-col items-start justify-around">
-                  <h6 class="font-medium text-gray-800">
-                    Followed up regarding pending payment terms.
-                  </h6>
-                  <p class="text-sm text-gray-600 mt-1">
-                    Hashan Thennakoon •
-                    {{ inv?.created_on | date : "mediumDate" }}
-                  </p>
-                </div>
-                <div>
-                  <button class="btn btn-outline-danger">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </div>
+              <app-note [type]="'C-INV'" [f_key]="id"></app-note>
             </p-tabpanel>
             <p-tabpanel value="2">
               <div class="flex items-end justify-end">
@@ -383,7 +340,7 @@
                     [rowHover]="true"
                   >
                     <ng-template pTemplate="header" let-columns>
-                      <tr class="bg-[#186006] text-white text-sm">
+                      <tr class="bg-[#ff820d] text-white text-sm">
                         <th
                           *ngFor="let col of columns"
                           [pSortableColumn]="col.field"
@@ -417,7 +374,7 @@
                         >
                           <div *ngSwitchCase="'code'">
                             <a
-                              class="text-[#186006] font-medium hover:underline"
+                              class="text-[#ff820d] font-medium hover:underline"
                               routerLink="/payments/payment-details/{{
                                 rowData.payment_id.id
                               }}"
@@ -625,17 +582,25 @@
     </div>
   </div>
 
-  <div
-    class="flex justify-between w-full items-center pb-3 absolute left-0 px-3 bottom-0"
-  >
-    <div class="flex flex-col justify-center items-center">
-      <p>..............................</p>
-      <p class="font-medium text-xs">Customer Signature</p>
+  <div class="flex flex-col bottom-0 absolute justify-center px-3 items-center">
+    <div class="flex justify-between w-full items-center pb-3 left-0">
+      <div class="flex flex-col justify-center items-center">
+        <p>..............................</p>
+        <p class="font-medium text-xs">Customer Signature</p>
+      </div>
+      <div class="font-medium text-sm">Thankyou for your Business</div>
+      <div class="flex flex-col justify-center items-center">
+        <p>..............................</p>
+        <p class="font-medium text-xs">Checked By</p>
+      </div>
     </div>
-    <div class="font-medium text-sm">Thankyou for your Business</div>
-    <div class="flex flex-col justify-center items-center">
-      <p>..............................</p>
-      <p class="font-medium text-xs">Checked By</p>
+
+    <div>
+      <p class="text-justify text-xs">
+        Please collect your spectacles within 30 days for best vision accuracy.
+        After this period, frames may be reused by removing the lenses. Advance
+        payments are non-refundable.
+      </p>
     </div>
   </div>
 </div>

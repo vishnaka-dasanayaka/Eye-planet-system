@@ -66,7 +66,7 @@ export class AddDoctorComponent {
           title: "Warning!",
           text: "Invalid Inputs",
           icon: "warning",
-          confirmButtonColor: "#186006",
+          confirmButtonColor: "#ff820d",
         });
       }
 
