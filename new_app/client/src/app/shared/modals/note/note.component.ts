@@ -65,7 +65,7 @@ export class NoteComponent {
         title: "Warning!",
         text: "Note cannot be blank",
         icon: "warning",
-        confirmButtonColor: "#ff820d",
+        confirmButtonColor: "#186006",
       });
       return;
     }
@@ -188,7 +188,7 @@ export class NoteComponent {
         title: "Warning!",
         text: "Note cannot be blank",
         icon: "warning",
-        confirmButtonColor: "#ff820d",
+        confirmButtonColor: "#186006",
       });
       return;
     }

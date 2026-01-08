@@ -67,7 +67,7 @@ export class ChangePasswordComponent {
           title: "Warning!",
           text: "Your passwords must match. Please make sure both fields contain the same password.",
           icon: "warning",
-          confirmButtonColor: "#ff820d",
+          confirmButtonColor: "#186006",
         });
         return;
       }

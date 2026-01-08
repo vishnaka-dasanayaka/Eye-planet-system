@@ -225,7 +225,7 @@ export class CInvoiceDetailComponent {
         title: "Warning!",
         text: "Order Should be in pending status to edit",
         icon: "warning",
-        confirmButtonColor: "#ff820d",
+        confirmButtonColor: "#186006",
       });
       return;
     }
@@ -300,7 +300,7 @@ export class CInvoiceDetailComponent {
         title: "Warning!",
         text: "To make a payment invoice should have a open balance",
         icon: "warning",
-        confirmButtonColor: "#ff820d",
+        confirmButtonColor: "#186006",
       });
       return;
     }

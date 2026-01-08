@@ -72,8 +72,6 @@ module.exports.routes = {
     hasSocketFeatures: true,
   },
 
-  // SETH NETH
-
   "/": {},
 
   // user endpoints
