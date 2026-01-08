@@ -5,7 +5,7 @@
   <i class="fa-solid fa-bars fa-xl"></i>
 </button>
 <div
-  class="fixed left-0 w-[200px] lg:w-[110px] pb-3 lg:h-full top-12 md:top-12 z-100 transform transition-transform duration-300 ease-in-out backdrop-blur-md bg-[#ff820d]/20 dark:bg-[#ff820d]/10 border border-[#ff820d]/30 dark:border-[#ff820d]/20 shadow-xl rounded-tr-2xl rounded-br-2xl"
+  class="fixed left-0 w-[200px] lg:w-[110px] pb-3 lg:h-full top-12 md:top-12 z-100 transform transition-transform duration-300 ease-in-out backdrop-blur-md bg-[#186006]/20 dark:bg-[#186006]/10 border border-[#186006]/30 dark:border-[#186006]/20 shadow-xl rounded-tr-2xl rounded-br-2xl"
   [ngClass]="{
     '-translate-x-full': !isSidebarOpen,
     'translate-x-0': isSidebarOpen,
@@ -17,8 +17,8 @@
       *ngFor="let item of menuItems"
       class="text-xs py-3 px-3 rounded-md cursor-pointer transition-all duration-200"
       [ngClass]="{
-        'bg-[#ff820d] text-white shadow-md': currentPath === item.path,
-        'hover:bg-[#ff820d]/30 hover:text-white': currentPath !== item.path
+        'bg-[#186006] text-white shadow-md': currentPath === item.path,
+        'hover:bg-[#186006]/30 hover:text-white': currentPath !== item.path
       }"
       (click)="onClickMenu(item.path, item.value)"
     >
@@ -34,7 +34,7 @@
   <i class="fa-solid fa-bars fa-xl"></i>
 </button>
 <div
-  class="fixed left-0 w-[250px] lg:w-[220px] pb-6 lg:h-full top-16 md:top-16 z-40 transform transition-transform duration-300 ease-in-out backdrop-blur-md bg-[#ff820d]/10 dark:bg-[#1a1a1a]/90 border-r border-[#ff820d]/20 dark:border-[#ff820d]/10 shadow-xl"
+  class="fixed left-0 w-[250px] lg:w-[220px] pb-6 lg:h-full top-16 md:top-16 z-40 transform transition-transform duration-300 ease-in-out backdrop-blur-md bg-[#186006]/10 dark:bg-[#1a1a1a]/90 border-r border-[#186006]/20 dark:border-[#186006]/10 shadow-xl"
   [ngClass]="{
     '-translate-x-full': !isSidebarOpen,
     'translate-x-0': isSidebarOpen,
@@ -43,8 +43,8 @@
 >
   <div class="flex flex-col h-[92vh]">
     <!-- Logo/Brand Area -->
-    <!-- <div class="px-6 py-4 border-b border-[#ff820d]/10">
-      <h2 class="text-xl font-bold text-[#ff820d]">ClinicPro</h2>
+    <!-- <div class="px-6 py-4 border-b border-[#186006]/10">
+      <h2 class="text-xl font-bold text-[#186006]">ClinicPro</h2>
     </div> -->
 
     <!-- Main Menu Items -->
@@ -59,8 +59,8 @@
         <div
           class="flex items-center py-2 px-3 rounded-lg cursor-pointer transition-all duration-200"
           [ngClass]="{
-            'bg-[#ff820d] text-white': currentPath === '/home',
-            'hover:bg-[#ff820d]/20 text-gray-700 dark:text-gray-200':
+            'bg-[#186006] text-white': currentPath === '/home',
+            'hover:bg-[#186006]/20 text-gray-700 dark:text-gray-200':
               currentPath !== '/home'
           }"
           (click)="onClickMenu('/home', 4)"
@@ -80,9 +80,9 @@
         <div
           class="flex items-center py-2 px-3 rounded-lg cursor-pointer transition-all duration-200"
           [ngClass]="{
-            'bg-[#ff820d] text-white':
+            'bg-[#186006] text-white':
               currentPath === '/patients/patient-summary',
-            'hover:bg-[#ff820d]/20 text-gray-700 dark:text-gray-200':
+            'hover:bg-[#186006]/20 text-gray-700 dark:text-gray-200':
               currentPath !== '/patients/patient-summary'
           }"
           (click)="onClickMenu('/patients/patient-summary', 7)"
@@ -102,8 +102,8 @@
         <div
           class="flex items-center py-2 px-3 rounded-lg cursor-pointer transition-all duration-200 mb-1"
           [ngClass]="{
-            'bg-[#ff820d] text-white': currentPath === '/orders/order-summary',
-            'hover:bg-[#ff820d]/20 text-gray-700 dark:text-gray-200':
+            'bg-[#186006] text-white': currentPath === '/orders/order-summary',
+            'hover:bg-[#186006]/20 text-gray-700 dark:text-gray-200':
               currentPath !== '/orders/order-summary'
           }"
           (click)="onClickMenu('/orders/order-summary', 4)"
@@ -114,9 +114,9 @@
         <div
           class="flex items-center py-2 px-3 rounded-lg cursor-pointer transition-all duration-200 mb-1"
           [ngClass]="{
-            'bg-[#ff820d] text-white':
+            'bg-[#186006] text-white':
               currentPath === '/invoices/invoice-summary',
-            'hover:bg-[#ff820d]/20 text-gray-700 dark:text-gray-200':
+            'hover:bg-[#186006]/20 text-gray-700 dark:text-gray-200':
               currentPath !== '/invoices/invoice-summary'
           }"
           (click)="onClickMenu('/invoices/invoice-summary', 4)"
@@ -128,9 +128,9 @@
         <div
           class="flex items-center py-2 px-3 rounded-lg cursor-pointer transition-all duration-200 mb-1"
           [ngClass]="{
-            'bg-[#ff820d] text-white':
+            'bg-[#186006] text-white':
               currentPath === '/c-invoices/c-invoice-summary',
-            'hover:bg-[#ff820d]/20 text-gray-700 dark:text-gray-200':
+            'hover:bg-[#186006]/20 text-gray-700 dark:text-gray-200':
               currentPath !== '/c-invoices/c-invoice-summary'
           }"
           (click)="onClickMenu('/c-invoices/c-invoice-summary', 4)"
@@ -141,9 +141,9 @@
         <div
           class="flex items-center py-2 px-3 rounded-lg cursor-pointer transition-all duration-200"
           [ngClass]="{
-            'bg-[#ff820d] text-white':
+            'bg-[#186006] text-white':
               currentPath === '/payments/payment-summary',
-            'hover:bg-[#ff820d]/20 text-gray-700 dark:text-gray-200':
+            'hover:bg-[#186006]/20 text-gray-700 dark:text-gray-200':
               currentPath !== '/payments/payment-summary'
           }"
           (click)="onClickMenu('/payments/payment-summary', 4)"
@@ -163,9 +163,9 @@
         <div
           class="flex items-center py-2 px-3 rounded-lg cursor-pointer transition-all duration-200"
           [ngClass]="{
-            'bg-[#ff820d] text-white':
+            'bg-[#186006] text-white':
               currentPath === '/reports/report-summary',
-            'hover:bg-[#ff820d]/20 text-gray-700 dark:text-gray-200':
+            'hover:bg-[#186006]/20 text-gray-700 dark:text-gray-200':
               currentPath !== '/reports/report-summary'
           }"
           (click)="onClickMenu('/reports/report-summary', 4)"
@@ -185,9 +185,9 @@
         <div
           class="flex items-center py-2 px-3 rounded-lg cursor-pointer transition-all duration-200"
           [ngClass]="{
-            'bg-[#ff820d] text-white':
+            'bg-[#186006] text-white':
               currentPath === '/settings/settings-menu',
-            'hover:bg-[#ff820d]/20 text-gray-700 dark:text-gray-200':
+            'hover:bg-[#186006]/20 text-gray-700 dark:text-gray-200':
               currentPath !== '/settings/settings-menu'
           }"
           (click)="onClickMenu('/settings/settings-menu', 4)"
@@ -199,10 +199,10 @@
     </div>
 
     <!-- User Profile/Logout -->
-    <div class="px-4 py-3 border-t border-[#ff820d]/10">
+    <div class="px-4 py-3 border-t border-[#186006]/10">
       <div class="flex items-center space-x-3">
         <div
-          class="w-8 h-8 rounded-full bg-[#ff820d] flex items-center justify-center text-white"
+          class="w-8 h-8 rounded-full bg-[#186006] flex items-center justify-center text-white"
         >
           <i class="fa-solid fa-user text-sm"></i>
         </div>
