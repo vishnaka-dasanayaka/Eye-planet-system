@@ -71,6 +71,12 @@ export const routes: Routes = [
           import("./reports/reports.module").then((m) => ReportsModule),
       },
 
+      {
+        path: "home",
+        loadChildren: () =>
+          import("./home/home.module").then((m) => m.HomeModule),
+      },
+
       // NO NEED
 
       {
@@ -80,12 +86,7 @@ export const routes: Routes = [
       },
       { path: "dashboard", component: DashboardComponent },
       { path: "my-tickets", component: MyTicketsComponent },
-      {
-        path: "home",
-        component: LayoutComponent,
-        loadChildren: () =>
-          import("./home/home.module").then((m) => m.HomeModule),
-      },
+
       {
         path: "event",
         component: LayoutComponent,
