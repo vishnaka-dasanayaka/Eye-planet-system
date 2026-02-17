@@ -14,7 +14,7 @@ export class StockReportComponent implements OnInit {
 
   constructor(
     private authservice: AuthenticationService,
-    private reportsService: ReportsService
+    private reportsService: ReportsService,
   ) {}
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class StockReportComponent implements OnInit {
       this.LoadUI = true;
     });
 
-    this.generateReport();
+    // this.generateReport();
   }
 
   from_date: String = "";
