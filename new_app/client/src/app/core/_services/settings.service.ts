@@ -133,6 +133,28 @@ export class SettingsService {
     );
   }
 
+  transferStock(obj: any) {
+    let APIurl = this.BaseAPIurl + "stock/transfer-stock";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  transferBulkStock(obj: any) {
+    let APIurl = this.BaseAPIurl + "stock/transfer-bulk-stock";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   // Stock Category
 
   createCategory(obj: any) {
