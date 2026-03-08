@@ -267,6 +267,28 @@ export class SettingsService {
     );
   }
 
+  getAllModels() {
+    let APIurl = this.BaseAPIurl + "stock/get-all-models";
+
+    return this.http.get<any>(APIurl).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  getActiveModelsPerBrands(obj: any) {
+    let APIurl = this.BaseAPIurl + "stock/get-active-models-per-brands";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   getAllActiveModelsWithStock() {
     let APIurl = this.BaseAPIurl + "stock/get-all-active-models-with-stock";
 
@@ -300,7 +322,7 @@ export class SettingsService {
     );
   }
 
-  getAllModels(obj: any) {
+  getAllPagedModels(obj: any) {
     let APIurl = this.BaseAPIurl + "stock/get-all-paged-models";
 
     return this.http.post<any>(APIurl, obj).pipe(

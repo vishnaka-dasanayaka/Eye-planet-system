@@ -3,6 +3,14 @@
 @import "tailwindcss";
 @plugin "tailwindcss-primeui";
 
+* {
+  --p-multiselect-option-selected-background: #196005;
+  --p-multiselect-option-selected-focus-background: #267012;
+  --p-checkbox-checked-background: #196005;
+  --p-checkbox-checked-border-color: #196005;
+  --p-checkbox-icon-color: #ffffff;
+}
+
 /* PRINT INVOICE IN B5 */
 
 /* @media print {
@@ -207,11 +215,31 @@ body {
   border-radius: calc(infinity * 1px);
   padding-inline: calc(var(--spacing) * 3.5);
   padding-block: calc(var(--spacing) * 1.2);
-  transition-property: color, background-color, border-color, outline-color,
-    text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via,
-    --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate,
-    filter, -webkit-backdrop-filter, backdrop-filter, display, visibility,
-    content-visibility, overlay, pointer-events;
+  transition-property:
+    color,
+    background-color,
+    border-color,
+    outline-color,
+    text-decoration-color,
+    fill,
+    stroke,
+    --tw-gradient-from,
+    --tw-gradient-via,
+    --tw-gradient-to,
+    opacity,
+    box-shadow,
+    transform,
+    translate,
+    scale,
+    rotate,
+    filter,
+    -webkit-backdrop-filter,
+    backdrop-filter,
+    display,
+    visibility,
+    content-visibility,
+    overlay,
+    pointer-events;
   transition-timing-function: var(
     --tw-ease,
     var(--default-transition-timing-function) /* cubic-bezier(0.4, 0, 0.2, 1) */
@@ -232,11 +260,31 @@ body {
   border-radius: calc(infinity * 1px);
   padding-inline: calc(var(--spacing) * 3.5);
   padding-block: calc(var(--spacing) * 1.2);
-  transition-property: color, background-color, border-color, outline-color,
-    text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via,
-    --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate,
-    filter, -webkit-backdrop-filter, backdrop-filter, display, visibility,
-    content-visibility, overlay, pointer-events;
+  transition-property:
+    color,
+    background-color,
+    border-color,
+    outline-color,
+    text-decoration-color,
+    fill,
+    stroke,
+    --tw-gradient-from,
+    --tw-gradient-via,
+    --tw-gradient-to,
+    opacity,
+    box-shadow,
+    transform,
+    translate,
+    scale,
+    rotate,
+    filter,
+    -webkit-backdrop-filter,
+    backdrop-filter,
+    display,
+    visibility,
+    content-visibility,
+    overlay,
+    pointer-events;
   transition-timing-function: var(
     --tw-ease,
     var(--default-transition-timing-function) /* cubic-bezier(0.4, 0, 0.2, 1) */
