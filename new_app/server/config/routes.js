@@ -248,6 +248,10 @@ module.exports.routes = {
     action: "settings/stock/get-all-paged-models",
   },
 
+  "GET /api/v1/settings/stock/get-all-models": {
+    action: "settings/stock/get-all-models",
+  },
+
   "GET /api/v1/settings/stock/get-all-active-models-with-stock": {
     action: "settings/stock/get-all-active-models-with-stock",
   },
@@ -261,6 +265,10 @@ module.exports.routes = {
 
   "POST /api/v1/settings/stock/get-active-brands-per-category": {
     action: "settings/stock/get-active-brands-per-category",
+  },
+
+  "POST /api/v1/settings/stock/get-active-models-per-brands": {
+    action: "settings/stock/get-active-models-per-brands",
   },
 
   "POST /api/v1/settings/stock/get-active-models-per-brand": {
