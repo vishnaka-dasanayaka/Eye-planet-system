@@ -343,6 +343,10 @@ module.exports.routes = {
     action: "branches/get-all-active-branches",
   },
 
+  "POST /api/v1/branches/add-lat-long": {
+    action: "branches/add-lat-long",
+  },
+
   "POST /api/v1/settings/branch/get-all-paged-branches": {
     action: "settings/branch/get-all-paged-branches",
   },
@@ -508,5 +512,19 @@ module.exports.routes = {
 
   "POST /api/v1/reports/generate-supplier-report": {
     action: "reports/generate-supplier-report",
+  },
+
+  // HR
+
+  "POST /api/v1/hr/add-checkin": {
+    action: "hr/add-checkin",
+  },
+
+  "POST /api/v1/hr/add-checkout": {
+    action: "hr/add-checkout",
+  },
+
+  "GET /api/v1/hr/get-last-checkin": {
+    action: "hr/get-last-checkin",
   },
 };
