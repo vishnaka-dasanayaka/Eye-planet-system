@@ -21,6 +21,7 @@ import { InvoicesModule } from "./invoices/invoices.module";
 import { PaymentsModule } from "./payments/payments.module";
 import { CInvoicesModule } from "./c-invoices/c-invoices.module";
 import { ReportsModule } from "./reports/reports.module";
+import { HrModule } from "./hr/hr.module";
 
 export const routes: Routes = [
   {
@@ -72,6 +73,11 @@ export const routes: Routes = [
       },
 
       {
+        path: "hr",
+        loadChildren: () => import("./hr/hr.module").then((m) => HrModule),
+      },
+
+      {
         path: "home",
         loadChildren: () =>
           import("./home/home.module").then((m) => m.HomeModule),
@@ -98,7 +104,7 @@ export const routes: Routes = [
         component: LayoutComponent,
         loadChildren: () =>
           import("./orgernizers/orgernizers.module").then(
-            (m) => OrgernizersModule
+            (m) => OrgernizersModule,
           ),
       },
 
