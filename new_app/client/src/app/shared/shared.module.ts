@@ -57,6 +57,7 @@ import { ChangePasswordComponent } from "./modals/change-password/change-passwor
 import { NoteComponent } from "./modals/note/note.component";
 import { BulkStockTransferModalComponent } from "./modals/bulk-stock-transfer-modal/bulk-stock-transfer-modal.component";
 import { StockTransferModalComponent } from "./modals/stock-transfer-modal/stock-transfer-modal.component";
+import { ChartModule } from "primeng/chart";
 
 @NgModule({
   imports: [
@@ -80,6 +81,7 @@ import { StockTransferModalComponent } from "./modals/stock-transfer-modal/stock
     EditorModule,
     SelectModule,
     MultiSelectModule,
+    ChartModule,
   ],
   providers: [],
   declarations: [
@@ -171,6 +173,7 @@ import { StockTransferModalComponent } from "./modals/stock-transfer-modal/stock
     NoteComponent,
     StockTransferModalComponent,
     BulkStockTransferModalComponent,
+    ChartModule,
   ],
 })
 
