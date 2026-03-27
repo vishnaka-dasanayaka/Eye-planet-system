@@ -176,7 +176,7 @@
   >
     <div class="row">
       <div class="card">
-        <p-tabs value="0">
+        <p-tabs value="0" (valueChange)="onTabSelectionChange($event)">
           <p-tablist>
             <p-tab value="0">Notes</p-tab>
             <p-tab value="1">Location</p-tab>
@@ -233,11 +233,11 @@
                 </div>
                 <!-- Confirm Button -->
                 <button
-                  *ngIf="sysuser.userlevel == 1"
+                  *ngIf="sysuser?.userlevel == 1"
                   (click)="confirmLocation()"
                   [disabled]="!selectedLat"
                   class="px-6 py-2 rounded-lg text-white font-medium disabled:opacity-50"
-                  style="background-color: #ff820d"
+                  style="background-color: #186006"
                 >
                   Confirm Location
                 </button>
