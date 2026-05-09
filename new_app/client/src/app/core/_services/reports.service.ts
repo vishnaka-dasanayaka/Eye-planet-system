@@ -42,6 +42,17 @@ export class ReportsService {
     );
   }
 
+  generateOrderReport(obj: any) {
+    let APIurl = this.BaseAPIurl + "generate-order-report";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   generatePatientReport(obj: any) {
     let APIurl = this.BaseAPIurl + "generate-patient-report";
 
