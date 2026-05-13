@@ -524,6 +524,14 @@ module.exports.routes = {
 
   // HR
 
+  "POST /api/v1/hr/get-attendance-record-per-user-per-day": {
+    action: "hr/get-attendance-record-per-user-per-day",
+  },
+
+  "POST /api/v1/hr/sumbit-attendance-foranother": {
+    action: "hr/sumbit-attendance-foranother",
+  },
+
   "POST /api/v1/hr/add-checkin": {
     action: "hr/add-checkin",
   },

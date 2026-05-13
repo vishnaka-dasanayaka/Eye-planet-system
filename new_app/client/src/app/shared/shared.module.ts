@@ -58,6 +58,7 @@ import { NoteComponent } from "./modals/note/note.component";
 import { BulkStockTransferModalComponent } from "./modals/bulk-stock-transfer-modal/bulk-stock-transfer-modal.component";
 import { StockTransferModalComponent } from "./modals/stock-transfer-modal/stock-transfer-modal.component";
 import { ChartModule } from "primeng/chart";
+import { SubmitAttendanceComponent } from "./modals/submit-attendance/submit-attendance.component";
 
 @NgModule({
   imports: [
@@ -119,6 +120,7 @@ import { ChartModule } from "primeng/chart";
     NoteComponent,
     BulkStockTransferModalComponent,
     StockTransferModalComponent,
+    SubmitAttendanceComponent,
   ],
   exports: [
     BlockUIModule,
@@ -174,6 +176,7 @@ import { ChartModule } from "primeng/chart";
     StockTransferModalComponent,
     BulkStockTransferModalComponent,
     ChartModule,
+    SubmitAttendanceComponent,
   ],
 })
 
