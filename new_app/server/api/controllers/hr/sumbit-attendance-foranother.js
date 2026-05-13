@@ -23,6 +23,10 @@ module.exports = {
     checkin_time: {
       type: "ref",
     },
+    branch: {
+      type: "number",
+      required: true,
+    },
   },
 
   exits: {},
