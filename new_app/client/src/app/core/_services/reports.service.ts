@@ -74,4 +74,15 @@ export class ReportsService {
       catchError(this.handleError),
     );
   }
+
+  generateAttendanceReport(obj: any) {
+    let APIurl = this.BaseAPIurl + "generate-attendance-report";
+
+    return this.http.post<any>(APIurl, obj).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError),
+    );
+  }
 }

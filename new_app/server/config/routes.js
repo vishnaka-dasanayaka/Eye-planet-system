@@ -522,6 +522,10 @@ module.exports.routes = {
     action: "reports/generate-supplier-report",
   },
 
+  "POST /api/v1/reports/generate-attendance-report": {
+    action: "reports/generate-attendance-report",
+  },
+
   // HR
 
   "POST /api/v1/hr/get-attendance-record-per-user-per-day": {
